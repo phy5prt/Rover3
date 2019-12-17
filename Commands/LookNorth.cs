@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3
+namespace Rover3.Commands
 {
     class LookNorth : Command
     {

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3
+namespace Rover3.Commands
 {
-    class MoveForward : Command
+    class LookWest : Command
     {
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
-            initialLocationInfo.xCoord += initialLocationInfo.myOrientation.xModifier;
-            initialLocationInfo.yCoord += initialLocationInfo.myOrientation.yModifier;
+            initialLocationInfo.myOrientation = new West();
             return initialLocationInfo;
         }
     }
+   
 }

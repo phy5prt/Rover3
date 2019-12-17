@@ -1,0 +1,12 @@
+This is not exactly command pattern could i make it more like it
+
+LookNorth could be just look if it took an orientation object, 
+the type of object could be set in the dictionary but it would then have a different signature
+
+still struggling with open close principle and setting the key presses
+
+trying to make it so only need add class in one place to need it 
+
+if want to do left and right could do an enum for the directions cycle through them and loop round
+-maybe next rover
+
