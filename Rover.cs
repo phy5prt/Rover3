@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rover3.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,12 +12,12 @@ namespace Rover3
         public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
         private string testFailText = "";
         private string commandExecutedText = "";
-        public string runCommandSequence(string commandSequence)
+        public string runCommandSequence(IList<Command> commandSequence)
         {
             //this may not work because may be reference so may change it
             LocationInfo testRouteLocation = currentLocation;
 
-            for (int i = 0; i < commandSequence.Length; i++) {
+            for (int i = 0; i < commandSequence.Count; i++) {
                 //pseudo  Command nextCommand = dictionary(commandSequence[i])
 
                 testRouteLocation = nextCommand.execute(testRouteLocation);

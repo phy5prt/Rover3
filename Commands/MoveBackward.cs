@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Rover3.Commands
+
 {
-    class MoveBackwards : Command
+    class MoveBackward : Command
     {
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
