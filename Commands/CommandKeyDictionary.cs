@@ -7,17 +7,17 @@ namespace Rover3.Commands
     static class CommandKeyDictionary
     {
         //should this be in commands folder and static or should it be 
-        public static Dictionary commandKeys = new Dictionary<string, Command>() 
+        public static Dictionary<string, Command> commandKeys = new Dictionary<string, Command>()
         {
             {"F", new MoveForward() },
             {"B", new MoveBackward() },
             {"N", new LookNorth() },
             {"E", new LookEast() },
             {"S", new LookSouth() },
-            {"W", new LookWest() },
+            {"W", new LookWest() }
 
-        }
+        };
         
-        }
+        
     }
 }
