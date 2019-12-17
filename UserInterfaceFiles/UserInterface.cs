@@ -21,13 +21,29 @@ namespace Rover3
 
         Rover rover = new Rover(new LocationInfo(new South(), 0, 0, 0, 10, 0, 10));//later make this a key press to add a rover to the a list of rovers accessible with a number
         public UserInterface() {
-            consoleHandler.displayText(InitialInstructions());
+            consoleHandler.displayText(InitialMessage());
+            consoleHandler.displayText(Instructions());
+            consoleHandler.getUserInput();
+
         }
-        public string InitialInstructions() {
-            string initialInstructions = "";
+        public string InitialMessage() {
+            string initialInstructions = "Initial Message";
             return initialInstructions;
         }
-        public void Instructions() { }
+        public string Instructions() {
+            return CommandKeyDictionary.commandKeys.ToString();//for now
+        }
+        public bool checkInputValid(String commandString) {
+            foreach (char c in commandString) 
+            {
+                for (int i = 0; i < CommandKeyDictionary.commandKeys.Count; i++) 
+                { if ((string)c==CommandKeyDictionary.commandKeys.Keys[i])}
+                
+            }
+        
+        };
+        
+
         public void ReportLocation() { }
         
 
