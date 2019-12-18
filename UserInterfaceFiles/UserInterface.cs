@@ -36,12 +36,16 @@ namespace Rover3
         public bool checkInputValid(String commandString) {
             foreach (char c in commandString) 
             {
-                for (int i = 0; i < CommandKeyDictionary.commandKeys.Count; i++) 
-                { if ((string)c==CommandKeyDictionary.commandKeys.Keys[i])}
+                if (   !CommandKeyDictionary.commandKeys.ContainsKey(c.ToString()) )
+                    {
+                    return false;
+
+                    }
                 
             }
+            return true;
         
-        };
+        }
         
 
         public void ReportLocation() { }
