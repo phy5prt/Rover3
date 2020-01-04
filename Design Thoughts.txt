@@ -1,3 +1,20 @@
+1. Now multiple rovers
+2. Select rover at a time (tiers of commands that allow interuption)
+3. Rovers check so dont crash
+4. Revise design pattern command put notes in the file
+5. Revise other relevant design patterns
+6. Make changes or just make notes on how would implement:
+	*left right sideways movement
+	*classes holding own key and all data for setting up the dictionary
+	*dictionaries build themselves from children of a class
+7. Tidy it up so works smooth english correct
+8. Put it online
+
+
+
+
+
+
 My understanding of Get Set and this needs revising look at the Location interface and constructor then research
 
 Should build own dictionary still
