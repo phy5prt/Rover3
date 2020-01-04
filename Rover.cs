@@ -7,15 +7,15 @@ namespace Rover3
 {
     class Rover //Receiver Class
     {
-        private LocationInfo currentLocation; 
+        public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
 
         public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
         private string testFailText = "";
         private string commandExecutedText = "";
         public string runCommandSequence(IList<Command> commandSequence)
         {
-            //this may not work because may be reference so may change it
-            LocationInfo testRouteLocation = currentLocation;
+            //this may not work because may be reference so may change it !!!! Correct
+            LocationInfo testRouteLocation = currentLocation; // need to clone it
 
             for (int i = 0; i < commandSequence.Count; i++) {
                 

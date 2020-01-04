@@ -16,3 +16,8 @@ if want to do left and right could do an enum for the directions cycle through t
 
 multiple rovers - 1-2-3-4 to set up, check if they are going to crash- next phase
 
+
+View user interface control the command model the rovers and the positions - could mvc be appplicable?
+
+Commands should have their own key in their class that the dictionary takes, and a description so that the dictionary can get the classes 
+and build itself and the keys, it should also be able to when user interface goes through the commands provide a description of what each does

@@ -18,7 +18,7 @@ namespace Rover3
             set
             {
                 this._yCoord = value;
-                withinYBounds = ((_yCoord <= yHighBound) && (_yCoord >= yLowBound));
+                this._withinYBounds = ((_yCoord <= yHighBound) && (_yCoord >= yLowBound));
 
             }
         }
@@ -29,18 +29,20 @@ namespace Rover3
             set
             {
                 this._xCoord = value;
-                withinYBounds = ((_xCoord <= xHighBound) && (_xCoord >= xLowBound));
+                this._withinXBounds = ((_xCoord <= xHighBound) && (_xCoord >= xLowBound));
 
 
                     }
         }
 
         public int xLowBound { get; }
-        public bool withinXBounds { get; }
+        private bool _withinXBounds;
+        public bool withinXBounds { get { return this._withinXBounds; } }
         public int yLowBound { get; }
       
         public int xHighBound { get; }
-        public bool withinYBounds { get; set; }
+        private bool _withinYBounds;
+        public bool withinYBounds { get { return this._withinYBounds; }  }
         public int yHighBound { get;  }
         
 

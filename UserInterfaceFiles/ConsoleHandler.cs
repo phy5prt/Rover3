@@ -9,7 +9,7 @@ namespace Rover3
         //this will allow unit testing
         public string getUserInput() {
 
-            return Console.ReadLine();
+            return Console.ReadLine().ToUpper();
 
 
         }
