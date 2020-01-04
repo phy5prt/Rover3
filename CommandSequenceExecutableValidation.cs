@@ -8,7 +8,7 @@ namespace Rover3
     {
         private LocationInfo whereLocationBecomesInvalid;
 
-        public bool Valid { get; set; }
+        public bool CommandsExecutionSuccess { get; set; }
         public int InvalidCommandIndex { get; set; }
 
         public LocationInfo WhereLocationBecomesInvalid { get => whereLocationBecomesInvalid; set => whereLocationBecomesInvalid = value; }

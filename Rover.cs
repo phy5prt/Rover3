@@ -11,11 +11,12 @@ namespace Rover3
 
         public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
         private string testFailText = "";
-        private string commandExecutedText = "";
-        public string runCommandSequence(IList<Command> commandSequence)
+        private string commandExecutedText = ""; 
+        public CommandSequenceExecutableValidation runCommandSequence(IList<Command> commandSequence)
         {
-            //this may not work because may be reference so may change it !!!! Correct
-            LocationInfo testRouteLocation = currentLocation; // need to clone it
+            CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
+              LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
+               
 
             for (int i = 0; i < commandSequence.Count; i++) {
                 
@@ -23,17 +24,23 @@ namespace Rover3
                 testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
                 if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
                 {
-                    //build command out come with text data 
-                    //break by returning
+                  
                     testFailText = "Failed at location, command character caused out of bounds, the command sequence was aborted";
-                    return testFailText;
+                    commandSequenceExecutableValidation.InvalidCommandIndex = i;
+                    commandSequenceExecutableValidation.WhereLocationBecomesInvalid = testRouteLocation;
+                    commandSequenceExecutableValidation.CommandsExecutionSuccess = false;
+                    return commandSequenceExecutableValidation;
                 }
             
             }
-            //for loop doing real execution of commands 
-            commandExecutedText = "New location";
 
-            return commandExecutedText;
+            for (int i = 0; i < commandSequence.Count; i++)
+            {
+                currentLocation = commandSequence[i].ExecuteCommand(currentLocation);
+            }
+            commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
+
+            return commandSequenceExecutableValidation;
         }
     }
 }

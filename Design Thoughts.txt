@@ -21,3 +21,10 @@ View user interface control the command model the rovers and the positions - cou
 
 Commands should have their own key in their class that the dictionary takes, and a description so that the dictionary can get the classes 
 and build itself and the keys, it should also be able to when user interface goes through the commands provide a description of what each does
+
+should the rover force checking of valid command sequence in its method to stop later it being called without or because it is not the brain should it just rely on one always being called then the other
+I think the answer will be to do with errors and validation
+
+string builder look into
+
+does dictionary adding the to it break open close principle

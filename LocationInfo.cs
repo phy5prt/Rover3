@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-    class LocationInfo
+    class LocationInfo:ICloneable
     {
         
 
@@ -59,6 +59,12 @@ namespace Rover3
             this.XCoord = initXCoord;
 
          
+        }
+
+        public object Clone()
+        {
+          return  new LocationInfo(this.myOrientation, this.XCoord, this.YCoord, this.xLowBound, this.xHighBound, this.yLowBound, this.yHighBound);
+     
         }
     }
 }

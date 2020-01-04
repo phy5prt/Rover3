@@ -25,8 +25,15 @@ namespace Rover3
             consoleHandler.displayText(InitialMessage());
             consoleHandler.displayText(Instructions());
             consoleHandler.displayText(ReportLocation());
-            consoleHandler.displayText( CheckProcessUserInput(consoleHandler.getUserInput()));
-            consoleHandler.displayText(ReportLocation()); 
+            string userInput = "";
+            while ((userInput = consoleHandler.getUserInput()) != "Q")
+            {
+                //Select Rover or Create rover
+                //Input Command for that Rover
+                string commandInput = userInput; // later different inputs depending which dic of commands
+                consoleHandler.displayText(CheckProcessUserCommandInput(commandInput));
+            }
+       
 
             //need string input to IList
             // rover.runCommandSequence(consoleHandler.getUserInput());
@@ -84,15 +91,36 @@ namespace Rover3
             return userCommandList;
         }
 
-        public string CheckProcessUserInput(string userInput) {
+        public string CheckProcessUserCommandInput(string userInput) {
+
+           
+
             ResultOfCommandSequenceValidation resultOfCommandSequenceValidation = new ResultOfCommandSequenceValidation();
             resultOfCommandSequenceValidation = CheckInputValid(userInput);
+            CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
             string errorNoLocationChange = " The rover has not been moved please input a valid command string.";
+            string successfulCommandExectutionTxt = " The rover has successfully been moved.";
 
             if (!resultOfCommandSequenceValidation.valid) { return resultOfCommandSequenceValidation.errorText + errorNoLocationChange + ReportLocation(); }
             else {
                IList<Command> userCommandList = UserInputToCommands(userInput);
-                return rover.runCommandSequence(userCommandList);
+                commandSequenceExecutableValidation=rover.runCommandSequence(userCommandList);
+                if (commandSequenceExecutableValidation.CommandsExecutionSuccess)
+                {
+                    return successfulCommandExectutionTxt + ReportLocation();
+
+                }
+                else {
+                    //differentiating from out of bound or object or rover would be good
+                    // telling them the bounds would be good to 
+                    string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : ";
+                    errorUnableToExecuteCommands += userInput.Insert(commandSequenceExecutableValidation.InvalidCommandIndex, "*").Insert(commandSequenceExecutableValidation.InvalidCommandIndex + 2, "*");
+                    errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", commandSequenceExecutableValidation.WhereLocationBecomesInvalid.XCoord.ToString(), commandSequenceExecutableValidation.WhereLocationBecomesInvalid.YCoord.ToString());
+                    errorUnableToExecuteCommands += errorNoLocationChange;
+                    return errorUnableToExecuteCommands;
+
+
+                }
 
             }
         }
