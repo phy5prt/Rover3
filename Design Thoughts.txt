@@ -2,7 +2,7 @@ My understanding of Get Set and this needs revising look at the Location interfa
 
 Should build own dictionary still
 
-This is not exactly command pattern could i make it more like it
+This is not exactly command pattern could i make it more like it - go back and watch command pattern stuff
 
 LookNorth could be just look if it took an orientation object, 
 the type of object could be set in the dictionary but it would then have a different signature
@@ -28,3 +28,6 @@ I think the answer will be to do with errors and validation
 string builder look into
 
 does dictionary adding the to it break open close principle
+
+To add move leftwards and rightwards movement would need to put in a order to NESW with enum or array and then loow if going W to N
+Would get current location orientation and use the orientation one less or one more depending if want right or left movement
