@@ -11,20 +11,25 @@ namespace Rover3
 
         //this need more in constructor and private class behind the get set
         public Orientation myOrientation { get; set; }
-        public int yCoord { get { return yCoord; } 
-            set {
-                yCoord = value;
-                withinYBounds = ((yCoord <= yHighBound) && (yCoord >= yLowBound));
-            
-                    } 
-        }
-        public int xCoord
-        {
-            get { return xCoord; }
+        private int _yCoord;
+        public int YCoord { 
+   
+            get { return _yCoord; }
             set
             {
-                xCoord = value;
-                withinYBounds = ((xCoord <= xHighBound) && (xCoord >= xLowBound));
+                this._yCoord = value;
+                withinYBounds = ((_yCoord <= yHighBound) && (_yCoord >= yLowBound));
+
+            }
+        }
+        private int _xCoord;
+        public int XCoord
+        {
+            get { return _xCoord; }
+            set
+            {
+                this._xCoord = value;
+                withinYBounds = ((_xCoord <= xHighBound) && (_xCoord >= xLowBound));
 
 
                     }
@@ -48,8 +53,8 @@ namespace Rover3
             this.xHighBound = initXHighBound;
             this.yLowBound = initYLowBound;
             this.yHighBound = initYHighBound;
-            this.yCoord = initYCoord;
-            this.xCoord = initXCoord;
+            this.YCoord = initYCoord;
+            this.XCoord = initXCoord;
 
          
         }

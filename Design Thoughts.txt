@@ -1,3 +1,7 @@
+My understanding of Get Set and this needs revising look at the Location interface and constructor then research
+
+Should build own dictionary still
+
 This is not exactly command pattern could i make it more like it
 
 LookNorth could be just look if it took an orientation object, 
@@ -9,4 +13,6 @@ trying to make it so only need add class in one place to need it
 
 if want to do left and right could do an enum for the directions cycle through them and loop round
 -maybe next rover
+
+multiple rovers - 1-2-3-4 to set up, check if they are going to crash- next phase
 

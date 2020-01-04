@@ -9,8 +9,8 @@ namespace Rover3.Commands
     {
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
-            initialLocationInfo.xCoord -= initialLocationInfo.myOrientation.xModifier;
-            initialLocationInfo.yCoord -= initialLocationInfo.myOrientation.yModifier;
+            initialLocationInfo.XCoord -= initialLocationInfo.myOrientation.xModifier;
+            initialLocationInfo.YCoord -= initialLocationInfo.myOrientation.yModifier;
             return initialLocationInfo;
         }
     }

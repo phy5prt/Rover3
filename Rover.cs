@@ -18,15 +18,16 @@ namespace Rover3
             LocationInfo testRouteLocation = currentLocation;
 
             for (int i = 0; i < commandSequence.Count; i++) {
-                //pseudo  Command nextCommand = dictionary(commandSequence[i])
+                
 
-                testRouteLocation = nextCommand.execute(testRouteLocation);
-                if (testRouteLocation.withinBoundsX == false || testRouteLocation.withinBoundsY)
-
+                testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
+                if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
+                {
                     //build command out come with text data 
                     //break by returning
-                     testFailText = "Failed at location, command character caused out of bounds, the command sequence was aborted";
-                return testFailText;
+                    testFailText = "Failed at location, command character caused out of bounds, the command sequence was aborted";
+                    return testFailText;
+                }
             
             }
             //for loop doing real execution of commands 
