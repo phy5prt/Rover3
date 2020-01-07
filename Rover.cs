@@ -10,8 +10,7 @@ namespace Rover3
         public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
 
         public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
-        private string testFailText = "";
-        private string commandExecutedText = ""; 
+     
         public CommandSequenceExecutableValidation runCommandSequence(IList<Command> commandSequence)
         {
             CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
@@ -25,7 +24,7 @@ namespace Rover3
                 if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
                 {
                   
-                    testFailText = "Failed at location, command character caused out of bounds, the command sequence was aborted";
+                   
                     commandSequenceExecutableValidation.InvalidCommandIndex = i;
                     commandSequenceExecutableValidation.WhereLocationBecomesInvalid = testRouteLocation;
                     commandSequenceExecutableValidation.CommandsExecutionSuccess = false;
