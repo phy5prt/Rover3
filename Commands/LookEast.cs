@@ -6,6 +6,7 @@ namespace Rover3.Commands
 {
     class LookEast : Command
     {
+        public override string Key {get{ return "E"; } }
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
             initialLocationInfo.myOrientation = new East();

@@ -45,7 +45,7 @@ namespace Rover3
             return initialInstructions;
         }
         public string Instructions() {
-            return string.Join(" ", CommandKeyDictionary.commandKeys.Keys.ToArray());
+            return string.Join(" ", StaticCommandFactoryDic.commandKeys.Keys.ToArray());
   
         }
         public ResultOfCommandSequenceValidation CheckInputValid(String commandString) {
@@ -58,7 +58,7 @@ namespace Rover3
             for (int i = 0; i < commandString.Length; i++)
             {
 
-                if (!CommandKeyDictionary.commandKeys.ContainsKey(commandString[i].ToString()))
+                if (!StaticCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()))
                 {
                     commandString = commandString.Insert(i, "*").Insert(i + 2, "*");
                     resultOfCommandSequenceValidation.errorText += commandString[i+1] + " ";
@@ -85,7 +85,7 @@ namespace Rover3
             Command command;
             for (int i = 0; i<userInput.Length; i++) {
                 string userInputKey = userInput[i].ToString();
-                command = CommandKeyDictionary.commandKeys[userInputKey];
+                command = StaticCommandFactoryDic.commandKeys[userInputKey];
                 userCommandList.Add(command);
             }
             return userCommandList;

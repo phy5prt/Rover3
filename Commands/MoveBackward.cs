@@ -7,6 +7,7 @@ namespace Rover3.Commands
 {
     class MoveBackward : Command
     {
+        public override string Key { get { return "B"; } }
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
             initialLocationInfo.XCoord -= initialLocationInfo.myOrientation.xModifier;

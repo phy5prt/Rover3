@@ -1,3 +1,4 @@
+0. Rover location reports bounds orientation all data
 1. Now multiple rovers
 2. Select rover at a time (tiers of commands that allow interuption)
 3. Rovers check so dont crash
@@ -48,3 +49,21 @@ does dictionary adding the to it break open close principle
 
 To add move leftwards and rightwards movement would need to put in a order to NESW with enum or array and then loow if going W to N
 Would get current location orientation and use the orientation one less or one more depending if want right or left movement
+
+Need to protect  my fields  more theyre often public rather than private with get set
+
+
+//CommandFactory is static but if rovers were later required to have different commands
+    //I would need to drop the static and give them own dictionaries
+    //or make a static command dictionary factory that builds custom dictionaries to initialise
+    //rovers with
+
+
+
+	Revise (lambda) context this:
+	static StaticCommandFactoryDic() {
+            var commands = Assembly.GetAssembly(typeof(Command)).GetTypes()
+                .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOF(typeof(Ability)));
+        }
+
+		Is it possible to have a folder and just ask the dictionary to put all classes in the folder into  itself? or a namespace?
