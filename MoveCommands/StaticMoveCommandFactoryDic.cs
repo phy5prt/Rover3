@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Rover3.MoveCommands
 {
-    static class StaticCommandFactoryDic
+    static class StaticMoveCommandFactoryDic
     {
         //using reflection so can satisfy open close, reflection is slow but it is only done once and this 
         //reflection isnt that slow
@@ -16,7 +16,7 @@ namespace Rover3.MoveCommands
         public static Dictionary<string, MoveCommand> commandKeys;
 
 
-        static StaticCommandFactoryDic() {
+        static StaticMoveCommandFactoryDic() {
             var moveCommands = Assembly.GetAssembly(typeof(MoveCommand)).GetTypes()
                 .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOf(typeof(MoveCommand)));
 

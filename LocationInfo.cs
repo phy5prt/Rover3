@@ -51,12 +51,14 @@ namespace Rover3
         public LocationInfo(Orientation initOrientation, int initXCoord, int initYCoord, int initXLowBound, int initXHighBound, int initYLowBound, int initYHighBound) 
         {
             this.myOrientation = initOrientation;
+            this.XCoord = initXCoord;
+            this.YCoord = initYCoord;
             this.xLowBound = initXLowBound;
             this.xHighBound = initXHighBound;
             this.yLowBound = initYLowBound;
             this.yHighBound = initYHighBound;
-            this.YCoord = initYCoord;
-            this.XCoord = initXCoord;
+            
+            
 
          
         }

@@ -58,6 +58,23 @@ Would get current location orientation and use the orientation one less or one m
 
 Need to protect  my fields  more theyre often public rather than private with get set
 
+useInterfaceInstruction
+
+command to get a list of all available commands
+
+it would be nice if could make a long string moving each rover e.g 1NMM2NSS  - but would you cut and validate as individual strings or bring back a fail if get to last rover and it goes out of bounds
+
+make program so can quit anytime even if part way through a method eg creating a rover
+
+//Chose initial orientation for your rover
+            //I cant use this :
+            //string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
+            //because it would include the movement commands
+            //so if I wanted to create a ne orientation i would have to alter this code
+            //which suggests they should be two different dictionaries
+            //or that each method should hold its own description of what it does and the interface can the just get the keys
+            //and the description and put them up
+            //best solution is seperate dictionary but still good idea to have a description in the commands
 
 //CommandFactory is static but if rovers were later required to have different commands
     //I would need to drop the static and give them own dictionaries
@@ -73,3 +90,23 @@ Need to protect  my fields  more theyre often public rather than private with ge
         }
 
 		Is it possible to have a folder and just ask the dictionary to put all classes in the folder into  itself? or a namespace?
+
+
+
+
+
+		
+            Orientation newRoverOrientation; // this does work because have no was of setting an orientation just of applying one 
+            //to a current locationInfor
+            //therefore will need to make a location Information and then apply the command face east to overide our default
+            //this may be bad design so maybe I should be setting all orientations based on degrees or radians starting north
+
+            //We have to initialise a location with default values and overwrite it because we can over write an orientation but we have now way of just making one
+
+
+
+
+
+		When request feedback:
+		how order folders 
+		how add to userInterface despite open close e.g. a report command saying where all rovers are

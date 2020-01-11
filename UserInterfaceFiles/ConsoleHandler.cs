@@ -7,14 +7,14 @@ namespace Rover3
     public class ConsoleHandler
     {
         //this will allow unit testing
-        public string getUserInput() {
+        public string GetUserInput() {
 
             return Console.ReadLine().ToUpper();
 
 
         }
 
-        public void displayText(string text)
+        public void DisplayText(string text)
         {
 
             Console.WriteLine(text);
