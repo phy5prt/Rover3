@@ -8,8 +8,9 @@ namespace Rover3
     class Rover //Receiver Class
     {
         public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
-
-        public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
+        private String _roverKeyName; //this needs to stay unique as it is used with the dictionary maybe singleton pattern is worth looking up if one like me exists delete me?
+        public String RoverKeyName { get; }
+        public Rover(String roverKeyName,LocationInfo initLocation) { this._roverKeyName = roverKeyName; this.currentLocation = initLocation; }
      
         public CommandSequenceExecutableValidation runCommandSequence(IList<MoveCommand> commandSequence)
         {

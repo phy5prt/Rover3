@@ -20,7 +20,7 @@ namespace Rover3
 
 
 
-        Rover rover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
+        Rover selectedRover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
   
       
         //later make this a key press to add a rover to the a list of rovers accessible with a number
@@ -33,7 +33,7 @@ namespace Rover3
                 userInput = consoleHandler.GetUserInput();
                 if (userInput == "Q") { Environment.Exit(0); }
                       
-                if (userInput == "C") {  rover = CreateNewRover(); break; } else { consoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                if (userInput == "C") {  selectedRover = CreateNewRover(); break; } else { consoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
             }
                  // later remove and it will be an instuction
             consoleHandler.DisplayText(Instructions());
@@ -320,7 +320,7 @@ namespace Rover3
 
             //dictionary should create and return the rover the userInterface should just get the info
 
-            Rover newRover = new Rover(newRoverStartLocation); // later it will need to get the new key too
+            Rover newRover = new Rover(newRoverKey, newRoverStartLocation); // later it will need to get the new key too
             //add new rover to dictionary
             return newRover;
 
@@ -350,7 +350,7 @@ namespace Rover3
             if (!resultOfCommandSequenceValidation.valid) { return resultOfCommandSequenceValidation.errorText + errorNoLocationChange + ReportLocation(); }
             else {
                IList<MoveCommand> userCommandList = UserInputToCommands(userInput);
-                commandSequenceExecutableValidation=rover.runCommandSequence(userCommandList);
+                commandSequenceExecutableValidation=selectedRover.runCommandSequence(userCommandList);
                 if (commandSequenceExecutableValidation.CommandsExecutionSuccess)
                 {
                     return successfulCommandExectutionTxt + ReportLocation();
@@ -375,11 +375,11 @@ namespace Rover3
 
             string LocationReport = "Current rover location: ";
             LocationReport += "x location is ";
-            LocationReport += rover.currentLocation.XCoord.ToString() + ". ";
+            LocationReport += selectedRover.currentLocation.XCoord.ToString() + ". ";
             LocationReport += "y location is ";
-            LocationReport += rover.currentLocation.YCoord.ToString() + ". ";
+            LocationReport += selectedRover.currentLocation.YCoord.ToString() + ". ";
             LocationReport += "rover is facing ";
-            LocationReport += rover.currentLocation.myOrientation.orientationName + ". ";
+            LocationReport += selectedRover.currentLocation.myOrientation.orientationName + ". ";
             return LocationReport;
         }
         

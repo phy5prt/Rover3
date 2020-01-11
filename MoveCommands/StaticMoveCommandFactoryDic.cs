@@ -8,6 +8,7 @@ namespace Rover3.MoveCommands
 {
     static class StaticMoveCommandFactoryDic
     {
+        //is it a factory its not making them is is it 
         //using reflection so can satisfy open close, reflection is slow but it is only done once and this 
         //reflection isnt that slow
         //https://stackoverflow.com/questions/5411694/get-all-inherited-classes-of-an-abstract-class

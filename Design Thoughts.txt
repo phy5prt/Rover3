@@ -103,7 +103,7 @@ make program so can quit anytime even if part way through a method eg creating a
 
             //We have to initialise a location with default values and overwrite it because we can over write an orientation but we have now way of just making one
 
-
+should useInterface do all talking and make an object for managing rovers
 
 
 
