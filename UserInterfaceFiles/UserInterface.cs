@@ -9,7 +9,7 @@ namespace Rover3
     class UserInterface
     {
         //put line breaks 
-        ConsoleHandler consoleHandler = new ConsoleHandler(); //only ever 1 make static?
+        //ConsoleHandler ConsoleHandler = new ConsoleHandler(); //only ever 1 make static?
 
 
         //Later should request start locmation of rover 
@@ -21,25 +21,36 @@ namespace Rover3
 
 
         Rover selectedRover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
+        //maybe dictionary should hold this and getter and setter should alter the selectedRover
+        //or being an object will changes translate anywya
+        //maybe should store test rover here too 
+        //and make dictionary rover manager
   
       
         //later make this a key press to add a rover to the a list of rovers accessible with a number
         public UserInterface() {
+
+            //do introduction stuff
+            //while true
+            //quit the loop by quit function in dictionary 
+            
+
+
             string userInput = "";
-            consoleHandler.DisplayText(InitialMessage());
+            ConsoleHandler.DisplayText(InitialMessage());
 
 
             while (true) {
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 if (userInput == "Q") { Environment.Exit(0); }
                       
-                if (userInput == "C") {  selectedRover = CreateNewRover(); break; } else { consoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                if (userInput == "C") {  selectedRover = CreateNewRover(); break; } else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
             }
                  // later remove and it will be an instuction
-            consoleHandler.DisplayText(Instructions());
-            consoleHandler.DisplayText(ReportLocation());
+            ConsoleHandler.DisplayText(Instructions());
+            ConsoleHandler.DisplayText(ReportLocation());
             
-            while ((userInput = consoleHandler.GetUserInput()) != "Q")
+            while ((userInput = ConsoleHandler.GetUserInput()) != "Q")
             {
                 
                 //if no rover set ask for rover if there are some, or to create one if not
@@ -49,12 +60,12 @@ namespace Rover3
                 //IF D destroy current rover 
                 //Input Command for that Rover
                 string commandInput = userInput; // later different inputs depending which dic of commands
-                consoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
+                ConsoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
             }
        
 
             //need string input to IList
-            // rover.runCommandSequence(consoleHandler.getUserInput());
+            // rover.runCommandSequence(ConsoleHandler.getUserInput());
 
 
         }
@@ -76,7 +87,7 @@ namespace Rover3
             for (int i = 0; i < commandString.Length; i++)
             {
 
-                if (!StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()))
+                if (!( StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()) || RoverDictionaryStatic.RoverDictionary.ContainsKey(commandString[i].ToString())))
                 {
                     commandString = commandString.Insert(i, "*").Insert(i + 2, "*");
                     resultOfCommandSequenceValidation.errorText += commandString[i+1] + " ";
@@ -95,10 +106,7 @@ namespace Rover3
             return resultOfCommandSequenceValidation;
         
         }
-        public void InteractWithUser()
-        {
-
-        }
+      
 
         //rearrange text order
         public Rover CreateNewRover() {
@@ -127,36 +135,36 @@ namespace Rover3
 
             //Chose a unique single key to assign to your rover
 
-            consoleHandler.DisplayText("During rover creation you cannot use the q, moveCommand keys or create destroy select keys. The newly created rover will be set as the currently selected rover. To set up the rover you will be asked for a single unique key name for it, its current coordinates and its maximum allowed X and Y position as well as it's starting orientation");
+            ConsoleHandler.DisplayText("During rover creation you cannot use the q, moveCommand keys or create destroy select keys. The newly created rover will be set as the currently selected rover. To set up the rover you will be asked for a single unique key name for it, its current coordinates and its maximum allowed X and Y position as well as it's starting orientation");
             string keysAlreadyInUse = Instructions() + " Q S C D "; // later needs to be moveCommand + interfaceCommands
             bool validInput;
             do
             {
-                consoleHandler.DisplayText("Enter a single unique key to select your rover with.");
-                validInput = !StaticMoveCommandFactoryDic.commandKeys.ContainsKey((newRoverKey = consoleHandler.GetUserInput())) || newRoverKey == "Q" || newRoverKey == "S" || newRoverKey == "C" || newRoverKey == "D";
+                ConsoleHandler.DisplayText("Enter a single unique key to select your rover with.");
+                validInput = !StaticMoveCommandFactoryDic.commandKeys.ContainsKey((newRoverKey = ConsoleHandler.GetUserInput())) || newRoverKey == "Q" || newRoverKey == "S" || newRoverKey == "C" || newRoverKey == "D";
 
-                if (!validInput) { consoleHandler.DisplayText(newRoverKey + " : " + " is not a unique key"); }
-                else { consoleHandler.DisplayText("When the new rover is setup it will be called " + newRoverKey + " when you press the " + newRoverKey + " it will be selected "); }
+                if (!validInput) { ConsoleHandler.DisplayText(newRoverKey + " : " + " is not a unique key"); }
+                else { ConsoleHandler.DisplayText("When the new rover is setup it will be called " + newRoverKey + " when you press the " + newRoverKey + " it will be selected "); }
             }
             while (!validInput);
             
             //Chose your boundaries
 
-            consoleHandler.DisplayText("You will now choose the area your rover is allowed to move within by setting a min and max for X and Y coordinates. These numbers are inclusive.");
+            ConsoleHandler.DisplayText("You will now choose the area your rover is allowed to move within by setting a min and max for X and Y coordinates. These numbers are inclusive.");
             //If get boundaries mixed up need a key to allow them to reset that section 
 
 
             //Choose your Xmin
             do
             {
-                consoleHandler.DisplayText("Please choose the minimum X position you want your rover to be able to go to");
+                ConsoleHandler.DisplayText("Please choose the minimum X position you want your rover to be able to go to");
 
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverXMin); //should i be able to drop the  field and use xLowBound
-                if (!validInput) { consoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                 else {
                  //   newRoverStartLocation.xLowBound = newRoverXMin;
-                    consoleHandler.DisplayText("X minimum boundary has been set to " + newRoverStartLocation.xLowBound); }
+                    ConsoleHandler.DisplayText("X minimum boundary has been set to " + newRoverStartLocation.xLowBound); }
             }
             while (!validInput);
 
@@ -165,14 +173,14 @@ namespace Rover3
 
             do
             {
-                consoleHandler.DisplayText("Please choose the minimum Y position you want your rover to be able to go to");
+                ConsoleHandler.DisplayText("Please choose the minimum Y position you want your rover to be able to go to");
 
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverYMin);
-                if (!validInput) { consoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                 else {
                   //  newRoverStartLocation.yLowBound = newRoverYMin;
-                    consoleHandler.DisplayText("Y minimum boundary has been set to " + newRoverStartLocation.yLowBound ); }
+                    ConsoleHandler.DisplayText("Y minimum boundary has been set to " + newRoverStartLocation.yLowBound ); }
             }
             while (!validInput);
 
@@ -180,21 +188,21 @@ namespace Rover3
 
             do
             {
-                consoleHandler.DisplayText("Please choose the maximum X position you want your rover to be able to go to");
+                ConsoleHandler.DisplayText("Please choose the maximum X position you want your rover to be able to go to");
 
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverXMax);
-                if (!validInput) { consoleHandler.DisplayText(userInput + " is not a valid integer ");
+                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
 
                 } else if(!(newRoverXMax >= newRoverXMin))
                     {
                     validInput = false;
-                    consoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
+                    ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
                 }
                 
                 else {
                  //   newRoverStartLocation.xHighBound = newRoverXMax;
-                    consoleHandler.DisplayText("X maximum boundary has been set to " + newRoverStartLocation.xHighBound ); }
+                    ConsoleHandler.DisplayText("X maximum boundary has been set to " + newRoverStartLocation.xHighBound ); }
             }
             while (!validInput);
 
@@ -202,24 +210,24 @@ namespace Rover3
 
             do
             {
-                consoleHandler.DisplayText("Please choose the maximum Y position you want your rover to be able to go to");
+                ConsoleHandler.DisplayText("Please choose the maximum Y position you want your rover to be able to go to");
 
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverYMax);
                 if (!validInput)
                 {
-                    consoleHandler.DisplayText(userInput + " is not a valid integer ");
+                    ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
 
                 }
                 else if (!(newRoverYMax >= newRoverYMin))
                 {
                     validInput = false;
-                    consoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
+                    ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
                 }
                 else{
 
                // newRoverStartLocation.yHighBound = newRoverYMax;
-                consoleHandler.DisplayText("Y maximum boundary has been set to " + newRoverStartLocation.yHighBound);
+                ConsoleHandler.DisplayText("Y maximum boundary has been set to " + newRoverStartLocation.yHighBound);
                 }
             }
             while (!validInput);
@@ -227,7 +235,7 @@ namespace Rover3
 
             //Chose your coords
 
-            consoleHandler.DisplayText("You will now choose your starting coords for your new rover. " +
+            ConsoleHandler.DisplayText("You will now choose your starting coords for your new rover. " +
                 "They must be within or equal to the range values you set for X and Y. " +
                 " For X that is " + newRoverStartLocation.xLowBound.ToString()+"-"+ newRoverStartLocation.xHighBound.ToString()+ 
                 " For Y that is " + newRoverStartLocation.yLowBound.ToString() +" - "+ newRoverStartLocation.yHighBound.ToString());
@@ -236,22 +244,22 @@ namespace Rover3
 
             do
             {
-                consoleHandler.DisplayText("Please choose an initial X coordinate value for the rover.");
+                ConsoleHandler.DisplayText("Please choose an initial X coordinate value for the rover.");
                 
-                userInput = consoleHandler.GetUserInput();
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverXCoord);
-                if (!validInput) { consoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                 else
                 {
                     newRoverStartLocation.XCoord = newRoverXCoord;
                     if (!newRoverStartLocation.withinXBounds)
                     {
                         validInput = false;
-                        consoleHandler.DisplayText("The given X coord " + newRoverStartLocation.XCoord.ToString() + " is not within the X bounds of " + newRoverStartLocation.xLowBound.ToString() + "-" + newRoverStartLocation.xHighBound.ToString());
+                        ConsoleHandler.DisplayText("The given X coord " + newRoverStartLocation.XCoord.ToString() + " is not within the X bounds of " + newRoverStartLocation.xLowBound.ToString() + "-" + newRoverStartLocation.xHighBound.ToString());
                     }
                     else
                     {
-                        consoleHandler.DisplayText("X coord has been set to " + newRoverStartLocation.XCoord.ToString() );
+                        ConsoleHandler.DisplayText("X coord has been set to " + newRoverStartLocation.XCoord.ToString() );
                     }
                 }
             }
@@ -263,21 +271,21 @@ namespace Rover3
 
             do
             {
-                consoleHandler.DisplayText("Please choose an initial Y coordinate value for the rover");
-                userInput = consoleHandler.GetUserInput();
+                ConsoleHandler.DisplayText("Please choose an initial Y coordinate value for the rover");
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = Int32.TryParse(userInput, out newRoverYCoord);
-                    if (!validInput) { consoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                    if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                     else
                     {
                         newRoverStartLocation.YCoord = newRoverYCoord;
                         if (!newRoverStartLocation.withinYBounds)
                         {
                         validInput = false;
-                        consoleHandler.DisplayText("The given Y coord " + newRoverStartLocation.YCoord.ToString() + " is not within the Y bounds of " + newRoverStartLocation.yLowBound.ToString() + "-" + newRoverStartLocation.yHighBound.ToString());
+                        ConsoleHandler.DisplayText("The given Y coord " + newRoverStartLocation.YCoord.ToString() + " is not within the Y bounds of " + newRoverStartLocation.yLowBound.ToString() + "-" + newRoverStartLocation.yHighBound.ToString());
                         }
                         else
                         {
-                            consoleHandler.DisplayText("Y coord has been set to " + newRoverStartLocation.YCoord.ToString());
+                            ConsoleHandler.DisplayText("Y coord has been set to " + newRoverStartLocation.YCoord.ToString());
                         }
                     }
                     
@@ -299,19 +307,19 @@ namespace Rover3
             //and the description and put them up
             //best solution is seperate dictionary but still good idea to have a description in the commands
 
-            consoleHandler.DisplayText("Please choose an initial starting orientation for your rover");
+            ConsoleHandler.DisplayText("Please choose an initial starting orientation for your rover");
 
             do
             {
-                consoleHandler.DisplayText("Enter a starting orientation for your rover it must be one of N E S W."); // later should come from the orientation dictionary 
-                userInput = consoleHandler.GetUserInput();
+                ConsoleHandler.DisplayText("Enter a starting orientation for your rover it must be one of N E S W."); // later should come from the orientation dictionary 
+                userInput = ConsoleHandler.GetUserInput();
                 validInput = (userInput == "N"||userInput=="E"||userInput=="S"||userInput=="W"); 
 
-                if (!validInput) { consoleHandler.DisplayText(userInput + " : " + " is not a valid orientation"); }
+                if (!validInput) { ConsoleHandler.DisplayText(userInput + " : " + " is not a valid orientation"); }
                 else {
                         newRoverStartLocation = StaticMoveCommandFactoryDic.commandKeys[userInput].ExecuteCommand(newRoverStartLocation); //do i need to return it to reset it
 
-                    consoleHandler.DisplayText("The new orientation is " + newRoverStartLocation.myOrientation.orientationName); 
+                    ConsoleHandler.DisplayText("The new orientation is " + newRoverStartLocation.myOrientation.orientationName); 
                 }
             }
             while (!validInput);
@@ -321,11 +329,12 @@ namespace Rover3
             //dictionary should create and return the rover the userInterface should just get the info
 
             Rover newRover = new Rover(newRoverKey, newRoverStartLocation); // later it will need to get the new key too
-            //add new rover to dictionary
+            RoverDictionaryStatic.AddRoverToRoverDictionary(newRover);
+
             return newRover;
 
         }
-
+        //here could use a switch later dictionary of dictionaries so can switch between rovers
         public IList<MoveCommand> UserInputToCommands(string userInput) {
             IList<MoveCommand> userCommandList = new List<MoveCommand>();
             MoveCommand command;
@@ -336,7 +345,7 @@ namespace Rover3
             }
             return userCommandList;
         }
-
+       // public string ChangeRover(Rover roverWantSelected) { selectedRover = roverWantSelected }
         public string CheckProcessUserCommandInput(string userInput) {
 
            

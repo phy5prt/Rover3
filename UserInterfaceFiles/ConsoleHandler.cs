@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Rover3
 {
-    public class ConsoleHandler
+    public static class ConsoleHandler
     {
         //this will allow unit testing
-        public string GetUserInput() {
+        public static string GetUserInput() {
 
            return Console.ReadLine().ToUpper();
 
 
         }
 
-        public void DisplayText(string text)
+        public static void DisplayText(string text)
         {
 
             Console.WriteLine(text);

@@ -1,13 +1,22 @@
-0. Rover location reports bounds orientation all data
-1. Now multiple rovers
+0. Report Class report individual rover position and all rover positions
+1. SelectRover mid string 
+2. selecting rover changes test rover to that rover
+		consider can we make test and selected static and part of dictionary
+		can dictionary be rover manager 
+		can we seperate user interface from the rover controller
 2. Select rover at a time (tiers of commands that allow interuption)
 3. Rovers check so dont crash
+4. have commands hold descriptions of themselves
+4. have seperate orientation dictionary and move dictionary but still abstract as command
+4. have rover command dictionary create destroy
+4. maybe dictionary or dictionaries so can check the dictionaries for key presses without having to make a switch e.g availableKeyPress dictionary to enable chosing which type of commands to run
 4. Revise design pattern command put notes in the file
 5. Revise other relevant design patterns
 6. Make changes or just make notes on how would implement:
 	*left right sideways movement
 	*classes holding own key and all data for setting up the dictionary
 	*dictionaries build themselves from children of a class
+	*part ordinates face left or right. vs step left right vs turn to next ordinate left or right - up and down an enum in order of angle around compass
 7. Tidy it up so works smooth english correct
 8. Put it online
 
@@ -121,3 +130,9 @@ should useInterface do all talking and make an object for managing rovers
 		//how would this work with getting report you are facing left-- dictionary if holding functions not objects then more sections, this wont be command anymore
 		//"Key", "Instruction string e.g. command makes the rover FaceLeft ... or stepLeft"
 		//so maybe command for movements, delegate for orientations
+
+		        Rover selectedRover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
+        //maybe dictionary should hold this and getter and setter should alter the selectedRover
+        //or being an object will changes translate anywya
+        //maybe should store test rover here too 
+        //and make dictionary rover manager
