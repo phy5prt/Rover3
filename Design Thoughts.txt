@@ -110,3 +110,14 @@ make program so can quit anytime even if part way through a method eg creating a
 		When request feedback:
 		how order folders 
 		how add to userInterface despite open close e.g. a report command saying where all rovers are
+
+
+		Orientation movement information could be built in to FaceEast etc maybe or not it needs to remember direction is facing, ... 
+		but that could just be that location info holds an orientation delegate
+		... would that still work if later wanted to move left you would look at the delegate and change it accordingly
+		...FaceLeft FaceRight would be relative movements they would check change orientation delegate. StepLeft, StepRight would do the same but also execute the delegate.
+		Former orientation commands the latter movement command but inherit same abstract just in different dictionaries, as will seperate them
+		//this would mean on set up can just delegate by letter when creating the rover insteadof overwriting
+		//how would this work with getting report you are facing left-- dictionary if holding functions not objects then more sections, this wont be command anymore
+		//"Key", "Instruction string e.g. command makes the rover FaceLeft ... or stepLeft"
+		//so maybe command for movements, delegate for orientations

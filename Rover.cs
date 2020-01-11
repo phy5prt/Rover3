@@ -14,12 +14,13 @@ namespace Rover3
         public CommandSequenceExecutableValidation runCommandSequence(IList<MoveCommand> commandSequence)
         {
             CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
-              LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
+              
+            LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
                
 
             for (int i = 0; i < commandSequence.Count; i++) {
                 
-
+                
                 testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
                 if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
                 {
