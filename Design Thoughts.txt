@@ -1,4 +1,5 @@
-0. Report Class report individual rover position and all rover positions
+0.identify which dictionary a command was in in order to know how to execute it 
+Report Class report individual rover position and all rover positions
 1. SelectRover mid string 
 2. selecting rover changes test rover to that rover
 		consider can we make test and selected static and part of dictionary
