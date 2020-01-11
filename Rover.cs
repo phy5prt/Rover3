@@ -1,4 +1,4 @@
-﻿using Rover3.Commands;
+﻿using Rover3.MoveCommands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Rover3
 
         public Rover(LocationInfo initLocation) { this.currentLocation = initLocation; }
      
-        public CommandSequenceExecutableValidation runCommandSequence(IList<Command> commandSequence)
+        public CommandSequenceExecutableValidation runCommandSequence(IList<MoveCommand> commandSequence)
         {
             CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
               LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;

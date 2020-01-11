@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Rover3.Commands
+namespace Rover3.MoveCommands
 {
     static class StaticCommandFactoryDic
     {
@@ -13,19 +13,19 @@ namespace Rover3.Commands
         //https://stackoverflow.com/questions/5411694/get-all-inherited-classes-of-an-abstract-class
         //https://www.youtube.com/watch?v=FGVkio4bnPQ
 
-        public static Dictionary<string, Command> commandKeys;
+        public static Dictionary<string, MoveCommand> commandKeys;
 
 
         static StaticCommandFactoryDic() {
-            var commands = Assembly.GetAssembly(typeof(Command)).GetTypes()
-                .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOf(typeof(Command)));
+            var moveCommands = Assembly.GetAssembly(typeof(MoveCommand)).GetTypes()
+                .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOf(typeof(MoveCommand)));
 
-            commandKeys = new Dictionary<string, Command>();
+            commandKeys = new Dictionary<string, MoveCommand>();
 
             //can i remove var
-            foreach (var command in commands) 
+            foreach (var moveCommand in moveCommands) 
             {
-                Command myCommand = Activator.CreateInstance(command) as Command;
+                MoveCommand myCommand = Activator.CreateInstance(moveCommand) as MoveCommand;
                 commandKeys.Add(myCommand.Key, myCommand);
             }
         }

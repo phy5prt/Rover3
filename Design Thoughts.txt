@@ -12,8 +12,14 @@
 8. Put it online
 
 
+chang command to moveCommands change look to face.
 
 
+
+To do the enum of the left to right would need to give each look command a angle and then build enum in that
+order them by that then left by right. Then can when new ordinates made eg NE then it will be inserted in the right order
+
+Move Left Move Right Turn Left One Ordinate, Turn Right One ordinate
 
 
 My understanding of Get Set and this needs revising look at the Location interface and constructor then research

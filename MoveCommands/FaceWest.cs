@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.Commands
+namespace Rover3.MoveCommands
 {
-    class LookSouth : Command
+    class FaceWest : MoveCommand
     {
-        public override string Key { get { return "S"; } }
+        public override string Key { get { return "W"; } }
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
         {
-            initialLocationInfo.myOrientation = new South();
+            initialLocationInfo.myOrientation = new West();
             return initialLocationInfo;
         }
     }
+   
 }

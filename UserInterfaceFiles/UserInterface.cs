@@ -1,4 +1,4 @@
-﻿using Rover3.Commands;
+﻿using Rover3.MoveCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,11 @@ namespace Rover3
             string userInput = "";
             while ((userInput = consoleHandler.getUserInput()) != "Q")
             {
+                //if no rover set ask for rover if there are some, or to create one if not
                 //Select Rover or Create rover
+                //If S select rover
+                //If C create rover + set as selected rover
+                //IF D destroy current rover 
                 //Input Command for that Rover
                 string commandInput = userInput; // later different inputs depending which dic of commands
                 consoleHandler.displayText(CheckProcessUserCommandInput(commandInput));
@@ -80,9 +84,9 @@ namespace Rover3
         {
 
         }
-        public IList<Command> UserInputToCommands(string userInput) {
-            IList<Command> userCommandList = new List<Command>();
-            Command command;
+        public IList<MoveCommand> UserInputToCommands(string userInput) {
+            IList<MoveCommand> userCommandList = new List<MoveCommand>();
+            MoveCommand command;
             for (int i = 0; i<userInput.Length; i++) {
                 string userInputKey = userInput[i].ToString();
                 command = StaticCommandFactoryDic.commandKeys[userInputKey];
@@ -103,7 +107,7 @@ namespace Rover3
 
             if (!resultOfCommandSequenceValidation.valid) { return resultOfCommandSequenceValidation.errorText + errorNoLocationChange + ReportLocation(); }
             else {
-               IList<Command> userCommandList = UserInputToCommands(userInput);
+               IList<MoveCommand> userCommandList = UserInputToCommands(userInput);
                 commandSequenceExecutableValidation=rover.runCommandSequence(userCommandList);
                 if (commandSequenceExecutableValidation.CommandsExecutionSuccess)
                 {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.Commands
+namespace Rover3.MoveCommands
 {
-    abstract class Command //Command Class
+    abstract class MoveCommand //Command Class
     {
         public abstract string Key { get; }
         public abstract LocationInfo ExecuteCommand(LocationInfo initialLocationInfo);

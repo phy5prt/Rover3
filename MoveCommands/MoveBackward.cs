@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.Commands
+namespace Rover3.MoveCommands
 
 {
-    class MoveBackward : Command
+    class MoveBackward : MoveCommand
     {
         public override string Key { get { return "B"; } }
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)

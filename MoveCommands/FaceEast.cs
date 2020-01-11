@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.Commands
+namespace Rover3.MoveCommands
 {
-    class LookEast : Command
+    class FaceEast : MoveCommand
     {
         public override string Key {get{ return "E"; } }
         public override LocationInfo ExecuteCommand(LocationInfo initialLocationInfo)
