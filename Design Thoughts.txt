@@ -142,3 +142,6 @@ should useInterface do all talking and make an object for managing rovers
 		//should rover move itself or should it be moved, should it test itself
 
 		//seperate test and rover because actual movement would involve more than checking route
+
+		//userinterface should look make sure command string only has commands from rover manager and orientation in then pass it on
+		//user interface should be for validating and then passing on the instructions not executing them

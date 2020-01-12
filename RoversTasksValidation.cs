@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Rover3
 {
-    struct CommandSequenceExecutableValidation
+    struct RoversTasksValidation
     {
         private LocationInfo _whereLocationBecomesInvalid;
 
         public bool CommandsExecutionSuccess { get; set; }
         public int InvalidCommandIndex { get; set; }
-
-        public LocationInfo WhereLocationBecomesInvalid { get => _whereLocationBecomesInvalid; set => _whereLocationBecomesInvalid = value; }
+        public string NameOfRover { get; set; } //not using yet
+        public LocationInfo WhereCommandBecomesInvalid { get => _whereLocationBecomesInvalid; set => _whereLocationBecomesInvalid = value; }
     }
 }

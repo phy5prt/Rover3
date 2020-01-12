@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-   struct ResultOfCommandSequenceValidation
+   struct CommandKeyValidation
     {
        public bool valid { get; set; }
         public string errorText { get; set; }

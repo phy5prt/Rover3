@@ -8,13 +8,13 @@ namespace Rover3
     class Rover //Receiver Class
     {
         public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
-        private String _roverKeyName; //this needs to stay unique as it is used with the dictionary maybe singleton pattern is worth looking up if one like me exists delete me?
+
         public String RoverKeyName { get; }
-        public Rover(String roverKeyName,LocationInfo initLocation) { this._roverKeyName = roverKeyName; this.currentLocation = initLocation; }
+        public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.currentLocation = initLocation; }
      
-        public CommandSequenceExecutableValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
+        public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
         {
-            CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
+            RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
 
             LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
 
@@ -29,7 +29,7 @@ namespace Rover3
 
 
                     commandSequenceExecutableValidation.InvalidCommandIndex = i;
-                    commandSequenceExecutableValidation.WhereLocationBecomesInvalid = testRouteLocation;
+                    commandSequenceExecutableValidation.WhereCommandBecomesInvalid = testRouteLocation;
                     commandSequenceExecutableValidation.CommandsExecutionSuccess = false;
                     return commandSequenceExecutableValidation;
                 }
@@ -39,12 +39,12 @@ namespace Rover3
             return ExecuteCommandSequence(commandSequence); //if I have multiple rovers will not execute till all tested
         }
 
-        public CommandSequenceExecutableValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
+        public RoversTasksValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
         {
             //If rover was real would be telemetry and checks as it went so all though not doing any
             //validating I'm not going to make it void
 
-            CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
+            RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
 
             for (int i = 0; i < commandSequence.Count; i++)
             {
