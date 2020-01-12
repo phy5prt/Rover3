@@ -87,7 +87,7 @@ namespace Rover3
             for (int i = 0; i < commandString.Length; i++)
             {
 
-                if (!( StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()) || RoverDictionaryStatic.RoverDictionary.ContainsKey(commandString[i].ToString())))
+                if (!( StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()) || RoverManagerStatic.RoverDictionary.ContainsKey(commandString[i].ToString())))
                 {
                     commandString = commandString.Insert(i, "*").Insert(i + 2, "*");
                     resultOfCommandSequenceValidation.errorText += commandString[i+1] + " ";
@@ -329,7 +329,7 @@ namespace Rover3
             //dictionary should create and return the rover the userInterface should just get the info
 
             Rover newRover = new Rover(newRoverKey, newRoverStartLocation); // later it will need to get the new key too
-            RoverDictionaryStatic.AddRoverToRoverDictionary(newRover);
+            RoverManagerStatic.AddRoverToRoverDictionary(newRover);
 
             return newRover;
 
@@ -359,7 +359,7 @@ namespace Rover3
             if (!resultOfCommandSequenceValidation.valid) { return resultOfCommandSequenceValidation.errorText + errorNoLocationChange + ReportLocation(); }
             else {
                IList<MoveCommand> userCommandList = UserInputToCommands(userInput);
-                commandSequenceExecutableValidation=selectedRover.runCommandSequence(userCommandList);
+                commandSequenceExecutableValidation=selectedRover.validateRouteOfCommandSequence(userCommandList);
                 if (commandSequenceExecutableValidation.CommandsExecutionSuccess)
                 {
                     return successfulCommandExectutionTxt + ReportLocation();

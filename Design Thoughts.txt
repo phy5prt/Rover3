@@ -137,3 +137,8 @@ should useInterface do all talking and make an object for managing rovers
         //or being an object will changes translate anywya
         //maybe should store test rover here too 
         //and make dictionary rover manager
+
+
+		//should rover move itself or should it be moved, should it test itself
+
+		//seperate test and rover because actual movement would involve more than checking route

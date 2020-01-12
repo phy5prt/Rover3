@@ -12,28 +12,39 @@ namespace Rover3
         public String RoverKeyName { get; }
         public Rover(String roverKeyName,LocationInfo initLocation) { this._roverKeyName = roverKeyName; this.currentLocation = initLocation; }
      
-        public CommandSequenceExecutableValidation runCommandSequence(IList<MoveCommand> commandSequence)
+        public CommandSequenceExecutableValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
         {
             CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
-              
-            LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
-               
 
-            for (int i = 0; i < commandSequence.Count; i++) {
-                
-                
+            LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
+
+
+            for (int i = 0; i < commandSequence.Count; i++)
+            {
+
+
                 testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
                 if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
                 {
-                  
-                   
+
+
                     commandSequenceExecutableValidation.InvalidCommandIndex = i;
                     commandSequenceExecutableValidation.WhereLocationBecomesInvalid = testRouteLocation;
                     commandSequenceExecutableValidation.CommandsExecutionSuccess = false;
                     return commandSequenceExecutableValidation;
                 }
-            
+
             }
+
+            return ExecuteCommandSequence(commandSequence); //if I have multiple rovers will not execute till all tested
+        }
+
+        public CommandSequenceExecutableValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
+        {
+            //If rover was real would be telemetry and checks as it went so all though not doing any
+            //validating I'm not going to make it void
+
+            CommandSequenceExecutableValidation commandSequenceExecutableValidation = new CommandSequenceExecutableValidation();
 
             for (int i = 0; i < commandSequence.Count; i++)
             {

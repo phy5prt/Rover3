@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-    static class RoverDictionaryStatic
+    static class RoverManagerStatic
     {
         
         //may need delete function
