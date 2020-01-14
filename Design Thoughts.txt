@@ -21,6 +21,15 @@ Report Class report individual rover position and all rover positions
 7. Tidy it up so works smooth english correct
 8. Put it online
 
+//will need to handle error if something gets through to manager that isnt in dictionary
+
+//learning about error handling what to wrap in try get and what not to will be important
+
+//who should be responsible to checking if space available rover checks with manager only to tell manager or rover send up a move at a time
+
+//question of passing rover string or single char
+
+//rover manages what movement looks like rover manager says if it is allowed 
 
 chang command to moveCommands change look to face.
 

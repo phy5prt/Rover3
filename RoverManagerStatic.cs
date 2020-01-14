@@ -21,5 +21,28 @@ namespace Rover3
             //if later user interface just give the command to rover manager then 
             //rover manager should change own selected rover
         }
+
+        public void TryThenRunCommandString(string commandString){
+        
+            string roverCommandSubString;
+            //Test routes
+        for(int i = 0; i<commandString.Length; i++){
+            
+                if(RoverDictionary.contains.keys(commandString[i])){
+                    if(roverCommandSubString.Length>0){SelectedRover. // needs completing --- if it return not true report is sent back to userInterface}
+                    roverCommandSubstring=""; 
+                    SeleectedRover = RoverDictionary[i];}
+                else if (RoverManagerStatic.contains.keys(commandString[i])){roverCommandSubString += commandString[i]);
+                //rover run test code
+                }
+
+
+            }
+
+        //Run routes
+
+        }
+        public void RoversCheckRoute(){}
+        public void RoversEnactCommands(){}
     }
 }
