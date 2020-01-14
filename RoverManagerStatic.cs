@@ -6,6 +6,7 @@ namespace Rover3
 {
     static class RoverManagerStatic
     {
+        //here is a change
         public static Rover SelectedRover { get; set; }
 
         //may need delete function
