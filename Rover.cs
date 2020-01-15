@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Rover3
 {
+    //comment
     class Rover //Receiver Class
     {
         public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
