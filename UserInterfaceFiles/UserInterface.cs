@@ -341,17 +341,7 @@ namespace Rover3
             return newRover;
 
         }
-        //here could use a switch later dictionary of dictionaries so can switch between rovers
-        public IList<MoveCommand> UserInputToCommands(string userInput) {
-            IList<MoveCommand> userCommandList = new List<MoveCommand>();
-            MoveCommand command;
-            for (int i = 0; i<userInput.Length; i++) {
-                string userInputKey = userInput[i].ToString();
-                command = StaticMoveCommandFactoryDic.commandKeys[userInputKey];
-                userCommandList.Add(command);
-            }
-            return userCommandList;
-        }
+       
        // public string ChangeRover(Rover roverWantSelected) { selectedRover = roverWantSelected }
         //seperate out string validation the command be executable is for rover manager to decide
         public string CheckProcessUserCommandInput(string userInput) {

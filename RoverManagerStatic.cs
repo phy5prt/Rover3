@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rover3.MoveCommands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,22 +25,17 @@ namespace Rover3
             //rover manager should change own selected rover
         }
 
-        public RoverTaskValidation TryThenRunCommandString(string commandString){
-            RoverTasksValidation roverResponse;
-            string roverCommandSubString;
+        public static RoversTasksValidation TryThenRunCommandString(string commandString){
+            RoversTasksValidation roverResponse = new RoversTasksValidation();
+            string roverCommandSubString = "";
             //Test routes
         for(int i = 0; i<commandString.Length; i++){
-            
-                if(   
-                    //if your have a command to run and you have either got to the last command so it is to be applied to the last rover or the rover has been just changed then give command to last rover
-                    (
-                       RoverDictionary.contains.keys(commandString[i])
-                       || 
-                       i ==  commandString.Length -1 ) 
-                       && roverCommandSubString.Length>0){
+                //if your have a command to run and you have either got to the last command so it is to be applied to the last rover or the rover has been just changed then give command to last rover
+                if (    (RoverDictionary.ContainsKey( commandString[i].ToString() ) ||  (i ==  commandString.Length -1 ))  && (commandString.Length>0) ){
                   
                         //if we get a new rover we can execture the string of the last
-                        if((roverResponse = SelectedRover.validateRouteOfCommandSequence(roverCommandSubString).CommandsExecutionSuccess) == false)
+                        //should rove turn string to commands?>
+                        if((roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString))).CommandsExecutionSuccess == false)
                         {   
                             //This will not work properly because it needs to be in the context of the whole string
                             //options are to return information to rover manager and rover manager make a report from previous ones 
@@ -49,9 +45,9 @@ namespace Rover3
                             //So maybe build the report up to the error or just add on the string that was cut off before this rovers <-- probably easiest best fix
                             return roverResponse; //this stops the process and tells the user where it went wrong
                         } 
-                    roverCommandSubstring=""; 
-                    SelectedRover = RoverDictionary[commandString[i]];}
-                else if (RoverManagerStatic.contains.keys(commandString[i]))
+                    roverCommandSubString=""; 
+                    SelectedRover = RoverDictionary[commandString[i].ToString()];}
+                else if (RoverManagerStatic.RoverDictionary.ContainsKey(commandString[i].ToString()))
                            {
                             roverCommandSubString += commandString[i];
                
@@ -60,16 +56,16 @@ namespace Rover3
                  if(i ==  commandString.Length -1){
                  roverCommandSubString = "";
 
-                   for(int i = 0; i<commandString.Length; i++){
+                   for(int j = 0; i<commandString.Length; j++){
                
                    if((
-                    RoverDictionary.contains.keys(commandString[i])
+                    RoverDictionary.ContainsKey(commandString[j].ToString())
                        || 
-                       i ==  commandString.Length -1 ) 
+                       j ==  commandString.Length -1 ) 
                        && roverCommandSubString.Length>0){
                   
                         //if we get a new rover we can execture the string of the last
-                        if((roverResponse = SelectedRover.validateRouteOfCommandSequence(roverCommandSubString).CommandsExecutionSuccess) == false)
+                        if((roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString))).CommandsExecutionSuccess == false)
                         {   
                             //This will not work properly because it needs to be in the context of the whole string
                             //options are to return information to rover manager and rover manager make a report from previous ones 
@@ -79,8 +75,8 @@ namespace Rover3
                             //So maybe build the report up to the error or just add on the string that was cut off before this rovers <-- probably easiest best fix
                             return roverResponse; //this stops the process and tells the user where it went wrong
                         } 
-                    roverCommandSubstring=""; 
-                    SelectedRover = RoverDictionary[commandString[i]];}
+                    roverCommandSubString=""; 
+                    SelectedRover = RoverDictionary[commandString[i].ToString()];}
                 
                 
                 }
@@ -90,7 +86,7 @@ namespace Rover3
         //Run routes
 
         }
-        public void RoversCheckRoute(){}
-        public void RoversEnactCommands(){}
+        public static void RoversCheckRoute(){}
+        public static void RoversEnactCommands(){}
     }
 }

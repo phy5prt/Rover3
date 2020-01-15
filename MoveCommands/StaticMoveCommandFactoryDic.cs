@@ -31,5 +31,19 @@ namespace Rover3.MoveCommands
             }
         }
 
+
+        //here could use a switch later dictionary of dictionaries so can switch between rovers
+        public static IList<MoveCommand> MoveCommandStrToCmdList(string userInput)
+        {
+            IList<MoveCommand> moveCommandList = new List<MoveCommand>();
+            MoveCommand command;
+            for (int i = 0; i < userInput.Length; i++)
+            {
+                string userInputKey = userInput[i].ToString();
+                command = StaticMoveCommandFactoryDic.commandKeys[userInputKey];
+                moveCommandList.Add(command);
+            }
+            return moveCommandList;
+        }
     }
 }
