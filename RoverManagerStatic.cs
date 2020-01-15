@@ -6,6 +6,7 @@ namespace Rover3
 {
     static class RoverManagerStatic
     {
+        //another change
         //here is a change
         public static Rover SelectedRover { get; set; }
 
