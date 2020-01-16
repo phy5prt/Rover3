@@ -39,7 +39,7 @@ namespace Rover3
 
 
             string userInput = "";
-            ConsoleHandler.DisplayText(InitialMessage());
+            ConsoleHandler.DisplayText(InitialMessage()+" Hi Martin ");
 
 
             while (true) {
