@@ -108,8 +108,10 @@ namespace Rover3
                 //but need to put a return to keep the compiler happu
                 return roverResponse;
             }
-        //Run routes
-
+           
+            //Should never get here
+            //but need to put a return to keep the compiler happu
+            return roverResponse;
         }
         public static void RoversCheckRoute(){}
         public static void RoversEnactCommands(){}

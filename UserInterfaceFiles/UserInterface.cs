@@ -44,28 +44,34 @@ namespace Rover3
 
             while (true) {
                 userInput = ConsoleHandler.GetUserInput();
+                 
                 if (userInput == "Q") { Environment.Exit(0); }
                       
-                if (userInput == "C") {  CreateNewRover(); break; } else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                if (userInput == "C") {  CreateNewRover(); continue; } //else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                
+                //not a interface command so must be a string
+                ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
+
             }
             // later remove and it will be an instuction
             ConsoleHandler.DisplayText(ReportLocation());
             ConsoleHandler.DisplayText(Instructions());
-            
-            
-            while ((userInput = ConsoleHandler.GetUserInput()) != "Q")
-            {
-                
-                //if no rover set ask for rover if there are some, or to create one if not
-                //Select Rover or Create rover
-                //If S select rover
-                //If C create rover + set as selected rover
-                //IF D destroy current rover 
-                //Input Command for that Rover
-                string commandInput = userInput; // later different inputs depending which dic of commands
-                ConsoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
-            }
-       
+           
+
+
+            //while ((userInput = ConsoleHandler.GetUserInput()) != "Q")
+            //{
+
+            //    //if no rover set ask for rover if there are some, or to create one if not
+            //    //Select Rover or Create rover
+            //    //If S select rover
+            //    //If C create rover + set as selected rover
+            //    //IF D destroy current rover 
+            //    //Input Command for that Rover
+            //    string commandInput = userInput; // later different inputs depending which dic of commands
+            //    ConsoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
+            //}
+
 
             //need string input to IList
             // rover.runCommandSequence(ConsoleHandler.getUserInput());
@@ -364,7 +370,7 @@ namespace Rover3
 
             
             
-               IList<MoveCommand> userCommandList = UserInputToCommands(userInput);
+               IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
                 roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
                 if (roversTasksValidation.CommandsExecutionSuccess)
                 {
