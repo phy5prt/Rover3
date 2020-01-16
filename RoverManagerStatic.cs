@@ -76,7 +76,8 @@ namespace Rover3
                     for (int j = 0; i < commandString.Length; j++)
                     {
 
-                        if ((RoverDictionary.ContainsKey(commandString[j].ToString()) || j == commandString.Length - 1) && roverCommandSubString.Length > 0)
+                        
+                        if ((RoverDictionary.ContainsKey(commandString[j].ToString()) || j == commandString.Length - 1) && roverCommandString.Length > 0)
 
                         {
 
@@ -113,7 +114,6 @@ namespace Rover3
             //but need to put a return to keep the compiler happu
             return roverResponse;
         }
-        public static void RoversCheckRoute(){}
-        public static void RoversEnactCommands(){}
+
     }
 }

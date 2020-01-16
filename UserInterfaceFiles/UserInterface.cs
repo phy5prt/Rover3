@@ -369,10 +369,10 @@ namespace Rover3
           
 
             
-            
-               IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
-                roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
-                if (roversTasksValidation.CommandsExecutionSuccess)
+            //rover manager
+               //IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
+             //   roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
+                if ((roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput)).CommandsExecutionSuccess)
                 {
                     return successfulCommandExectutionTxt + ReportLocation();
 
