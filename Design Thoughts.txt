@@ -2,13 +2,10 @@ Working on rovermanager execute rovers
 
 0.identify which dictionary a command was in in order to know how to execute it 
 Report Class report individual rover position and all rover positions
-1. SelectRover mid string 
-2. selecting rover changes test rover to that rover
-		consider can we make test and selected static and part of dictionary
-		can dictionary be rover manager 
-		can we seperate user interface from the rover controller
-2. Select rover at a time (tiers of commands that allow interuption)
+1. 
+2. 
 3. Rovers check so dont crash
+4. RoverDictionary makes a report from the rover report - maybe interface or abstrace so that it can either pass on rover response or it could just send the list userinterface could just publish the list
 4. have commands hold descriptions of themselves
 4. have seperate orientation dictionary and move dictionary but still abstract as command
 4. have rover command dictionary create destroy
