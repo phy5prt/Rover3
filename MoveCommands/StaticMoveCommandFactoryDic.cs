@@ -18,6 +18,8 @@ namespace Rover3.MoveCommands
 
 
         static StaticMoveCommandFactoryDic() {
+
+            //is this reflection better https://youtu.be/nqAHJmpWLBg?t=972 
             var moveCommands = Assembly.GetAssembly(typeof(MoveCommand)).GetTypes()
                 .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOf(typeof(MoveCommand)));
 

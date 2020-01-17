@@ -35,7 +35,7 @@ namespace Rover3
             for (int i = 0; i < commandString.Length; i++ )
             {
                 //if your have a command to run and you have either got to the last command so it is to be applied to the last rover or the rover has been just changed then give command to last rover
-                if ((RoverDictionary.ContainsKey(commandString[i].ToString()) || (i == commandString.Length - 1)) && (commandString.Length > 0))
+                if ((RoverDictionary.ContainsKey(commandString[i].ToString())
                 {
 
                     //if we get a new rover we can execture the string of the last
@@ -50,10 +50,22 @@ namespace Rover3
                         //So maybe build the report up to the error or just add on the string that was cut off before this rovers <-- probably easiest best fix
                         return roverResponse; //this stops the process and tells the user where it went wrong
                     }
-                    roverCommandSubString = "";
                     SelectedRover = RoverDictionary[commandString[i].ToString()];
+                    roverCommandSubString = "";
+
+                } else if ((i == commandString.Length - 1) && (commandString.Length > 0)) {
+                    if ((roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString))).CommandsExecutionSuccess == false)
+                    {
+                        //This will not work properly because it needs to be in the context of the whole string
+                        //options are to return information to rover manager and rover manager make a report from previous ones 
+                        //Or we just change the report to say string command failed because rover X would not of been able to complete command because ...
+                        //or we make a list of response and send that back 
+                        // though if rover x would of blocked y this would be a problem
+                        //So maybe build the report up to the error or just add on the string that was cut off before this rovers <-- probably easiest best fix
+                        return roverResponse; //this stops the process and tells the user where it went wrong
+                    }
                 }
-                else if (RoverManagerStatic.RoverDictionary.ContainsKey(commandString[i].ToString()))
+                else if (StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()))
                 {
                     roverCommandSubString += commandString[i].ToString();
                 }
@@ -77,7 +89,7 @@ namespace Rover3
                     {
 
                         
-                        if ((RoverDictionary.ContainsKey(commandString[j].ToString()) || j == commandString.Length - 1) && roverCommandString.Length > 0)
+                        if ((RoverDictionary.ContainsKey(commandString[j].ToString()) || j == commandString.Length - 1) && commandString.Length > 0)
 
                         {
 
