@@ -39,7 +39,7 @@ namespace Rover3
 
 
             string userInput = "";
-            ConsoleHandler.DisplayText(InitialMessage()+" Hi Martin ");
+            ConsoleHandler.DisplayText(InitialMessage());
 
 
             while (true) {
@@ -382,7 +382,7 @@ namespace Rover3
                     // telling them the bounds would be good to 
                     string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : ";
                     errorUnableToExecuteCommands += userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*");
-                    errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
+                    //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
                     errorUnableToExecuteCommands += errorNoLocationChange;
                     return errorUnableToExecuteCommands;
 

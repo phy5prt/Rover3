@@ -153,3 +153,22 @@ should useInterface do all talking and make an object for managing rovers
 
 		//userinterface should look make sure command string only has commands from rover manager and orientation in then pass it on
 		//user interface should be for validating and then passing on the instructions not executing them
+
+
+
+		the destroy rover command could use a rover destructor which removes it from dic and destroy it
+		for test it could just remove itself from the dictionary
+		removed rovers could be readded at the end of the test
+		-where should responsibility lie from removing from the dictionary and destroying
+		-maybe removing from dictionary is dictionaries responsibility and destroy is rovers 
+		-need to look into whether destroy would fit abstract command pattern
+		-no it shouldnt because those commands are all about move actions 
+
+		overload the add opperator for add report responses from rover
+
+		//should task validation be an interface?
+
+
+
+		// next project his using matrixes
+		//building the n-unit tests to see around the existing program

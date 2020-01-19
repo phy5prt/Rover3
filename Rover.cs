@@ -19,25 +19,36 @@ namespace Rover3
 
             LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
 
-
-            for (int i = 0; i < commandSequence.Count; i++)
+            if (commandSequence.Count == 0) // no commands just report where you are
             {
+                commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
+                commandSequenceExecutableValidation.RoverMoved = false;
+                return commandSequenceExecutableValidation;
+            }
 
+            else {
 
-                testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
-                if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
+                for (int i = 0; i < commandSequence.Count; i++)
                 {
 
 
-                    commandSequenceExecutableValidation.InvalidCommandIndex = i;
-                    commandSequenceExecutableValidation.WhereCommandBecomesInvalid = testRouteLocation;
-                    commandSequenceExecutableValidation.CommandsExecutionSuccess = false;
-                    return commandSequenceExecutableValidation;
-                }
+                    testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
+                    if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
+                    {
 
+
+                        commandSequenceExecutableValidation.InvalidCommandIndex = i;
+                        commandSequenceExecutableValidation.WhereCommandBecomesInvalid = testRouteLocation;
+                        commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
+                        return commandSequenceExecutableValidation;
+                    }
+
+                }
+                commandSequenceExecutableValidation.CommandsExecutionSuccess  = true;
+                commandSequenceExecutableValidation.RoverMoved = true;
+                return commandSequenceExecutableValidation;
             }
 
-            return ExecuteCommandSequence(commandSequence); //if I have multiple rovers will not execute till all tested
         }
 
         public RoversTasksValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
@@ -47,11 +58,23 @@ namespace Rover3
 
             RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
 
+
+            if (commandSequence.Count == 0) // no commands just report where you are
+            {
+                commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
+                commandSequenceExecutableValidation.RoverMoved = false;
+                return commandSequenceExecutableValidation;
+            }
+
+
+            
+
             for (int i = 0; i < commandSequence.Count; i++)
             {
                 currentLocation = commandSequence[i].ExecuteCommand(currentLocation);
             }
             commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
+                commandSequenceExecutableValidation.RoverMoved = true;
 
             return commandSequenceExecutableValidation;
         }
