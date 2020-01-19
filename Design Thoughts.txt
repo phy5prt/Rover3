@@ -1,4 +1,7 @@
-Working on rovermanager execute rovers
+Working on userinterface
+should be able just to report when press return
+should be able to process multiple reports by overriding the + indicator
+
 
 0.identify which dictionary a command was in in order to know how to execute it 
 Report Class report individual rover position and all rover positions
@@ -191,3 +194,5 @@ should useInterface do all talking and make an object for managing rovers
 
 
 		// get and set could it just be private string instruction without get and set? = Dictionary keys + Move keys
+
+		//should it be executing per successful rover my design choice was no
