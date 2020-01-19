@@ -8,16 +8,41 @@ namespace Rover3
     //comment
     class Rover //Receiver Class
     {
-        public LocationInfo currentLocation; //not private because report location uses it, use get set do only getable and prvately set
-
+        private LocationInfo _currentLocation;
+        public LocationInfo CurrentLocation
+        {
+            get 
+            {
+                return _currentLocation;
+            }
+            set
+            {
+                this._currentLocation = value;
+                TestRouteLocation = this._currentLocation.Clone() as LocationInfo;
+            }
+        }//not private because report location uses it, use get set do only getable and prvately set
+        private LocationInfo _testRouteLocation;
+        public LocationInfo TestRouteLocation 
+        {
+            get
+            {
+                return this._testRouteLocation;
+            }
+            set
+            {
+                this._testRouteLocation = value;
+            }    
+        } //public? PRIVATE
         public String RoverKeyName { get; }
-        public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.currentLocation = initLocation; }
+        public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
      
         public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
         {
             RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
 
-            LocationInfo testRouteLocation = currentLocation.Clone() as LocationInfo;
+        //this resets it but we may go to this rover and come back
+            //two solutions execute a rover at a time
+            //retain the test info
 
             if (commandSequence.Count == 0) // no commands just report where you are
             {
@@ -32,17 +57,18 @@ namespace Rover3
                 {
 
 
-                    testRouteLocation = commandSequence[i].ExecuteCommand(testRouteLocation);
-                    if (testRouteLocation.withinXBounds == false || testRouteLocation.withinYBounds == false)
+                    TestRouteLocation = commandSequence[i].ExecuteCommand(TestRouteLocation);
+                    if (TestRouteLocation.withinXBounds == false || TestRouteLocation.withinYBounds == false)
                     {
 
 
                         commandSequenceExecutableValidation.InvalidCommandIndex = i;
-                        commandSequenceExecutableValidation.WhereCommandBecomesInvalid = testRouteLocation;
+                        commandSequenceExecutableValidation.WhereCommandBecomesInvalid = TestRouteLocation;
                         commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
+                        RevertTestRoverToCurrentLocation();
                         return commandSequenceExecutableValidation;
                     }
-
+                    
                 }
                 commandSequenceExecutableValidation.CommandsExecutionSuccess  = true;
                 commandSequenceExecutableValidation.RoverMoved = true;
@@ -71,12 +97,17 @@ namespace Rover3
 
             for (int i = 0; i < commandSequence.Count; i++)
             {
-                currentLocation = commandSequence[i].ExecuteCommand(currentLocation);
+                CurrentLocation = commandSequence[i].ExecuteCommand(CurrentLocation);
             }
             commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
                 commandSequenceExecutableValidation.RoverMoved = true;
 
             return commandSequenceExecutableValidation;
+        }
+
+        public void RevertTestRoverToCurrentLocation() //should this be called when a location is false
+        { 
+            TestRouteLocation = this._currentLocation.Clone() as LocationInfo; 
         }
     }
 }

@@ -7,36 +7,37 @@ namespace Rover3
 
 
     struct CommandKeyValidation   //replace with roversTasksValidation and 
-   {
+    {
         private string _errorText;
 
-       public string ErrorText
-       {
-            get 
+        public string ErrorText
+        {
+            get
             {
                 return this._errorText;
             }
-            set 
+            set
             {
                 this._errorText = value;
             }
-       }
+        }
 
         private bool _valid;
-       public bool Valid 
-       {
+        public bool Valid
+        {
             get
             {
-                return this._valid;  
+                return this._valid;
             }
-            set 
-            { 
+            set
+            {
                 this._valid = value;
-                if (this._valid) 
-                { 
-                    this._errorText= "" ; 
+                if (this._valid)
+                {
+                    this._errorText = "";
                 }
-            } 
-       }
-   }
+            }
+        }
+    }
+   
 }

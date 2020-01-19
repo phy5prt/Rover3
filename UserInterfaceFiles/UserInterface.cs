@@ -31,9 +31,14 @@ namespace Rover3
         //or being an object will changes translate anywya
         //maybe should store test rover here too 
         //and make dictionary rover manager
+
+            //some strings only used in some methods so could just be kept there
         string commandNotRecognisedString = "The following commands were not recognised: ";
         string noLocationChange = "The rover has not been moved please input a valid command string.";
         string validStringRequest = "Please input a valid command string.";
+        string userInterfaceCommandKeys = " Q S C D ";
+
+        string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : "; 
         //should i have lots shared stored strings?
 
         //later make this a key press to add a rover to the a list of rovers accessible with a number
@@ -59,6 +64,15 @@ namespace Rover3
             }
         }
 
+        private string _keysInUseString;
+        private string KeysInUseString
+        {
+            get
+            {
+                _keysInUseString = Instructions + userInterfaceCommandKeys;
+                return this.KeysInUseString;  
+            }
+        }
 
 
         public UserInterface() {
@@ -82,7 +96,6 @@ namespace Rover3
                 
                 //not a interface command so must be a string
                 ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
-
             }
             
 
@@ -112,8 +125,8 @@ namespace Rover3
     
         public CommandKeyValidation ValidateCommandKeySeq(String commandString) {
 
-            CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation();
-            resultOfCommandSequenceValidation.ErrorText += commandNotRecognisedString;
+            CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation(); //is this overwritting the object or adding to it
+            resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString; 
             resultOfCommandSequenceValidation.Valid = true;
 
             for (int i = 0; i < commandString.Length; i++)
@@ -156,14 +169,14 @@ namespace Rover3
 
             string newRoverKey;
             string userInput = "";
-
+            string roverCreationInstructiongString = "During rover creation you cannot use the q, moveCommand keys or create destroy select keys. The newly created rover will be set as the currently selected rover. To set up the rover you will be asked for a single unique key name for it, its current coordinates and its maximum allowed X and Y position as well as it's starting orientation";
             //What if they want to quit during setup
             //Validation
 
             //Chose a unique single key to assign to your rover
 
-            ConsoleHandler.DisplayText("During rover creation you cannot use the q, moveCommand keys or create destroy select keys. The newly created rover will be set as the currently selected rover. To set up the rover you will be asked for a single unique key name for it, its current coordinates and its maximum allowed X and Y position as well as it's starting orientation");
-            string keysAlreadyInUse = Instructions() + " Q S C D "; // later needs to be moveCommand + interfaceCommands
+            ConsoleHandler.DisplayText(roverCreationInstructiongString);
+           
             bool validInput;
             do
             {
@@ -367,11 +380,11 @@ namespace Rover3
        // public string ChangeRover(Rover roverWantSelected) { selectedRover = roverWantSelected }
         //seperate out string validation the command be executable is for rover manager to decide
         public string CheckProcessUserCommandInput(string userInput) {
-            
+
             //first this needs changing so validates key and the validate is a seperate method
             // then need to extract method for validating the task
             //then validations once set up right need altering to be based on dictionaries
-           
+            errorUnableToExecuteCommands = ""; //wouldnt have to do this if declared locally!
 
             string successfulCommandExectutionTxt = " The rover has successfully been moved.";
 
@@ -395,17 +408,13 @@ namespace Rover3
                 }
                 else {
                     //differentiating from out of bound or object or rover would be good
-                    // telling them the bounds would be good to 
-                    string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : ";
+                    // telling them the bounds would be good to  
                     errorUnableToExecuteCommands += userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*");
                     //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
-                    errorUnableToExecuteCommands += errorNoLocationChange;
+                    errorUnableToExecuteCommands += noLocationChange;
+                    errorUnableToExecuteCommands += validStringRequest;
                     return errorUnableToExecuteCommands;
-
-
                 }
-
-            
         }
 
         public string ReportLocation() {
@@ -414,14 +423,15 @@ namespace Rover3
             LocationReport += RoverManagerStatic.SelectedRover.RoverKeyName + " ";
             LocationReport += "rover location: ";
             LocationReport += "x location is ";
-            LocationReport += RoverManagerStatic.SelectedRover.currentLocation.XCoord.ToString() + ". ";
+            LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.XCoord.ToString() + ". ";
             LocationReport += "y location is ";
-            LocationReport += RoverManagerStatic.SelectedRover.currentLocation.YCoord.ToString() + ". ";
+            LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString() + ". ";
             LocationReport += "rover is facing ";
-            LocationReport += RoverManagerStatic.SelectedRover.currentLocation.myOrientation.orientationName + ". ";
+            LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.myOrientation.orientationName + ". ";
             return LocationReport;
         }
         
 
     }
 }
+
