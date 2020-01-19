@@ -1,7 +1,9 @@
 Working on userinterface
 should be able just to report when press return
 should be able to process multiple reports by overriding the + indicator
-
+should give all keys at the begining 
+should give all keys aftwr making a rover
+should give proper message for keys
 
 0.identify which dictionary a command was in in order to know how to execute it 
 Report Class report individual rover position and all rover positions
@@ -22,6 +24,10 @@ Report Class report individual rover position and all rover positions
 	*part ordinates face left or right. vs step left right vs turn to next ordinate left or right - up and down an enum in order of angle around compass
 7. Tidy it up so works smooth english correct
 8. Put it online
+script explaining design
+youtube
+website
+explanatory document
 
 //will need to handle error if something gets through to manager that isnt in dictionary
 

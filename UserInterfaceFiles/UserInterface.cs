@@ -409,7 +409,10 @@ namespace Rover3
                 else {
                     //differentiating from out of bound or object or rover would be good
                     // telling them the bounds would be good to  
-                    errorUnableToExecuteCommands += userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*");
+                    
+                
+                
+                errorUnableToExecuteCommands += userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*");
                     //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
                     errorUnableToExecuteCommands += noLocationChange;
                     errorUnableToExecuteCommands += validStringRequest;
