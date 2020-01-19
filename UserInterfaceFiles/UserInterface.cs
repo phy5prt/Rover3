@@ -6,6 +6,12 @@ using System.Text;
 
 namespace Rover3 
 {
+    //needs to handle added reports
+    //need add all reports and provide report for full dictionary
+    //needs to handle just a return -> get a report -> maybe all rovers report
+    //need to check rover dictionary for allowable keys, both when making new rover and just requesting one
+
+//allow rovers full name like gregg but require first key press is unique and then only counnt from after length
     class UserInterface
     {
         //put line breaks 
@@ -25,11 +31,36 @@ namespace Rover3
         //or being an object will changes translate anywya
         //maybe should store test rover here too 
         //and make dictionary rover manager
-
-        string errorNoLocationChange = " The rover has not been moved please input a valid command string.";
+        string commandNotRecognisedString = "The following commands were not recognised: ";
+        string noLocationChange = "The rover has not been moved please input a valid command string.";
+        string validStringRequest = "Please input a valid command string.";
         //should i have lots shared stored strings?
 
         //later make this a key press to add a rover to the a list of rovers accessible with a number
+
+
+        //this should just be a getter
+        private string _initialInstructions = "First create a rover by pressing C. Then move the rover with movement commands " + " (later keys and decriptions generated here) " + " The user interface commands are " + "(Here have key dictionary for C create rover and D destroy rover and current rovers)";
+        private string InitialMessage
+        {
+            get
+            {
+                return this._initialInstructions;
+            }
+        }
+
+        private string _instructions;
+        private string Instructions
+        {
+            get
+            {
+                _instructions = "Available commands : C create, D destroy,  " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + " Rovers " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray());
+                return this._instructions;
+            }
+        }
+
+
+
         public UserInterface() {
 
             //do introduction stuff
@@ -39,7 +70,7 @@ namespace Rover3
 
 
             string userInput = "";
-            ConsoleHandler.DisplayText(InitialMessage());
+            ConsoleHandler.DisplayText(InitialMessage);
 
 
             while (true) {
@@ -53,10 +84,7 @@ namespace Rover3
                 ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
 
             }
-            // later remove and it will be an instuction
-            ConsoleHandler.DisplayText(ReportLocation());
-            ConsoleHandler.DisplayText(Instructions());
-           
+            
 
 
             //while ((userInput = ConsoleHandler.GetUserInput()) != "Q")
@@ -70,6 +98,7 @@ namespace Rover3
             //    //Input Command for that Rover
             //    string commandInput = userInput; // later different inputs depending which dic of commands
             //    ConsoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
+
             //}
 
 
@@ -78,42 +107,29 @@ namespace Rover3
 
 
         }
-        public string InitialMessage() {
-            string initialInstructions = "First create a rover by pressing C. Then move the rover with movement commands " +" (later keys and decriptions generated here) "+" The user interface commands are " +"(Here have key dictionary for C create rover and D destroy rover and current rovers)";
-            return initialInstructions;
-        }
-        public string Instructions() {
-            return "Available commands : " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + " Rovers " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray());
-  
-        }
+
+
+    
         public CommandKeyValidation ValidateCommandKeySeq(String commandString) {
 
-            
             CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation();
-            resultOfCommandSequenceValidation.errorText += "The following commands were not recognised: ";
-            resultOfCommandSequenceValidation.valid = true;
-
-
+            resultOfCommandSequenceValidation.ErrorText += commandNotRecognisedString;
+            resultOfCommandSequenceValidation.Valid = true;
 
             for (int i = 0; i < commandString.Length; i++)
             {
-
                 if (!( StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()) || RoverManagerStatic.RoverDictionary.ContainsKey(commandString[i].ToString())))
                 {
                     commandString = commandString.Insert(i, "*").Insert(i + 2, "*");
-                    resultOfCommandSequenceValidation.errorText += commandString[i+1] + " ";
-                    resultOfCommandSequenceValidation.valid = false;
+                    resultOfCommandSequenceValidation.ErrorText += commandString[i+1] + " ";
+                    resultOfCommandSequenceValidation.Valid = false;
                     i += 2;
-
-                }
-
-                               
+                } 
             }
+            //should I be using task validation report - have one reporting class
 
-        
-
+            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += commandString + noLocationChange + validStringRequest + ReportLocation(); }
             
-            if (resultOfCommandSequenceValidation.valid) { resultOfCommandSequenceValidation.errorText = ""; } else { resultOfCommandSequenceValidation.errorText += commandString+ errorNoLocationChange + ReportLocation(); ; }
             return resultOfCommandSequenceValidation;
         
         }
@@ -361,7 +377,7 @@ namespace Rover3
 
             CommandKeyValidation commandKeyValidation = new CommandKeyValidation();
             commandKeyValidation = ValidateCommandKeySeq(userInput);
-            if (!commandKeyValidation.valid) { return commandKeyValidation.errorText; }
+            if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
 
             
             RoversTasksValidation roversTasksValidation = new RoversTasksValidation();

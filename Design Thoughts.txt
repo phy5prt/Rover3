@@ -172,3 +172,28 @@ should useInterface do all talking and make an object for managing rovers
 
 		// next project his using matrixes
 		//building the n-unit tests to see around the existing program
+
+
+		Error at commit Important first working static manager -  fixed the error but dont understand it
+		       roverResponse = SelectedRover.ExecuteCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString = ""));
+                            
+                            //dont understand this error to reproduce it type create = c name = p minx 0 miny 0 maxx 10 maxy 10 start x 5 start y 5 facing n, then type ffffpffffff
+                            
+                            //is this causing it run twice
+                            //why is the below code running before roverCommandSubString
+                            //roverResponse = SelectedRover.ExecuteCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdLicst(roverCommandSubString)); //just so if change rover by just putting its name get a reportc
+                            //validate right at the end
+                            //if we are at the end of the command sequence then assign the subString to the current rover
+
+
+							doing lots of loops and things twice because of testing the route is there a way to reduce this
+
+		I could execute a substring per test this would mean not having to remember when they are incase they crash
+
+		
+		interface KeyInputs use reflection  to do this - all have string that is their key all have a string what key does - key for bringing up list instructions, rovers and commands
+
+		Choose words per string e.g. inputString roverCommandString instructionsString
+
+		//if i combine the below save in notes i have see if it is good decision - single repsonsibility principle.
+		commandkey validation method and rovertasksvalidation maybe should be the same object compare with checkprocessusercommand input

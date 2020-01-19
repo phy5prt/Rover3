@@ -62,8 +62,8 @@ namespace Rover3
                         }
                     }
                     SelectedRover = RoverDictionary[commandString[i].ToString()];
-                    roverCommandSubString = "";
-                    roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
+                    
+                    roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString = ""));//this line is so get report just for changing rover
                     
 
                     //if we are at the end of the command sequence then assign the subString to the current rover
@@ -100,6 +100,7 @@ namespace Rover3
 
                 //*************************************     EXECUTE       ****************************
 
+                //wait why the if just put this outside of the for loop and start second one
 
                 //if you test all rovers and get here then
                 //execute them all

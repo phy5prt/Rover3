@@ -4,17 +4,39 @@ using System.Text;
 
 namespace Rover3
 {
-   struct CommandKeyValidation
-    {
-       public bool valid { get; set; }
-        public string errorText { get; set; }
 
-        //public ValidateCommandSequence(bool succeeded, string failInformation = "")
-        //{
-        //    this.succeeded = succeeded;
-        //    if (failInformation == "") { this.failInformation = this.succeeded ? "succeeded" : "failed"; }
-        //    this.failInformation = failInformation;
-        //}
 
-    }
+    struct CommandKeyValidation   //replace with roversTasksValidation and 
+   {
+        private string _errorText;
+
+       public string ErrorText
+       {
+            get 
+            {
+                return this._errorText;
+            }
+            set 
+            {
+                this._errorText = value;
+            }
+       }
+
+        private bool _valid;
+       public bool Valid 
+       {
+            get
+            {
+                return this._valid;  
+            }
+            set 
+            { 
+                this._valid = value;
+                if (this._valid) 
+                { 
+                    this._errorText= "" ; 
+                }
+            } 
+       }
+   }
 }
