@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rover3;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,8 +32,8 @@ namespace Rover3
             get
             {
                 // pinched from userInterface
-                public string ReportLocation()//put in the values so not requiring user to call method only after changing valiables or do it in a constructor
-                {
+                //put in the values so not requiring user to call method only after changing valiables or do it in a constructor
+                
 
                     //structure 
                     //success fail
@@ -42,35 +43,50 @@ namespace Rover3
 
                     //make single rover report then in the opperator overload add to beggining or end the summary
 
+                //stringBuilder !!!!!!!!!!!
+                 
+                    //string reachedWouldHaveReached;
+                    // reachedWouldHaveReached = (RoverMoved) ? " moved to ":" could Reach " }
+                    //_validationReport = string.Format("Rover(s) command report: The rover(s) Selected rover name: ")  = ;
+                    //LocationReport += RoverManagerStatic.SelectedRover.RoverKeyName + " ";
+                    //LocationReport += "rover location: ";
+                    //LocationReport += "x location is ";
+                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.XCoord.ToString() + ". ";
+                    //LocationReport += "y location is ";
+                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString() + ". ";
+                    //LocationReport += "rover is facing ";
+                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.myOrientation.orientationName + ". ";
+                    return _validationReport;
+             }
 
-                    string reachedWouldHaveReached;
-                     reachedWouldHaveReached = (RoverMoved) ? " moved to ":" could Reach " }
-                    _validationReport = string.Format("Rover(s) command report: The rover(s) Selected rover name: ")  = ;
-                    LocationReport += RoverManagerStatic.SelectedRover.RoverKeyName + " ";
-                    LocationReport += "rover location: ";
-                    LocationReport += "x location is ";
-                    LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.XCoord.ToString() + ". ";
-                    LocationReport += "y location is ";
-                    LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString() + ". ";
-                    LocationReport += "rover is facing ";
-                    LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.myOrientation.orientationName + ". ";
-                    return LocationReport;
-                }
-
-
-
-
-
-
-                return _validationReport;
             } 
-        } 
-    }
-    public void operator + (RoversTasksValidation addedRoversTasksValidation) 
-    {
-        //both false returns false, fi either false returns false if both true returns true
-        this.CommandsExecutionSuccess = (this.CommandsExecutionSuccess && addedRoversTaskValidation.ExecutionValidaionSuccess);
-        this.RoverMoved = (this.RoverMoved && addedRoversTasksValidation.RoverMoved);
+         //functionality for + oprerator will also allow +=
+    
+            public static RoversTasksValidation operator +(RoversTasksValidation firstAddedRoversTasksValidation, RoversTasksValidation secondAddedRoversTasksValidation) 
+            {
+    //both false returns false, fi either false returns false if both true returns true
+                RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
+                roversTasksValidationResult.CommandsExecutionSuccess = (firstAddedRoversTasksValidation.CommandsExecutionSuccess && secondAddedRoversTasksValidation.CommandsExecutionSuccess);
+                roversTasksValidationResult.RoverMoved = (firstAddedRoversTasksValidation.RoverMoved && secondAddedRoversTasksValidation.RoverMoved);
 
+            if (roversTasksValidationResult.CommandsExecutionSuccess) {
+                RoversTasksValidationResult.
+                    //if true
+
+            //the rover were success ...
+            //false rover were fail ...
+            +roverReport
+                }
+                //Build report string per rover then make string names
+
+            //we will use this to say Rovers : A B C routes were possible however Rovwer D went out of bounds at (or would crash with B at)
+                roversTasksValidationResult.NameOfRover = (firstAddedRoversTasksValidation.NameOfRover + secondAddedRoversTasksValidation.NameOfRover);
+            roversTasksValidationResult += report
+
+
+            return roversTasksValidationResult;
+
+            }
     }
+
 }
