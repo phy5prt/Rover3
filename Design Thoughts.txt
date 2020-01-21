@@ -1,9 +1,20 @@
+
+//start basic
+//just add the report string
+//just get overall success with the bool
+
+//add rover reports then have user interface do something with them. 
+
+
+
 Working on userinterface
 should be able just to report when press return
 should be able to process multiple reports by overriding the + indicator
 should give all keys at the begining 
 should give all keys aftwr making a rover
 should give proper message for keys
+
+//do report class remembers location and ... or if rover had their last report ... should we be even adding the reports
 
 0.identify which dictionary a command was in in order to know how to execute it 
 Report Class report individual rover position and all rover positions

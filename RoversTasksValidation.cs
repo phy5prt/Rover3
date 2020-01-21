@@ -6,6 +6,27 @@ using System.Text;
 namespace Rover3
 {
     //this class shoul just be called report
+
+//A report should be:
+        //Rover A (ABC)
+        //Route check was successful (All rovers)
+                        
+        
+        // per rover 
+        //rover move possible
+       //check unsuccessful at 
+                            
+
+        //If successful - 
+            //rover exectuted string
+            //rover position
+            //rover facing
+
+//A group rover report should be   //no group rover 
+        //The rovers   -   could not / were moved
+        // rover reports
+
+
     struct RoversTasksValidation //should this be an interface
     {
         private LocationInfo _whereLocationBecomesInvalid;
@@ -31,6 +52,8 @@ namespace Rover3
         {
             get
             {
+                //if i just use get and get the values to build the report
+
                 // pinched from userInterface
                 //put in the values so not requiring user to call method only after changing valiables or do it in a constructor
                 
@@ -64,13 +87,27 @@ namespace Rover3
     
             public static RoversTasksValidation operator +(RoversTasksValidation firstAddedRoversTasksValidation, RoversTasksValidation secondAddedRoversTasksValidation) 
             {
-    //both false returns false, fi either false returns false if both true returns true
-                RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
+
+            //get report based off rover a information
+            //make into string
+            //get report based off rover a information
+            //add to own string
+            //set bools to match
+            //now when someone asks this object for report it will give its own report AB success A succss B success
+            //but then if added again with have this string build maybe shouldnt add reports
+
+            //when you query it 
+            //rover mov
+
+
+
+            //both false returns false, fi either false returns false if both true returns true
+            RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
                 roversTasksValidationResult.CommandsExecutionSuccess = (firstAddedRoversTasksValidation.CommandsExecutionSuccess && secondAddedRoversTasksValidation.CommandsExecutionSuccess);
                 roversTasksValidationResult.RoverMoved = (firstAddedRoversTasksValidation.RoverMoved && secondAddedRoversTasksValidation.RoverMoved);
 
             if (roversTasksValidationResult.CommandsExecutionSuccess) {
-                RoversTasksValidationResult.
+                RoversTasksValidationResult.ValidationRep
                     //if true
 
             //the rover were success ...
