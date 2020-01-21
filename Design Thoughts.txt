@@ -1,4 +1,7 @@
 
+
+//look at removing rovervalidation tasks and command key validation and replacing with a report and plan the class
+
 //start basic
 //just add the report string
 //just get overall success with the bool
