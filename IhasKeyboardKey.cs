@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.MoveCommands
+namespace Rover3
 {
-    abstract class MoveCommand : IhasKeyboardKey //Command Class
+    interface IhasKeyboardKey
     {
         public abstract string Key { get; }
         public abstract string KeyFunctionDescription { get; }
-        public abstract LocationInfo ExecuteCommand(LocationInfo initialLocationInfo);
-
     }
 }

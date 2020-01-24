@@ -6,7 +6,7 @@ using System.Text;
 namespace Rover3
 {
     //comment
-    class Rover //Receiver Class
+    class Rover : IhasKeyboardKey //Receiver Class
     {
         private LocationInfo _currentLocation;
         public LocationInfo CurrentLocation
@@ -34,6 +34,11 @@ namespace Rover3
             }    
         } //public? PRIVATE
         public String RoverKeyName { get; }
+
+        public string Key { get { return RoverKeyName; } }
+
+        public string KeyFunctionDescription { get { return "Press " + RoverKeyName + " to use rover " + RoverKeyName; } }
+
         public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
      
         public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)

@@ -1,4 +1,4 @@
-
+//constructor for report when make everything private then add reports?
 
 //look at removing rovervalidation tasks and command key validation and replacing with a report and plan the class
 
