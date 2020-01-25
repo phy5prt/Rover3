@@ -132,26 +132,7 @@ namespace Rover3
                 //not a interface command so must be a string
                 ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
             }
-            
-
-
-            //while ((userInput = ConsoleHandler.GetUserInput()) != "Q")
-            //{
-
-            //    //if no rover set ask for rover if there are some, or to create one if not
-            //    //Select Rover or Create rover
-            //    //If S select rover
-            //    //If C create rover + set as selected rover
-            //    //IF D destroy current rover 
-            //    //Input Command for that Rover
-            //    string commandInput = userInput; // later different inputs depending which dic of commands
-            //    ConsoleHandler.DisplayText(CheckProcessUserCommandInput(commandInput));
-
-            //}
-
-
-            //need string input to IList
-            // rover.runCommandSequence(ConsoleHandler.getUserInput());
+   
 
 
         }

@@ -34,7 +34,8 @@ namespace Rover3.MoveCommands
             }
         }
 
-
+        //Below should be in the outermost dictionary
+        //Why dictionary of dictionaries, why not array? or other collections?
 
         public static IList<MoveCommand> MoveCommandStrToCmdList(string userInput)
         {

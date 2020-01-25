@@ -1,5 +1,8 @@
 //structure MoveCommands, driveCommands, FaceCommand, TurnCommands (face is objective, turn is relative) - putting in seperate dictionaries and names spaces just so can seperate them for how user interface represents them seems excessive, another way of distinguishing them
 
+//why dictionary of dictionaries why not something else, a list for example?
+//why not one dictionary that grabs all movement types but those types are in own namespace so can be checked for name space if userinterface wants to seperate them by type e.g. move and face commands
+
 //constructor for report when make everything private then add reports?
 
 //look at removing rovervalidation tasks and command key validation and replacing with a report and plan the class
