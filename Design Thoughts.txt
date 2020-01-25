@@ -112,6 +112,8 @@ it would be nice if could make a long string moving each rover e.g 1NMM2NSS  - b
 
 make program so can quit anytime even if part way through a method eg creating a rover
 
+// Dictionaries, Drive, Face, Turn, UserInterfacecommand - but how will drive face and turn reflectively build themselves?
+
 //Chose initial orientation for your rover
             //I cant use this :
             //string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
@@ -201,7 +203,7 @@ should useInterface do all talking and make an object for managing rovers
 		--could slice long command string up and report back "Command string 1 exectute then report""command string 2 execute then report" so all though
 		it is only one in put it should cut it up and receive it as an array of seperate commands
 
-
+		/// next version should not move distinct ammounts but degrees and meters
 
 		/////////////should console useroutput when shows user what they typed seperate it into command string and interface letters so they can see
 		//should acceptnumbers for f100 which mean f 100 times
@@ -255,4 +257,10 @@ should useInterface do all talking and make an object for managing rovers
                 return this._instructions.ToString();
             }
         }
-		it would nice to have a set that automatically updates when ever dictionaries changed --- not necessary here but would be nice to know if can - but think needs listners
+		it would nice to have a set that automatically updates when ever dictionaries changed --- not necessary here
+		
+		//but would be nice to know if can - but think needs listners
+
+		//getter setter when to use method or get set
+		https://stackoverflow.com/questions/601621/properties-vs-methods
+		https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/ms229054(v=vs.100)?redirectedfrom=MSDN

@@ -26,6 +26,7 @@ namespace Rover3.MoveCommands
             commandKeys = new Dictionary<string, MoveCommand>();
 
             //can i remove var
+            //shouldnt name the var the same name!
             foreach (var moveCommand in moveCommands) 
             {
                 MoveCommand myCommand = Activator.CreateInstance(moveCommand) as MoveCommand;
@@ -34,7 +35,7 @@ namespace Rover3.MoveCommands
         }
 
 
-        //here could use a switch later dictionary of dictionaries so can switch between rovers
+
         public static IList<MoveCommand> MoveCommandStrToCmdList(string userInput)
         {
             IList<MoveCommand> moveCommandList = new List<MoveCommand>();

@@ -49,7 +49,7 @@ namespace Rover3
                     //if there is a string to execicute
                     if (roverCommandSubString.Length > 0)
                     {
-                        roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));
+                        roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));
                         if (roverResponse.CommandsExecutionSuccess == false)
                         {
                             //This will not work properly because it needs to be in the context of the whole string
@@ -67,7 +67,7 @@ namespace Rover3
                         {
                             roverCommandSubString = "";
                             SelectedRover = RoverDictionary[commandString[i].ToString()];
-                            roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
+                            roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
                         }
                     }
                     else
@@ -75,17 +75,17 @@ namespace Rover3
                         roverCommandSubString = "";
                         SelectedRover = RoverDictionary[commandString[i].ToString()];
 
-                        roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
+                        roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
 
                         //if we are at the end of the command sequence then assign the subString to the current rover
                     }
                     
                 }
-                else if (StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()) && (i == commandString.Length - 1))
+                else if (MoveCoordinateCommands.commandKeys.ContainsKey(commandString[i].ToString()) && (i == commandString.Length - 1))
                 {
                     //this is the last command so add it to the string and then run it
                     roverCommandSubString += commandString[i].ToString();
-                    roverResponse = SelectedRover.validateRouteOfCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));
+                    roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));
                     if (roverResponse.CommandsExecutionSuccess == false)
                     {
                         //if this string fails then return failure
@@ -98,7 +98,7 @@ namespace Rover3
 
                 //to protect errors should we ensure it is not last 
                 //to protect errors should we check it is not also in the rover dictionary
-                else if (StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[i].ToString()))
+                else if (MoveCoordinateCommands.commandKeys.ContainsKey(commandString[i].ToString()))
                 {
                     roverCommandSubString += commandString[i].ToString();
                 }
@@ -134,12 +134,12 @@ namespace Rover3
                     if (roverCommandSubString.Length > 0)
                     {
 
-                        roverResponse = SelectedRover.ExecuteCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));
+                        roverResponse = SelectedRover.ExecuteCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));
 
                     }
                     SelectedRover = RoverDictionary[commandString[j].ToString()];
                     roverCommandSubString = "";
-                    roverResponse = SelectedRover.ExecuteCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));
+                    roverResponse = SelectedRover.ExecuteCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));
                             
                     //dont understand this error to reproduce it type create = c name = p minx 0 miny 0 maxx 10 maxy 10 start x 5 start y 5 facing n, then type ffffpffffff
                             
@@ -151,12 +151,12 @@ namespace Rover3
 
                 }
                 //dont need to check commandstring length because about to increase it
-                else if (StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[j].ToString()) && (j == commandString.Length - 1))
+                else if (MoveCoordinateCommands.commandKeys.ContainsKey(commandString[j].ToString()) && (j == commandString.Length - 1))
                 {
                     //this is the last command so add it to the string and then run it
                     roverCommandSubString += commandString[j].ToString();
 
-                    roverResponse = SelectedRover.ExecuteCommandSequence(StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(roverCommandSubString));
+                    roverResponse = SelectedRover.ExecuteCommandSequence(MoveCoordinateCommands.MoveCommandStrToCmdList(roverCommandSubString));
                     roverCommandSubString = ""; //we should not go through code anymore so should not be necessary
                 }
 
@@ -165,7 +165,7 @@ namespace Rover3
 
                 //to protect errors should we ensure it is not last 
                 //to protect errors should we check it is not also in the rover dictionary
-                else if (StaticMoveCommandFactoryDic.commandKeys.ContainsKey(commandString[j].ToString()))
+                else if (MoveCoordinateCommands.commandKeys.ContainsKey(commandString[j].ToString()))
                 {
                     roverCommandSubString += commandString[j].ToString();
                 }

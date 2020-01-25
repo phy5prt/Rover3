@@ -9,8 +9,13 @@ namespace Rover3
         //this will allow unit testing
         public static string GetUserInput() {
 
-           return Console.ReadLine().ToUpper();
-
+            //Console.WriteLine();
+            //Console.WriteLine("Please type and return: ");
+            //Console.WriteLine();
+            string userInput = Console.ReadLine().ToUpper();
+            //Console.WriteLine();
+            return userInput;
+            
 
         }
 
