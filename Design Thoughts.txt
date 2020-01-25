@@ -1,3 +1,5 @@
+//structure MoveCommands, driveCommands, FaceCommand, TurnCommands (face is objective, turn is relative) - putting in seperate dictionaries and names spaces just so can seperate them for how user interface represents them seems excessive, another way of distinguishing them
+
 //constructor for report when make everything private then add reports?
 
 //look at removing rovervalidation tasks and command key validation and replacing with a report and plan the class
@@ -112,7 +114,7 @@ it would be nice if could make a long string moving each rover e.g 1NMM2NSS  - b
 
 make program so can quit anytime even if part way through a method eg creating a rover
 
-// Dictionaries, Drive, Face, Turn, UserInterfacecommand - but how will drive face and turn reflectively build themselves?
+// Dictionaries, Drive, Face, Turn, UserInterfacecommand - but how will drive face and turn reflectively build themselves? - use namespaces?
 
 //Chose initial orientation for your rover
             //I cant use this :
@@ -264,3 +266,7 @@ should useInterface do all talking and make an object for managing rovers
 		//getter setter when to use method or get set
 		https://stackoverflow.com/questions/601621/properties-vs-methods
 		https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/ms229054(v=vs.100)?redirectedfrom=MSDN
+
+
+		//how to structure name spaces
+		//keep list questions like this somewhere so remember to ask ppl - git?

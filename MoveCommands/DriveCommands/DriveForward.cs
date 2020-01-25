@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3.MoveCommands
 {
-    class MoveForward : MoveCommand
+    class DriveForward : MoveCommand
     {
         public override string Key { get { return "F"; } }
 
