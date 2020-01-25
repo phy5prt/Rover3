@@ -83,47 +83,48 @@ namespace Rover3
              }
 
             } 
+        //dont think this is the best way
          //functionality for + oprerator will also allow +=
     
-            public static RoversTasksValidation operator +(RoversTasksValidation firstAddedRoversTasksValidation, RoversTasksValidation secondAddedRoversTasksValidation) 
-            {
+    //        public static RoversTasksValidation operator +(RoversTasksValidation firstAddedRoversTasksValidation, RoversTasksValidation secondAddedRoversTasksValidation) 
+    //        {
 
-            //get report based off rover a information
-            //make into string
-            //get report based off rover a information
-            //add to own string
-            //set bools to match
-            //now when someone asks this object for report it will give its own report AB success A succss B success
-            //but then if added again with have this string build maybe shouldnt add reports
+    //        //get report based off rover a information
+    //        //make into string
+    //        //get report based off rover a information
+    //        //add to own string
+    //        //set bools to match
+    //        //now when someone asks this object for report it will give its own report AB success A succss B success
+    //        //but then if added again with have this string build maybe shouldnt add reports
 
-            //when you query it 
-            //rover mov
-
-
-
-            //both false returns false, fi either false returns false if both true returns true
-            RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
-                roversTasksValidationResult.CommandsExecutionSuccess = (firstAddedRoversTasksValidation.CommandsExecutionSuccess && secondAddedRoversTasksValidation.CommandsExecutionSuccess);
-                roversTasksValidationResult.RoverMoved = (firstAddedRoversTasksValidation.RoverMoved && secondAddedRoversTasksValidation.RoverMoved);
-
-            if (roversTasksValidationResult.CommandsExecutionSuccess) {
-                RoversTasksValidationResult.ValidationRep
-                    //if true
-
-            //the rover were success ...
-            //false rover were fail ...
-            +roverReport
-                }
-                //Build report string per rover then make string names
-
-            //we will use this to say Rovers : A B C routes were possible however Rovwer D went out of bounds at (or would crash with B at)
-                roversTasksValidationResult.NameOfRover = (firstAddedRoversTasksValidation.NameOfRover + secondAddedRoversTasksValidation.NameOfRover);
-            roversTasksValidationResult += report
+    //        //when you query it 
+    //        //rover mov
 
 
-            return roversTasksValidationResult;
 
-            }
+    //        //both false returns false, fi either false returns false if both true returns true
+    //        RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
+    //            roversTasksValidationResult.CommandsExecutionSuccess = (firstAddedRoversTasksValidation.CommandsExecutionSuccess && secondAddedRoversTasksValidation.CommandsExecutionSuccess);
+    //            roversTasksValidationResult.RoverMoved = (firstAddedRoversTasksValidation.RoverMoved && secondAddedRoversTasksValidation.RoverMoved);
+
+    //        if (roversTasksValidationResult.CommandsExecutionSuccess) {
+    //            RoversTasksValidationResult.ValidationRep
+    //                //if true
+
+    //        //the rover were success ...
+    //        //false rover were fail ...
+    //        +roverReport
+    //            }
+    //            //Build report string per rover then make string names
+
+    //        //we will use this to say Rovers : A B C routes were possible however Rovwer D went out of bounds at (or would crash with B at)
+    //            roversTasksValidationResult.NameOfRover = (firstAddedRoversTasksValidation.NameOfRover + secondAddedRoversTasksValidation.NameOfRover);
+    //        roversTasksValidationResult += report
+
+
+    //        return roversTasksValidationResult;
+
+    //        }
     }
 
 }

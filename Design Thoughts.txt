@@ -10,9 +10,14 @@
 
 
 
+//Tidy whole program of comments - maybe draw design document (once done interface)
+
 Working on userinterface
 should be able just to report when press return
-should be able to process multiple reports by overriding the + indicator
+should be able to process multiple reports by overriding the + indicator - DECIDED NO !
+
+Dictionary of dictionaries that use keys (who in charge displaying all the keys) - dictionaries should hold their own name string
+
 should give all keys at the begining 
 should give all keys aftwr making a rover
 should give proper message for keys
@@ -25,7 +30,7 @@ Report Class report individual rover position and all rover positions
 2. 
 3. Rovers check so dont crash
 4. RoverDictionary makes a report from the rover report - maybe interface or abstrace so that it can either pass on rover response or it could just send the list userinterface could just publish the list
-4. have commands hold descriptions of themselves
+4. have commands hold descriptions of themselves Tick
 4. have seperate orientation dictionary and move dictionary but still abstract as command
 4. have rover command dictionary create destroy
 4. maybe dictionary or dictionaries so can check the dictionaries for key presses without having to make a switch e.g availableKeyPress dictionary to enable chosing which type of commands to run
@@ -191,13 +196,15 @@ should useInterface do all talking and make an object for managing rovers
 
 		//should task validation be an interface?
 
+		//for own simplicity have made long string command short string instruction but this is not necessary
+		//later version if letter is not in the command dictionary but it is in other dictionary it runs it --No because will still be testing
+		--could slice long command string up and report back "Command string 1 exectute then report""command string 2 execute then report" so all though
+		it is only one in put it should cut it up and receive it as an array of seperate commands
 
 
-		// next project his using matrixes
-		//building the n-unit tests to see around the existing program
 
-
-		c
+		/////////////should console useroutput when shows user what they typed seperate it into command string and interface letters so they can see
+		//should acceptnumbers for f100 which mean f 100 times
 
 
 							doing lots of loops and things twice because of testing the route is there a way to reduce this
@@ -216,3 +223,36 @@ should useInterface do all talking and make an object for managing rovers
 		// get and set could it just be private string instruction without get and set? = Dictionary keys + Move keys
 
 		//should it be executing per successful rover my design choice was no
+
+		//should i pass only string builders and make them into string in conolewriteline
+
+		revise get set
+		revise interface with abstract
+		revise hiding with abstract
+		do solo learn again
+		
+		Next proj
+		Linq, sql, - could use multi delegate matrix version rover with sql some how get advice
+
+
+
+		//for something like this:
+
+		  private string Instructions
+        {
+            get
+            {
+                //C create, D destroy,
+                StringBuilder instructions = new StringBuilder(300);
+        instructions = String.Format("Input single characters to activate user commands. " +
+                    "Q to quit. (Dictionary here) C to create. Input return with no characters to get a full report on all rovers. " +
+                    "To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute." +
+                    "For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE. If rover T is the currently selected rover you can type FYBUE." +
+                    insertline
+                    "Rovers  : " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + 
+                    insertline
+                    "Commands: " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray()));
+                return this._instructions.ToString();
+            }
+        }
+		it would nice to have a set that automatically updates when ever dictionaries changed --- not necessary here but would be nice to know if can - but think needs listners
