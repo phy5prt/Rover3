@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.MoveCommands
+namespace Rover3.MoveCommands.FaceCommandsNS
 {
     class FaceWest : MoveCommand
     {

@@ -18,7 +18,7 @@ namespace Rover3.MoveCommands.TurnCommandsNS
 
                 //is this reflection better https://youtu.be/nqAHJmpWLBg?t=972 
                 var turnCommands = Assembly.GetAssembly(typeof(MoveCommand)).GetTypes()
-                    .Where(turnCommand => turnCommand.IsClass && !turnCommand.IsAbstract && turnCommand.IsSubclassOf(typeof(MoveCommand)) && (turnCommand.Namespace == "TurnCommandsNS"));
+                    .Where(turnCommand => turnCommand.IsClass && !turnCommand.IsAbstract && turnCommand.IsSubclassOf(typeof(MoveCommand)) && (turnCommand.Namespace == "Rover3.MoveCommands.TurnCommandsNS"));
 
                  
 

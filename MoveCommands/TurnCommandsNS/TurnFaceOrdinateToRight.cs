@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rover3.MoveCommands.TurnCommands
+namespace Rover3.MoveCommands.TurnCommandsNS
 {
     class TurnFaceOrdinateToRight : MoveCommand, ITurnRelativeToFacingDirection
     {

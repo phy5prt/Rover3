@@ -283,3 +283,29 @@ should useInterface do all talking and make an object for managing rovers
 		really need to go over naming conventions for names space class method dic interface, capitalisation and verb noun namesetc
 
 		//yuck hardcoded ---                   .Where(driveCommand => driveCommand.IsClass && !driveCommand.IsAbstract && driveCommand.IsSubclassOf(typeof(MoveCommand))&& (driveCommand.Namespace == "DriveCommandsNS")); 
+
+
+		//model rover taking photos discovering obstical and doing various types of samples and get result with random generator to model it
+		//this will give us a reason for a database and SQL
+
+
+		//static class DriveCommandsDicCS : MoveCommandDicAbs doesnt work cannot use a base class for static
+		namespace Rover3.MoveCommands
+    //This doesn't seem right an empty abstract just so can grab dictionaries through reflection
+    //should this class actually make those dictionaries in their name spaces
+    abstract class MoveCommandDicAbs
+
+	//could make a public static list that is part of each dictionary that they add to with creation - as they all have it seems like it could be from abstract
+
+
+	could put all givtioanries into dictionary manager but that seems against open close cant just add new dictionary
+	//also how give the dictionaries name if name stic all will be static
+
+	//does this mean singleton pattern insted
+	
+	//dictionaries could be made by static dictionary manager constructor
+	//each dictionary could be produced from the namespace
+	//from a abstract class with dictionary class
+	//in a dictionary themselves and the key could be the name of the dic <string dic name = key,value = dic>
+	//Or dic could hold the name itself and be in list 
+	//---> result foreach dic in dicmanager via list/dic print dic name from key or object itself then its commands with their keyboard keys

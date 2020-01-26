@@ -28,7 +28,7 @@ namespace Rover3.MoveCommands.FaceCommandsNS
 
             //is this reflection better https://youtu.be/nqAHJmpWLBg?t=972 
             var faceCommands = Assembly.GetAssembly(typeof(MoveCommand)).GetTypes()
-                .Where(faceCommand => faceCommand.IsClass && !faceCommand.IsAbstract && faceCommand.IsSubclassOf(typeof(MoveCommand)) && (faceCommand.Namespace == "FaceCommandsNS"));
+                .Where(faceCommand => faceCommand.IsClass && !faceCommand.IsAbstract && faceCommand.IsSubclassOf(typeof(MoveCommand)) && (faceCommand.Namespace == "Rover3.MoveCommands.FaceCommandsNS"));
 
        
 
