@@ -7,6 +7,7 @@ namespace Rover3
     abstract class Orientation
     {
         public abstract string orientationName { get; }
+        public abstract int compassDegrees { get; }
         public abstract int yModifier { get; }
 
         public abstract int xModifier { get; }
