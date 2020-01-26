@@ -1,3 +1,16 @@
+//done alot this weekend
+//next steps get working with code smells
+//give dictionaries names - in their abstract class
+//then get working with dictionaries created from namespaces and held by the MoveCommand Dictionary
+//consider if rover dictionary and move command manager dictionary should be held together
+//Get L and R working by using the list of orientations
+//improve user interface using all string builder
+//improve reports make for all rovers reporter
+//make individual rover reports show the boundaries of each rover
+//make rovers not allowed to take up the same space
+
+
+
 //structure MoveCommands, driveCommands, FaceCommand, TurnCommands (face is objective, turn is relative) - putting in seperate dictionaries and names spaces just so can seperate them for how user interface represents them seems excessive, another way of distinguishing them
 
 //why dictionary of dictionaries why not something else, a list for example?
