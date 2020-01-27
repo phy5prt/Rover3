@@ -1,5 +1,7 @@
 //done alot this weekend
 //next steps get working with code smells
+		//no longer reports where rover would cross bound
+		//does not correctly select element of string that caused the issue in the command
 //give dictionaries names - in their abstract class
 //then get working with dictionaries created from namespaces and held by the MoveCommand Dictionary
 //consider if rover dictionary and move command manager dictionary should be held together
