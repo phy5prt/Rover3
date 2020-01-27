@@ -2,6 +2,7 @@
 //next steps get working with code smells
 		//no longer reports where rover would cross bound
 		//does not correctly select element of string that caused the issue in the command
+		//Rover selected not reset if command execution fails due to out of bound so if go rover a then rover s FFFFFFF it wont move either but will change to rover s
 //give dictionaries names - in their abstract class
 //then get working with dictionaries created from namespaces and held by the MoveCommand Dictionary
 //consider if rover dictionary and move command manager dictionary should be held together
