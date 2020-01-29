@@ -460,8 +460,13 @@ namespace Rover3
                 // telling them the bounds would be good to  
 
 
+                //!!!!!!! The index here will not be of the whole string?
+                //!!!!!!! can rover get the index right ... No rover doesnt get whole string
+                //!!!!!!! Could rover pass back it own string with own error and the show full string, then name of rover, then where it failed its string.  ffffaff rover a reported fail at f*f*
 
                 errorWithTaskValidation.Append(userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*"));
+               
+                //!!!!!! Should say which rover
                 //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
                 errorWithTaskValidation.AppendFormat("{0}{1}", noLocationChange, validStringRequest);
                 errorWithTaskValidation.AppendLine();

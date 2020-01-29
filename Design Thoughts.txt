@@ -1,5 +1,12 @@
 //done alot this weekend
 //next steps get working with code smells
+
+//Work on : RoversTasksValidation
+
+//ReportLocationSingleRover() - this needs to take a rover, and be run through the dictionary - or be given the rover names in order they were in, last rover it says currently selected rover
+
+
+
 		//no longer reports where rover would cross bound
 		//does not correctly select element of string that caused the issue in the command
 		//Rover selected not reset if command execution fails due to out of bound so if go rover a then rover s FFFFFFF it wont move either but will change to rover s

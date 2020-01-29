@@ -27,8 +27,18 @@ namespace Rover3
         // rover reports
 
 
-    struct RoversTasksValidation //should this be an interface
+   class RoversTasksValidation //should this be an interface
     {
+
+        //Should have a list a validations and when you add a validation report to another it adds itself to its list and then adds its list to the existing rovers list
+        //!!!!!! Should store its string
+        //!!!!!! When rebuilding its string from history if we started with rover selected it won't know if was selected from last command or this ??? which will put the error index out !!!Also if user types aaaaffff will get affff
+        //!!!!!! therefore need to pass in original string! and not read the letters
+            //!!!!!! Should translate rover index issue to original string index
+        //!!!!!! Should receive rover name
+
+        List<RoversTasksValidation> historyOfRoverValidations = new List<RoversTasksValidation>();
+
         private LocationInfo _whereLocationBecomesInvalid;
 
         private bool _commandExecutionSuccess;
@@ -52,79 +62,14 @@ namespace Rover3
         {
             get
             {
-                //if i just use get and get the values to build the report
-
-                // pinched from userInterface
-                //put in the values so not requiring user to call method only after changing valiables or do it in a constructor
-                
-
-                    //structure 
-                    //success fail
-                    // move not move
-                    //indivdual rover reports
-                    //last rover or failed rover report
-
-                    //make single rover report then in the opperator overload add to beggining or end the summary
-
-                //stringBuilder !!!!!!!!!!!
-                 
-                    //string reachedWouldHaveReached;
-                    // reachedWouldHaveReached = (RoverMoved) ? " moved to ":" could Reach " }
-                    //_validationReport = string.Format("Rover(s) command report: The rover(s) Selected rover name: ")  = ;
-                    //LocationReport += RoverManagerStatic.SelectedRover.RoverKeyName + " ";
-                    //LocationReport += "rover location: ";
-                    //LocationReport += "x location is ";
-                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.XCoord.ToString() + ". ";
-                    //LocationReport += "y location is ";
-                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString() + ". ";
-                    //LocationReport += "rover is facing ";
-                    //LocationReport += RoverManagerStatic.SelectedRover.CurrentLocation.myOrientation.orientationName + ". ";
+               
                     return _validationReport;
              }
 
-            } 
-        //dont think this is the best way
-         //functionality for + oprerator will also allow +=
-    
-    //        public static RoversTasksValidation operator +(RoversTasksValidation firstAddedRoversTasksValidation, RoversTasksValidation secondAddedRoversTasksValidation) 
-    //        {
-
-    //        //get report based off rover a information
-    //        //make into string
-    //        //get report based off rover a information
-    //        //add to own string
-    //        //set bools to match
-    //        //now when someone asks this object for report it will give its own report AB success A succss B success
-    //        //but then if added again with have this string build maybe shouldnt add reports
-
-    //        //when you query it 
-    //        //rover mov
-
-
-
-    //        //both false returns false, fi either false returns false if both true returns true
-    //        RoversTasksValidation roversTasksValidationResult = new RoversTasksValidation();
-    //            roversTasksValidationResult.CommandsExecutionSuccess = (firstAddedRoversTasksValidation.CommandsExecutionSuccess && secondAddedRoversTasksValidation.CommandsExecutionSuccess);
-    //            roversTasksValidationResult.RoverMoved = (firstAddedRoversTasksValidation.RoverMoved && secondAddedRoversTasksValidation.RoverMoved);
-
-    //        if (roversTasksValidationResult.CommandsExecutionSuccess) {
-    //            RoversTasksValidationResult.ValidationRep
-    //                //if true
-
-    //        //the rover were success ...
-    //        //false rover were fail ...
-    //        +roverReport
-    //            }
-    //            //Build report string per rover then make string names
-
-    //        //we will use this to say Rovers : A B C routes were possible however Rovwer D went out of bounds at (or would crash with B at)
-    //            roversTasksValidationResult.NameOfRover = (firstAddedRoversTasksValidation.NameOfRover + secondAddedRoversTasksValidation.NameOfRover);
-    //        roversTasksValidationResult += report
-
-
-    //        return roversTasksValidationResult;
-
-    //        }
+        }
+        
+        ///Add operator overload
+      
     }
 
 }
