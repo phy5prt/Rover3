@@ -32,7 +32,7 @@ namespace Rover3
         {
 
             //could i use int t for test loop int e for execture loop
-
+            int beginningIndexOfCommandValidating = 0;
             IList<RoversTasksValidation> roverResponse = new List<RoversTasksValidation>();
             string roverCommandSubString = "";
 
@@ -49,7 +49,7 @@ namespace Rover3
                     //if there is a string to execicute
                     if (roverCommandSubString.Length > 0)
                     {
-                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
+                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString), beginningIndexOfCommandValidating));
                         if (roverResponse[roverResponse.Count-1].CommandsExecutionSuccess == false)
                         {
                             //This will not work properly because it needs to be in the context of the whole string
@@ -67,16 +67,17 @@ namespace Rover3
                         {
                             roverCommandSubString = "";
                             SelectedRover = RoverDictionary[commandString[i].ToString()];
-                            roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));//this line is so get report just for changing rover
+                            roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString), beginningIndexOfCommandValidating));//this line is so get report just for changing rover
+                            beginningIndexOfCommandValidating = i;
                         }
                     }
-                    else
+                    else //change from rover to rove in succession
                     {
                         roverCommandSubString = "";
                         SelectedRover = RoverDictionary[commandString[i].ToString()];
 
-                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));//this line is so get report just for changing rover
-
+                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString), beginningIndexOfCommandValidating));//this line is so get report just for changing rover
+                        beginningIndexOfCommandValidating = i;
                         //if we are at the end of the command sequence then assign the subString to the current rover
                     }
                     
@@ -85,7 +86,7 @@ namespace Rover3
                 {
                     //this is the last command so add it to the string and then run it
                     roverCommandSubString += commandString[i].ToString();
-                    roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
+                    roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString), beginningIndexOfCommandValidating));
                     if (roverResponse[roverResponse.Count-1].CommandsExecutionSuccess == false)
                     {
                         //if this string fails then return failure

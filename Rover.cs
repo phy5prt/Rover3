@@ -41,7 +41,7 @@ namespace Rover3
 
         public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
      
-        public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
+        public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence, int myStartingIndexOfAllRoversCommandString)
         {
             RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
 
@@ -67,7 +67,7 @@ namespace Rover3
                     {
 
 
-                        commandSequenceExecutableValidation.InvalidCommandIndex = i;
+                        commandSequenceExecutableValidation.InvalidCommandIndex = i+ myStartingIndexOfAllRoversCommandString;
                         commandSequenceExecutableValidation.WhereCommandBecomesInvalid = TestRouteLocation;
                         commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
                         RevertTestRoverToCurrentLocation();

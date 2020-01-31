@@ -5,6 +5,7 @@
 
 //ReportLocationSingleRover() - this needs to take a rover, and be run through the dictionary - or be given the rover names in order they were in, last rover it says currently selected rover
 
+//put in if check if any rovers if not reports message currently no rovers press c to create one or q to exit
 
 
 		//no longer reports where rover would cross bound
