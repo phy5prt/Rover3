@@ -441,16 +441,16 @@ namespace Rover3
             commandKeyValidation = ValidateCommandKeySeq(userInput);
             if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
 
-            
-            RoversTasksValidation roversTasksValidation = new RoversTasksValidation();
-            
-          
 
-            
+            IList<RoversTasksValidation> roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput);
+
+
+
+
             //rover manager
-               //IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
-             //   roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
-                if ((roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput)).CommandsExecutionSuccess)
+            //IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
+            //   roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
+            if (roversTasksValidation[roversTasksValidation.Count-1].CommandsExecutionSuccess)
                 {
                     return successfulCommandExectutionTxt + ReportLocationSingleRover();
 
@@ -464,7 +464,7 @@ namespace Rover3
                 //!!!!!!! can rover get the index right ... No rover doesnt get whole string
                 //!!!!!!! Could rover pass back it own string with own error and the show full string, then name of rover, then where it failed its string.  ffffaff rover a reported fail at f*f*
 
-                errorWithTaskValidation.Append(userInput.Insert(roversTasksValidation.InvalidCommandIndex, "*").Insert(roversTasksValidation.InvalidCommandIndex + 2, "*"));
+                errorWithTaskValidation.Append(userInput.Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex, "*").Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex + 2, "*"));
                
                 //!!!!!! Should say which rover
                 //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());

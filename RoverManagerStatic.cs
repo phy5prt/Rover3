@@ -28,12 +28,12 @@ namespace Rover3
 
 
         //command string is wrong word now maybe roverManagerCommandString - call substring selectedRoverCommandString
-        public static RoversTasksValidation TryThenRunCommandString(string commandString)
+        public static IList<RoversTasksValidation> TryThenRunCommandString(string commandString)
         {
 
             //could i use int t for test loop int e for execture loop
 
-            RoversTasksValidation roverResponse = new RoversTasksValidation();
+            IList<RoversTasksValidation> roverResponse = new List<RoversTasksValidation>();
             string roverCommandSubString = "";
 
             //****************************************************************     Test routes   *********************
@@ -49,8 +49,8 @@ namespace Rover3
                     //if there is a string to execicute
                     if (roverCommandSubString.Length > 0)
                     {
-                        roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));
-                        if (roverResponse.CommandsExecutionSuccess == false)
+                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
+                        if (roverResponse[roverResponse.Count-1].CommandsExecutionSuccess == false)
                         {
                             //This will not work properly because it needs to be in the context of the whole string
                             //options are to return information to rover manager and rover manager make a report from previous ones 
@@ -67,7 +67,7 @@ namespace Rover3
                         {
                             roverCommandSubString = "";
                             SelectedRover = RoverDictionary[commandString[i].ToString()];
-                            roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
+                            roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));//this line is so get report just for changing rover
                         }
                     }
                     else
@@ -75,7 +75,7 @@ namespace Rover3
                         roverCommandSubString = "";
                         SelectedRover = RoverDictionary[commandString[i].ToString()];
 
-                        roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));//this line is so get report just for changing rover
+                        roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));//this line is so get report just for changing rover
 
                         //if we are at the end of the command sequence then assign the subString to the current rover
                     }
@@ -85,8 +85,8 @@ namespace Rover3
                 {
                     //this is the last command so add it to the string and then run it
                     roverCommandSubString += commandString[i].ToString();
-                    roverResponse = SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));
-                    if (roverResponse.CommandsExecutionSuccess == false)
+                    roverResponse.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
+                    if (roverResponse[roverResponse.Count-1].CommandsExecutionSuccess == false)
                     {
                         //if this string fails then return failure
                         return roverResponse; //this stops the process and tells the user where it went wrong
@@ -134,12 +134,12 @@ namespace Rover3
                     if (roverCommandSubString.Length > 0)
                     {
 
-                        roverResponse = SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));
+                        roverResponse.Add(SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
 
                     }
                     SelectedRover = RoverDictionary[commandString[j].ToString()];
                     roverCommandSubString = "";
-                    roverResponse = SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));
+                    roverResponse.Add(SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
                             
                     //dont understand this error to reproduce it type create = c name = p minx 0 miny 0 maxx 10 maxy 10 start x 5 start y 5 facing n, then type ffffpffffff
                             
@@ -156,7 +156,7 @@ namespace Rover3
                     //this is the last command so add it to the string and then run it
                     roverCommandSubString += commandString[j].ToString();
 
-                    roverResponse = SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString));
+                    roverResponse.Add(SelectedRover.ExecuteCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandSubString)));
                     roverCommandSubString = ""; //we should not go through code anymore so should not be necessary
                 }
 
