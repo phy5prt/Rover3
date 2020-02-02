@@ -41,9 +41,9 @@ namespace Rover3
 
         public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
      
-        public RoversTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence, int myStartingIndexOfAllRoversCommandString)
+        public RoverTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence, int myStartingIndexOfAllRoversCommandString)
         {
-            RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
+            RoverTasksValidation commandSequenceExecutableValidation = new RoverTasksValidation(RoverKeyName);
 
         //this resets it but we may go to this rover and come back
             //two solutions execute a rover at a time
@@ -82,12 +82,12 @@ namespace Rover3
 
         }
 
-        public RoversTasksValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
+        public RoverTasksValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
         {
             //If rover was real would be telemetry and checks as it went so all though not doing any
             //validating I'm not going to make it void
 
-            RoversTasksValidation commandSequenceExecutableValidation = new RoversTasksValidation();
+            RoverTasksValidation commandSequenceExecutableValidation = new RoverTasksValidation(RoverKeyName);
 
 
             if (commandSequence.Count == 0) // no commands just report where you are

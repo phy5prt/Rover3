@@ -1,7 +1,12 @@
 //done alot this weekend
+
+//user interface line 463 next
+
 //next steps get working with code smells
 
 //Work on : RoversTasksValidation
+
+//bug can set rover name to s on creation
 
 //ReportLocationSingleRover() - this needs to take a rover, and be run through the dictionary - or be given the rover names in order they were in, last rover it says currently selected rover
 
@@ -333,3 +338,11 @@ should useInterface do all talking and make an object for managing rovers
 	//in a dictionary themselves and the key could be the name of the dic <string dic name = key,value = dic>
 	//Or dic could hold the name itself and be in list 
 	//---> result foreach dic in dicmanager via list/dic print dic name from key or object itself then its commands with their keyboard keys
+
+
+	  //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
+                //Or contain the rover the have validated
+				//or should the rover hold its last task validation - would need to be a list if it is called multiple time in a command string
+
+
+				//validate command sequence should return a list aswell or return the list of rovers so you know none moved

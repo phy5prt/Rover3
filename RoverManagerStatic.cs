@@ -28,12 +28,12 @@ namespace Rover3
 
 
         //command string is wrong word now maybe roverManagerCommandString - call substring selectedRoverCommandString
-        public static IList<RoversTasksValidation> TryThenRunCommandString(string commandString)
+        public static IList<RoverTasksValidation> TryThenRunCommandString(string commandString)
         {
 
             //could i use int t for test loop int e for execture loop
             int beginningIndexOfCommandValidating = 0;
-            IList<RoversTasksValidation> roverResponse = new List<RoversTasksValidation>();
+            IList<RoverTasksValidation> roverResponse = new List<RoverTasksValidation>();
             string roverCommandSubString = "";
 
             //****************************************************************     Test routes   *********************

@@ -187,7 +187,8 @@ namespace Rover3
             }
             //should I be using task validation report - have one reporting class
 
-            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += commandString + noLocationChange + validStringRequest + ReportLocationSingleRover(); }
+            
+            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += commandString + noLocationChange + validStringRequest + ReportLocationSingleRover(RoverManagerStatic.SelectedRover); }
             
             return resultOfCommandSequenceValidation;
         
@@ -442,7 +443,7 @@ namespace Rover3
             if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
 
 
-            IList<RoversTasksValidation> roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput);
+            IList<RoverTasksValidation> roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput);
 
 
 
@@ -452,8 +453,24 @@ namespace Rover3
             //   roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
             if (roversTasksValidation[roversTasksValidation.Count-1].CommandsExecutionSuccess)
                 {
-                    return successfulCommandExectutionTxt + ReportLocationSingleRover();
+                //later use lambda expression
+                //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
+                //Or contain the rover the have validated
+                StringBuilder individualRoverReportsSB = new StringBuilder(successfulCommandExectutionTxt, 300);
+                for (int i = 0; i < roversTasksValidation.Count; i++) 
+                {
+                    //ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover])
+                    //We just want the end location of each 
+                    //currently we are getting alot of taskvalidations not just 2 if 2 rovers
+                    //should do one per unique key so check if already done it 
+                    //should displace them last moved last so work backwards through the list
+                    //why every direction change getting new task validation?
 
+                    individualRoverReportsSB.Append(ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover]));
+                }
+
+                return individualRoverReportsSB.ToString(); 
+                
                 }
                 else {
                 //differentiating from out of bound or object or rover would be good
@@ -474,14 +491,14 @@ namespace Rover3
                 }
         }
 
-        public string ReportLocationSingleRover() {
+        public string ReportLocationSingleRover(Rover rover) {
 
             StringBuilder LocationReport = new StringBuilder(150);
             //Append Line so not on same line as what being joined to
             LocationReport.AppendLine();
-            LocationReport.AppendFormat("ROVER {0}  REPORT: {1}Selected Rover Name {0}", RoverManagerStatic.SelectedRover.RoverKeyName, Environment.NewLine);
-            LocationReport.AppendFormat("{0}Rover location is X: {1} Y:{2}", Environment.NewLine, RoverManagerStatic.SelectedRover.CurrentLocation.XCoord.ToString(), RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString());
-            LocationReport.AppendFormat("{0}Rover is facing {1}", Environment.NewLine, RoverManagerStatic.SelectedRover.CurrentLocation.myOrientation.orientationName);
+            LocationReport.AppendFormat("ROVER {0}  REPORT: {1}Selected Rover Name {0}", rover.RoverKeyName, Environment.NewLine);
+            LocationReport.AppendFormat("{0}Rover location is X: {1} Y:{2}", Environment.NewLine, rover.CurrentLocation.XCoord.ToString(), RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString());
+            LocationReport.AppendFormat("{0}Rover is facing {1}", Environment.NewLine, rover.CurrentLocation.myOrientation.orientationName);
             LocationReport.AppendLine();
             //Append Line so not on same line as what being joined to and if they do the same there should be a gap space
 
