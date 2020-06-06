@@ -4,13 +4,14 @@ using System.Text;
 
 namespace Rover3
 {
-    class LocationInfo:ICloneable
+    class LocationInfo : ICloneable
     {
-        
+
 
 
         //this need more in constructor and private class behind the get set
         public Orientation myOrientation { get; set; }
+        public String locationFor {get;set;}
         private int _yCoord;
         public int YCoord { 
    
@@ -50,7 +51,7 @@ namespace Rover3
 
 
 
-        public LocationInfo(Orientation initOrientation, int initXCoord, int initYCoord, int initXLowBound, int initXHighBound, int initYLowBound, int initYHighBound) 
+        public LocationInfo(Orientation initOrientation, int initXCoord, int initYCoord, int initXLowBound, int initXHighBound, int initYLowBound, int initYHighBound, string initLocationFor) 
         {
           
             this.xLowBound = initXLowBound;
@@ -60,6 +61,7 @@ namespace Rover3
             this.myOrientation = initOrientation;
             this.XCoord = initXCoord;
             this.YCoord = initYCoord;
+            this.locationFor = initLocationFor;
 
 
 
@@ -68,7 +70,7 @@ namespace Rover3
 
         public object Clone()
         {
-          return  new LocationInfo(this.myOrientation, this.XCoord, this.YCoord, this.xLowBound, this.xHighBound, this.yLowBound, this.yHighBound);
+          return  new LocationInfo(this.myOrientation, this.XCoord, this.YCoord, this.xLowBound, this.xHighBound, this.yLowBound, this.yHighBound, this.locationFor);
      
         }
     }

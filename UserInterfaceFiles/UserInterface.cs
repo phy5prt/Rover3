@@ -125,7 +125,7 @@ namespace Rover3
             }
         }
 
-        private string _initialInstructions = "Welcome to the rover console program. In this program you can create and move multiple rovers by inputting commands. First create a rover by pressing C and the new rover setup instructions. Then create more rovers or give the rover(s) commands. " ;
+        private string _initialInstructions = "Welcome to the rover console program. In this program you can create and move multiple rovers by inputting commands. First create a rover by pressing C and follow the new rover setup instructions. Then create more rovers or give the rover(s) commands. " ;
         private string InitialMessage
         {
             get
@@ -169,18 +169,18 @@ namespace Rover3
 
 
     
-        public CommandKeyValidation ValidateCommandKeySeq(String commandString) {
+        public CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr) {
 
             CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation(); //is this overwritting the object or adding to it
             resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString; 
             resultOfCommandSequenceValidation.Valid = true;
 
-            for (int i = 0; i < commandString.Length; i++)
+            for (int i = 0; i < fullCommandStr.Length; i++)
             {
-                if (!( MoveCommandDicManager.KeyExistsInAMoveCommandDictionary(commandString[i].ToString()) || RoverManagerStatic.RoverDictionary.ContainsKey(commandString[i].ToString())))
+                if (!( MoveCommandDicManager.KeyExistsInAMoveCommandDictionary(fullCommandStr[i].ToString()) || RoverManagerStatic.RoverDictionary.ContainsKey(fullCommandStr[i].ToString())))
                 {
-                    commandString = commandString.Insert(i, "*").Insert(i + 2, "*");
-                    resultOfCommandSequenceValidation.ErrorText += commandString[i+1] + " ";
+                    fullCommandStr = fullCommandStr.Insert(i, "*").Insert(i + 2, "*");
+                    resultOfCommandSequenceValidation.ErrorText += fullCommandStr[i+1] + " ";
                     resultOfCommandSequenceValidation.Valid = false;
                     i += 2;
                 } 
@@ -188,7 +188,7 @@ namespace Rover3
             //should I be using task validation report - have one reporting class
 
             
-            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += commandString + noLocationChange + validStringRequest + ReportLocationSingleRover(RoverManagerStatic.SelectedRover); }
+            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += fullCommandStr + noLocationChange + validStringRequest + ReportLocationSingleRover(RoverManagerStatic.SelectedRover.CurrentLocation); }
             
             return resultOfCommandSequenceValidation;
         
@@ -208,7 +208,7 @@ namespace Rover3
             //We have to initialise a location with default values and overwrite it because we can over write an orientation but we have now way of just making one
 
 
-            LocationInfo newRoverStartLocation= new LocationInfo(new South(),0,0,0,0,0,0); 
+            LocationInfo newRoverStartLocation= new LocationInfo(new South(),0,0,0,0,0,0,"Q"); 
             //need start default values because need to overwrite orientation cant just select and give it one with keys
             //but can only be set in the constructor currently so need to set when set up
             //which means cannot check within bound bool
@@ -231,7 +231,11 @@ namespace Rover3
                 validInput = !MoveCommandDicManager.KeyExistsInAMoveCommandDictionary((newRoverKey = ConsoleHandler.GetUserInput())) || newRoverKey == "Q" || newRoverKey == "S" || newRoverKey == "C" || newRoverKey == "D";
 
                 if (!validInput) { ConsoleHandler.DisplayText(newRoverKey + " : " + " is not a unique key"); }
-                else { ConsoleHandler.DisplayText("When the new rover is setup it will be called " + newRoverKey + " when you press the " + newRoverKey + " it will be selected "); }
+                else { 
+                    ConsoleHandler.DisplayText("When the new rover is setup it will be called " + newRoverKey + " when you press the " + newRoverKey + " it will be selected ");
+                    newRoverStartLocation.locationFor = newRoverKey;
+
+                }
             }
             while (!validInput);
             
@@ -443,7 +447,7 @@ namespace Rover3
             if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
 
 
-            IList<RoverTasksValidation> roversTasksValidation = RoverManagerStatic.TryThenRunCommandString(userInput);
+            IList<RoverTasksValidation> roversTasksValidation = RoverManagerStatic.ValidateCommandStringRouteAndRun(userInput);
 
 
 
@@ -459,14 +463,9 @@ namespace Rover3
                 StringBuilder individualRoverReportsSB = new StringBuilder(successfulCommandExectutionTxt, 300);
                 for (int i = 0; i < roversTasksValidation.Count; i++) 
                 {
-                    //ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover])
-                    //We just want the end location of each 
-                    //currently we are getting alot of taskvalidations not just 2 if 2 rovers
-                    //should do one per unique key so check if already done it 
-                    //should displace them last moved last so work backwards through the list
-                    //why every direction change getting new task validation?
 
-                    individualRoverReportsSB.Append(ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover]));
+                    // individualRoverReportsSB.Append(ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover]));
+                    individualRoverReportsSB.Append(ReportLocationSingleRover(roversTasksValidation[i].TaskEndLocation));
                 }
 
                 return individualRoverReportsSB.ToString(); 
@@ -491,20 +490,22 @@ namespace Rover3
                 }
         }
 
-        public string ReportLocationSingleRover(Rover rover) {
+
+        //currently repeating this function - if location information 
+        public string ReportLocationSingleRover(LocationInfo locationInfo) { //this should be roverTaskValidation it is doing too much, it should be the rover that has its location history 
 
             StringBuilder LocationReport = new StringBuilder(150);
             //Append Line so not on same line as what being joined to
             LocationReport.AppendLine();
-            LocationReport.AppendFormat("ROVER {0}  REPORT: {1}Selected Rover Name {0}", rover.RoverKeyName, Environment.NewLine);
-            LocationReport.AppendFormat("{0}Rover location is X: {1} Y:{2}", Environment.NewLine, rover.CurrentLocation.XCoord.ToString(), RoverManagerStatic.SelectedRover.CurrentLocation.YCoord.ToString());
-            LocationReport.AppendFormat("{0}Rover is facing {1}", Environment.NewLine, rover.CurrentLocation.myOrientation.orientationName);
+            LocationReport.AppendFormat("ROVER {0}  REPORT: {1}Selected Rover Name {0}", locationInfo.locationFor, Environment.NewLine);
+            LocationReport.AppendFormat("{0}Rover location is X: {1} Y:{2}", Environment.NewLine, locationInfo.XCoord.ToString(), locationInfo.YCoord.ToString());
+            LocationReport.AppendFormat("{0}Rover is facing {1}", Environment.NewLine, locationInfo.myOrientation.orientationName);
             LocationReport.AppendLine();
             //Append Line so not on same line as what being joined to and if they do the same there should be a gap space
 
             return LocationReport.ToString();
         }
-        
+       
 
     }
 }

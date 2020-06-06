@@ -61,7 +61,7 @@ namespace Rover3
                 for (int i = 0; i < commandSequence.Count; i++)
                 {
 
-
+                    //if had hffhff would it know to use the last position set in same command
                     TestRouteLocation = commandSequence[i].ExecuteCommand(TestRouteLocation);
                     if (TestRouteLocation.withinXBounds == false || TestRouteLocation.withinYBounds == false)
                     {
@@ -76,16 +76,16 @@ namespace Rover3
                     
                 }
                 commandSequenceExecutableValidation.CommandsExecutionSuccess  = true;
+                commandSequenceExecutableValidation.TaskEndLocation = TestRouteLocation;
                 commandSequenceExecutableValidation.RoverMoved = true;
                 return commandSequenceExecutableValidation;
             }
 
         }
-
+        //in future make it return telemetry
         public RoverTasksValidation ExecuteCommandSequence(IList<MoveCommand> commandSequence)
         {
-            //If rover was real would be telemetry and checks as it went so all though not doing any
-            //validating I'm not going to make it void
+         
 
             RoverTasksValidation commandSequenceExecutableValidation = new RoverTasksValidation(RoverKeyName);
 

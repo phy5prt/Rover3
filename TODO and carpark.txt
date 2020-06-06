@@ -1,10 +1,37 @@
-//done alot this weekend
 
-//user interface line 463 next
+
+
+TODO this next step is to make this function work to support the above
+
+--Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
+
+ *********Need a locationInformation interface and then both validating and executing can have the interface and the report of an route error or route exection will take an object of that interface
+ *********Or reporting has two methods depending on the input it takes validation for a fail and it takes location for a success -- could still use interface
+
+		--- location info now holds what it is info for, so could just make every location info that is made add itself to a list, 
+		--- but we store the previous location of moving objects so with a bool for historic
+		--- and a destroy create for populating the list
+		--- currently use classes but structs are value types, consider passing refs, or structs instead -- but then would we beable to change a location to historic, or testLocation and it update in the list ... no
+        
+		---locationInfo should be passed instead of validation -> if fail pass the location info of the fail, if succeed pass the list of moves --- (do this by having the execute command create a location information list (and also update the main list)
+--- would need list of location executed, and last executed, the latter being the ones from the just executed command string
+---the correct constructor may work. 
+---Also consider dictionary of rovers and they hold a temporary locations and an actual one and go through the dictionary
+
+
+---->locationInfo and orientation are classes but this means copying them requires cloning - read up on cloning, using structs insted or passing references
+-- key behaviour is to be able to copy them and then revert. for testing the routes
+
+
+
+----------------------------------------------------------------------------------------------------***********-----
+
+----check what beginningindexofcommandvalidation is up to i added a plus 1
+
+
 
 //next steps get working with code smells
 
-//Work on : RoversTasksValidation
 
 //bug can set rover name to s on creation
 
@@ -346,3 +373,15 @@ should useInterface do all talking and make an object for managing rovers
 
 
 				//validate command sequence should return a list aswell or return the list of rovers so you know none moved
+
+
+
+
+
+
+				------------------------------Bugs-----------------------------
+				you can call your rover q, and if you do you can move it but you press a single q and it quits, use the dictionaries to disallow in use keys as names
+
+
+
+				-=-----rememeber command strings so can undo and redo  (deletions will be an issue)
