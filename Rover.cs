@@ -6,7 +6,7 @@ using System.Text;
 namespace Rover3
 {
     //comment
-    class Rover : IhasKeyboardKey //Receiver Class
+    class Rover : IKeyboardKey //Receiver Class
     {
         private LocationInfo _currentLocation;
         public LocationInfo CurrentLocation

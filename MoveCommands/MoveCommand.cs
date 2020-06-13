@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3.MoveCommands
 {
-    abstract class MoveCommand : IhasKeyboardKey //Command Class
+    abstract class MoveCommand : IKeyboardKey //Command Class
     {
         public abstract string Key { get; }
         public abstract string KeyFunctionDescription { get; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-    interface IhasKeyboardKey
+    interface IKeyboardKey
     {
         public abstract string Key { get; }
         public abstract string KeyFunctionDescription { get; }
