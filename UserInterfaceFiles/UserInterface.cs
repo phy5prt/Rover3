@@ -169,7 +169,7 @@ namespace Rover3
 
 
     
-        public CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr) {
+        private CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr) {
 
             CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation(); //is this overwritting the object or adding to it
             resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString; 
@@ -196,7 +196,7 @@ namespace Rover3
       
 
         //rearrange text order
-        public Rover CreateNewRover() {
+        private Rover CreateNewRover() {
             //Should i be making each information grab its own method, if so method in a method, or methods along side
             int newRoverXCoord, newRoverYCoord, newRoverXMin, newRoverXMax, newRoverYMin, newRoverYMax;
 
@@ -430,7 +430,7 @@ namespace Rover3
        
        // public string ChangeRover(Rover roverWantSelected) { selectedRover = roverWantSelected }
         //seperate out string validation the command be executable is for rover manager to decide
-        public string CheckProcessUserCommandInput(string userInput) {
+        private string CheckProcessUserCommandInput(string userInput) {
 
             //first this needs changing so validates key and the validate is a seperate method
             // then need to extract method for validating the task
@@ -492,7 +492,7 @@ namespace Rover3
 
 
         //currently repeating this function - if location information 
-        public string ReportLocationSingleRover(LocationInfo locationInfo) { //this should be roverTaskValidation it is doing too much, it should be the rover that has its location history 
+        private string ReportLocationSingleRover(LocationInfo locationInfo) { //this should be roverTaskValidation it is doing too much, it should be the rover that has its location history 
 
             StringBuilder LocationReport = new StringBuilder(150);
             //Append Line so not on same line as what being joined to

@@ -14,7 +14,7 @@ namespace Rover3.MoveCommands
     {
         //this class maybe should be available on all dics so maybe they should inherit from same abstract
         //actually will need to to build the list!
-        public static IList<Orientation> commandDicsList = new List<Orientation>();
+       // public static IList<Orientation> commandDicsList = new List<Orientation>();
         public static IList<MoveCommand> MoveCommandStrToCmdList(string userInput)
         {
             IList<MoveCommand> moveCommandList = new List<MoveCommand>();

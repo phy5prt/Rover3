@@ -80,15 +80,17 @@ namespace Rover3
                     }
                     else //change from rover to rover in succession
                     {
-  
+
                         //but dont if it is the first letter we dont want a report from the last string
                         //(unless it is the only input)
-                        if((!(i==0)) || (fullCommandStr.Length == 1))
+                        SelectedRover = RoverDictionary[fullCommandStr[i].ToString()];
+                        if ((!(i==0)) || (fullCommandStr.Length == 1))
                                                 {
+                            
                             roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr), beginningIndexOfCommandValidating));//Reports the previous rover that was select but had no command string
                         }
                         roverCommandStr = "";
-                        SelectedRover = RoverDictionary[fullCommandStr[i].ToString()];
+                        
                         beginningIndexOfCommandValidating = i + 1;
                         //if we are at the end of the command sequence then assign the subString to the current rover
                     }
@@ -141,7 +143,7 @@ namespace Rover3
        //time move for 10 minutes, turning is instant testing is also ten minutes. --- rovers not in same square as risk crash
        //need to design
 
-        public static void ExecuteCommandString(string fullCommandStr) {
+        private static void ExecuteCommandString(string fullCommandStr) {
 
             string roverCommandStr = "";
 
