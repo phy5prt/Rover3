@@ -41,13 +41,14 @@ namespace Rover3
 
         public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
      
-        public RoverTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence, int myStartingIndexOfAllRoversCommandString)
+        public RoverTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
         {
             RoverTasksValidation commandSequenceExecutableValidation = new RoverTasksValidation(RoverKeyName);
-
-        //this resets it but we may go to this rover and come back
-            //two solutions execute a rover at a time
-            //retain the test info
+            //should create a test route
+            //shouldnt clear it
+            //should only be reset on all rovers failing (but we only need it to fail once and we will stop checking the rest)
+            //or when location updates
+  
 
             if (commandSequence.Count == 0) // no commands just report where you are
             {
@@ -67,10 +68,10 @@ namespace Rover3
                     {
 
 
-                        commandSequenceExecutableValidation.InvalidCommandIndex = i+ myStartingIndexOfAllRoversCommandString;
+                        commandSequenceExecutableValidation.InvalidCommandIndex = i;
                         commandSequenceExecutableValidation.WhereCommandBecomesInvalid = TestRouteLocation;
                         commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
-                        RevertTestRoverToCurrentLocation();
+                        //we reverted here but shouldnt
                         return commandSequenceExecutableValidation;
                     }
                     
@@ -110,9 +111,9 @@ namespace Rover3
             return commandSequenceExecutableValidation;
         }
 
-        public void RevertTestRoverToCurrentLocation() //should this be called when a location is false
-        { 
-            TestRouteLocation = this._currentLocation.Clone() as LocationInfo; 
-        }
+        //public void RevertTestRoverToCurrentLocation() //should this be called when a location is false
+        //{ 
+        //    TestRouteLocation = this._currentLocation.Clone() as LocationInfo; 
+        //}
     }
 }

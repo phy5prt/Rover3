@@ -15,6 +15,11 @@ namespace Rover3
      roverReport everytime change rover and for last rover
      create a list of unavailable coordinates e.g x=0 y=5 is occupied = true occupee = RoverA
          
+
+        --cut string
+        --bool for group one fail all fail
+        --
+
          */
     static class RoverManagerStatic
     {
@@ -32,6 +37,52 @@ namespace Rover3
             //rover manager should change own selected rover
         }
 
+
+        //qqqqq
+        public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRunqqqq(string fullCommandStr) {
+            bool allRoverTasksPassed = false;
+            IList<string> roversCommandStrLs = new List<string>();
+            IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
+            //for location can check rovers weve validated for test location and ones we havent for actual
+
+            StringBuilder commandStringSegmentSB = new StringBuilder(50);
+            
+            //make roversCommandStrLs
+            for (int i = 0; i < fullCommandStr.Length; i++) {
+
+
+                if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString()){
+                    if (commandStringSegmentSB.Length > 0) {
+                        //current roverTask string has finished add it to list and start the next
+                        roversCommandStrLs.Add(commandStringSegmentSB.ToString());
+                     }
+                    commandStringSegmentSB.Clear().Append(fullCommandStr[i].ToString());
+                }
+                else {
+                    commandStringSegmentSB.Append(fullCommandStr[i].ToString());
+                }
+                //add if its the ned of te string
+                if (i == fullCommandStr.Length - 1) { 
+                    roversCommandStrLs.Add(commandStringSegmentSB.ToString());
+                    commandStringSegmentSB.Clear();
+                }   
+            }
+            //Check rover tasks
+            for (int i = 0; i < roversCommandStrLs.Count; i++) {
+
+                 string roverCommandStr = roversCommandStrLs[i];
+                    if (RoverDictionary.ContainsKey(roverCommandStr[0].ToString())){ 
+                    SelectedRover = RoverDictionary[roverCommandStr[0].ToString()];
+                    roverCommandStr = roverCommandStr.Substring(1);
+                    roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
+                }
+                    
+
+                } 
+            }
+
+
+        }
 
         public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRun(string fullCommandStr)
         {
