@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-    class LocationInfo : ICloneable
+    class LocationInfo 
     {
 
 

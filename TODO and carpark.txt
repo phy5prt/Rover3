@@ -23,7 +23,8 @@ TODO this next step is to make this function work to support the above
 ---->locationInfo and orientation are classes but this means copying them requires cloning - read up on cloning, using structs insted or passing references
 -- key behaviour is to be able to copy them and then revert. for testing the routes
 
-
+-- to revert have location startlocation, revertlocation, . set location = startlocation, var revertlocation = startlocation, do what you need to do to location then if it fail startlocation = revertlocation
+https://stackoverflow.com/questions/7477073/made-one-instance-of-a-class-equal-to-another-how-to-cancel-that
 
 ----------------------------------------------------------------------------------------------------***********-----
 

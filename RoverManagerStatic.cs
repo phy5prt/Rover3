@@ -40,7 +40,7 @@ namespace Rover3
 
         //qqqqq
         public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRunqqqq(string fullCommandStr) {
-            bool allRoverTasksPassed = false;
+            bool allRoverTasksPassed = true;
             IList<string> roversCommandStrLs = new List<string>();
             IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
             //for location can check rovers weve validated for test location and ones we havent for actual
@@ -61,25 +61,42 @@ namespace Rover3
                 else {
                     commandStringSegmentSB.Append(fullCommandStr[i].ToString());
                 }
-                //add if its the ned of te string
+                //add if its the end of te string
                 if (i == fullCommandStr.Length - 1) { 
                     roversCommandStrLs.Add(commandStringSegmentSB.ToString());
                     commandStringSegmentSB.Clear();
                 }   
             }
-            //Check rover tasks
-            for (int i = 0; i < roversCommandStrLs.Count; i++) {
+            //validate routes
+            int fullCommandStrIndex = 0;
+            for (int i = 0; i < roversCommandStrLs.Count; i++)
+            {
 
-                 string roverCommandStr = roversCommandStrLs[i];
-                    if (RoverDictionary.ContainsKey(roverCommandStr[0].ToString())){ 
+                string roverCommandStr = roversCommandStrLs[i];
+                if (RoverDictionary.ContainsKey(roverCommandStr[0].ToString()))
+                {
+                    fullCommandStrIndex++;
                     SelectedRover = RoverDictionary[roverCommandStr[0].ToString()];
                     roverCommandStr = roverCommandStr.Substring(1);
-                    roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
                 }
+                roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
+                //stop validating if route not possible and return
+                if (roversResponses[roversResponses.Count].CommandsExecutionSuccess == false)
+                {
+                    //converting invalid index from single rover command to full set of rover commands
+                    roversResponses[roversResponses.Count].InvalidCommandIndex += fullCommandStrIndex;
+                    //reset rovers --qqqq
+                    return roversResponses;
+                }
+                fullCommandStrIndex += roverCommandStr.Length;
+
+
+
+
+            }
                     
 
-                } 
-            }
+
 
 
         }
