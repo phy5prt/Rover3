@@ -111,9 +111,9 @@ namespace Rover3
             return commandSequenceExecutableValidation;
         }
 
-        //public void RevertTestRoverToCurrentLocation() //should this be called when a location is false
-        //{ 
-        //    TestRouteLocation = this._currentLocation.Clone() as LocationInfo; 
-        //}
+        public void RevertTestRoverToCurrentLocation() //should this be called when a location is false
+        {
+            TestRouteLocation = this._currentLocation.Clone() as LocationInfo;
+        }
     }
 }

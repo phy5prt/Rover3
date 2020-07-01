@@ -60,7 +60,7 @@ namespace Rover3
         bool _roverMoved = false;
         public bool RoverMoved { get { return this._roverMoved; } set { this._roverMoved = value; } } 
         public int InvalidCommandIndex { get; set; }
-        public string NameOfRover { get; set; } //not using yet
+        public string NameOfRover { get; set; } 
 
         public LocationInfo TaskEndLocation { get; set; }
         public LocationInfo WhereCommandBecomesInvalid { get => _whereLocationBecomesInvalid; set => _whereLocationBecomesInvalid = value; }

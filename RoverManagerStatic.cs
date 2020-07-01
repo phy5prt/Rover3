@@ -39,9 +39,10 @@ namespace Rover3
 
 
         //qqqqq
-        public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRunqqqq(string fullCommandStr) {
-            bool allRoverTasksPassed = true;
+        public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRun(string fullCommandStr) {
+            
             IList<string> roversCommandStrLs = new List<string>();
+            //command result or something that has a list of rover task validations, tracks the command, and a fail bool rather than giving the last rover the commandstr
             IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
             //for location can check rovers weve validated for test location and ones we havent for actual
 
@@ -51,7 +52,7 @@ namespace Rover3
             for (int i = 0; i < fullCommandStr.Length; i++) {
 
 
-                if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString()){
+                if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString())){
                     if (commandStringSegmentSB.Length > 0) {
                         //current roverTask string has finished add it to list and start the next
                         roversCommandStrLs.Add(commandStringSegmentSB.ToString());
@@ -85,7 +86,9 @@ namespace Rover3
                 {
                     //converting invalid index from single rover command to full set of rover commands
                     roversResponses[roversResponses.Count].InvalidCommandIndex += fullCommandStrIndex;
-                    //reset rovers --qqqq
+                    //reset rovers --
+
+                    foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
                     return roversResponses;
                 }
                 fullCommandStrIndex += roverCommandStr.Length;
@@ -94,113 +97,26 @@ namespace Rover3
 
 
             }
-                    
-
-
-
-
-        }
-
-        public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRun(string fullCommandStr)
-        {
-
-            //could i use int t for test loop int e for execture loop
-            int beginningIndexOfCommandValidating = 0;
-            IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
-            string roverCommandStr = "";
-
-            //****************************************************************     Test routes   *********************
-
-
-            for (int i = 0; i < fullCommandStr.Length; i++)
-            {
-                //check if a rover is being selected
-                if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString()))
-                {
-
-                    //if we get a new rover we can execute the string of the last
-                    //if there is a string to execute
-                    
-                    if (roverCommandStr.Length > 0 )
-                    {
-                        roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr), beginningIndexOfCommandValidating));
-                        if (  roversResponses[roversResponses.Count - 1].CommandsExecutionSuccess == false)
-                        {
-                            //This will not work properly because it needs to be in the context of the whole string
-                            //options are to return information to rover manager and rover manager make a report from previous ones 
-                            //Or we just change the report to say string command failed because rover X would not of been able to complete command because ...
-                            //or we make a list of response and send that back 
-                            // though if rover x would of blocked y this would be a problem
-                            //So maybe build the report up to the error or just add on the string that was cut off before this rovers <-- probably easiest best fix
-                            Console.WriteLine("false going out of bounds should return");
-                            roverCommandStr = "";//should not be necessary
-                            return roversResponses; //this stops the process and tells the user where it went wrong
-
-                        }
-                        else
-                        {
-                            
-                            roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr), beginningIndexOfCommandValidating));//this line is so get report just for changing rover
-                            roverCommandStr = "";
-                            SelectedRover = RoverDictionary[fullCommandStr[i].ToString()];
-                            beginningIndexOfCommandValidating = i + 1; //QQQQ should it be plus 1 it may get the rover name too
-                        }
-                    }
-                    else //change from rover to rover in succession
-                    {
-
-                        //but dont if it is the first letter we dont want a report from the last string
-                        //(unless it is the only input)
-                        SelectedRover = RoverDictionary[fullCommandStr[i].ToString()];
-                        if ((!(i==0)) || (fullCommandStr.Length == 1))
-                                                {
-                            
-                            roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr), beginningIndexOfCommandValidating));//Reports the previous rover that was select but had no command string
-                        }
-                        roverCommandStr = "";
-                        
-                        beginningIndexOfCommandValidating = i + 1;
-                        //if we are at the end of the command sequence then assign the subString to the current rover
-                    }
-
-                }
-                //if your have a command to run and you have either got to the last command so it is to be applied to the last rover or the rover has been just changed then give command to last rover
-                else if (MoveCommandDicManager.KeyExistsInAMoveCommandDictionary(fullCommandStr[i].ToString()) && (i == fullCommandStr.Length - 1))
-                {
-                    //this is the last command so add it to the string and then run it
-                    roverCommandStr += fullCommandStr[i].ToString();
-                    //qqqq add here
-                    roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr), beginningIndexOfCommandValidating));
-                    if (roversResponses[roversResponses.Count - 1].CommandsExecutionSuccess == false)
-                    {
-                        //if this string fails then return failure
-                        return roversResponses; //this stops the process and tells the user where it went wrong
-                    }
-                }
-
-
-                //if the command character is command rather than a rover use it to build the string
-                else if (MoveCommandDicManager.KeyExistsInAMoveCommandDictionary(fullCommandStr[i].ToString()))
-                {
-                    roverCommandStr += fullCommandStr[i].ToString();
-                }
-
-                else
-                {
-                    //we dont want a rover repsonse we want an error
-                    //but it is expecting a roverResponse
-                    Console.WriteLine("Shouldnt be here - error");
-                    return roversResponses;
-                }
-
-
-                //*************************************     EXECUTE       ****************************
-
-
-            }
+            //all passed reset the test and allow them to execute
+            foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
             ExecuteCommandString(fullCommandStr);
             return roversResponses;
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
         //if rovers all pass the executeCommandString should set 
         //a list of locations matching the taskValidation set of locations
         //it should put these into the rovers so they have a history +++ maybe in the get set whenever they receive a new location the last one is added to a list
