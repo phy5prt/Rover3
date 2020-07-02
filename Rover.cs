@@ -69,7 +69,7 @@ namespace Rover3
 
 
                         commandSequenceExecutableValidation.InvalidCommandIndex = i;
-                        commandSequenceExecutableValidation.WhereCommandBecomesInvalid = TestRouteLocation;
+                        commandSequenceExecutableValidation.WhereCommandBecomesInvalid = (LocationInfo)TestRouteLocation.Clone();
                         commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
                         //we reverted here but shouldnt
                         return commandSequenceExecutableValidation;
@@ -77,7 +77,7 @@ namespace Rover3
                     
                 }
                 commandSequenceExecutableValidation.CommandsExecutionSuccess  = true;
-                commandSequenceExecutableValidation.TaskEndLocation = TestRouteLocation;
+                commandSequenceExecutableValidation.TaskEndLocation = (LocationInfo)TestRouteLocation.Clone();
                 commandSequenceExecutableValidation.RoverMoved = true;
                 return commandSequenceExecutableValidation;
             }

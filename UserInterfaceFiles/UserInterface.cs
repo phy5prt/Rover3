@@ -461,11 +461,11 @@ namespace Rover3
                 //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
                 //Or contain the rover the have validated
                 StringBuilder individualRoverReportsSB = new StringBuilder(successfulCommandExectutionTxt, 300);
-                for (int i = 0; i < roversTasksValidation.Count; i++) 
+                for (int i = 0; i < roversTasksValidation.Count-1; i++) 
                 {
 
                     // individualRoverReportsSB.Append(ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover]));
-                    individualRoverReportsSB.Append(ReportLocationSingleRover(roversTasksValidation[i].TaskEndLocation));
+                    individualRoverReportsSB.Append(ReportLocationSingleRover(roversTasksValidation[i].TaskEndLocation)); //TaskEndLocation
                 }
 
                 return individualRoverReportsSB.ToString(); 
