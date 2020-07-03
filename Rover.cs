@@ -39,7 +39,7 @@ namespace Rover3
 
         public string KeyFunctionDescription { get { return "Press " + RoverKeyName + " to use rover " + RoverKeyName; } }
 
-        public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = initLocation; }
+        public Rover(String roverKeyName,LocationInfo initLocation) { this.RoverKeyName = roverKeyName; this.CurrentLocation = (LocationInfo)initLocation.Clone(); }
      
         public RoverTasksValidation validateRouteOfCommandSequence(IList<MoveCommand> commandSequence)
         {

@@ -2,7 +2,7 @@
 
 
 TODO this next step is to make this function work to support the above
-
+--write tests
 --update umc chart relationships
 --Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
 --redo rover manager now multipe rovers create list of rovers and their strings run them - if any fail reset all rovers in list test locations -- check locations against test locations of every rover in dictionary(just movements)

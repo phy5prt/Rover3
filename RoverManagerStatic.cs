@@ -51,6 +51,9 @@ namespace Rover3
 
             StringBuilder commandStringSegmentSB = new StringBuilder(50);
 
+            //if user presses return give them current location last used rover //qqqq should i just return it no command sequence etc //do i need to do the same for substrings length zero so if you put in name of a rover you get a report and a list of rovers a list of reports
+            if (fullCommandStr.Length == 0) { roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(fullCommandStr))); }
+
             //make roversCommandStrLs
             for (int i = 0; i < fullCommandStr.Length; i++)
             {
@@ -90,7 +93,7 @@ namespace Rover3
                 }
                 roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
                 //stop validating if route not possible and return
-                if (roversResponses[roversResponses.Count-1].CommandsExecutionSuccess == false)
+                if ( (roversResponses[roversResponses.Count-1].CommandsExecutionSuccess == false))
                 {
                     //converting invalid index from single rover command to full set of rover commands
                     roversResponses[roversResponses.Count-1].InvalidCommandIndex += fullCommandStrIndex;

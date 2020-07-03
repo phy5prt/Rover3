@@ -455,13 +455,14 @@ namespace Rover3
             //rover manager
             //IList<MoveCommand> userCommandList = StaticMoveCommandFactoryDic.MoveCommandStrToCmdList(userInput);
             //   roversTasksValidation = RoverManagerStatic.SelectedRover.validateRouteOfCommandSequence(userCommandList);
+            
             if (roversTasksValidation[roversTasksValidation.Count-1].CommandsExecutionSuccess)
                 {
                 //later use lambda expression
                 //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
                 //Or contain the rover the have validated
                 StringBuilder individualRoverReportsSB = new StringBuilder(successfulCommandExectutionTxt, 300);
-                for (int i = 0; i < roversTasksValidation.Count-1; i++) 
+                for (int i = 0; i < roversTasksValidation.Count; i++) 
                 {
 
                     // individualRoverReportsSB.Append(ReportLocationSingleRover(RoverManagerStatic.RoverDictionary[roversTasksValidation[i].NameOfRover]));

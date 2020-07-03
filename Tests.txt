@@ -1,0 +1,19 @@
+Test 1
+cannot chose keys from the existing keus
+fail C q Return numbers
+
+Test 2 
+//min and max 
+
+Test 3
+0 0 9 9 min and max face north
+fffffffff should return a location
+success
+
+Test 4 
+return is a report
+fail
+
+Test 5
+AB return location of rover a and b
+
