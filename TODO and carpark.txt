@@ -2,7 +2,11 @@
 
 
 TODO this next step is to make this function work to support the above
+--rover builder need to check if space is available for creation qqqq
 --write tests
+--error text right when out of bounds
+--multiple rovers same location not allowed
+--refactor each class
 --update umc chart relationships
 --Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
 --redo rover manager now multipe rovers create list of rovers and their strings run them - if any fail reset all rovers in list test locations -- check locations against test locations of every rover in dictionary(just movements)
@@ -13,7 +17,7 @@ TODO this next step is to make this function work to support the above
 		--- but we store the previous location of moving objects so with a bool for historic
 		--- and a destroy create for populating the list
 		--- currently use classes but structs are value types, consider passing refs, or structs instead -- but then would we beable to change a location to historic, or testLocation and it update in the list ... no
-        
+		
 		---locationInfo should be passed instead of validation -> if fail pass the location info of the fail, if succeed pass the list of moves --- (do this by having the execute command create a location information list (and also update the main list)
 --- would need list of location executed, and last executed, the latter being the ones from the just executed command string
 ---the correct constructor may work. 
@@ -178,27 +182,27 @@ make program so can quit anytime even if part way through a method eg creating a
 // Dictionaries, Drive, Face, Turn, UserInterfacecommand - but how will drive face and turn reflectively build themselves? - use namespaces?
 
 //Chose initial orientation for your rover
-            //I cant use this :
-            //string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
-            //because it would include the movement commands
-            //so if I wanted to create a ne orientation i would have to alter this code
-            //which suggests they should be two different dictionaries
-            //or that each method should hold its own description of what it does and the interface can the just get the keys
-            //and the description and put them up
-            //best solution is seperate dictionary but still good idea to have a description in the commands
+			//I cant use this :
+			//string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
+			//because it would include the movement commands
+			//so if I wanted to create a ne orientation i would have to alter this code
+			//which suggests they should be two different dictionaries
+			//or that each method should hold its own description of what it does and the interface can the just get the keys
+			//and the description and put them up
+			//best solution is seperate dictionary but still good idea to have a description in the commands
 
 //CommandFactory is static but if rovers were later required to have different commands
-    //I would need to drop the static and give them own dictionaries
-    //or make a static command dictionary factory that builds custom dictionaries to initialise
-    //rovers with
+	//I would need to drop the static and give them own dictionaries
+	//or make a static command dictionary factory that builds custom dictionaries to initialise
+	//rovers with
 
 
 
 	Revise (lambda) context this:
 	static StaticCommandFactoryDic() {
-            var commands = Assembly.GetAssembly(typeof(Command)).GetTypes()
-                .Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOF(typeof(Ability)));
-        }
+			var commands = Assembly.GetAssembly(typeof(Command)).GetTypes()
+				.Where(myCommand => myCommand.IsClass && !myCommand.IsAbstract && myCommand.IsSubclassOF(typeof(Ability)));
+		}
 
 		Is it possible to have a folder and just ask the dictionary to put all classes in the folder into  itself? or a namespace?
 
@@ -207,12 +211,12 @@ make program so can quit anytime even if part way through a method eg creating a
 
 
 		
-            Orientation newRoverOrientation; // this does work because have no was of setting an orientation just of applying one 
-            //to a current locationInfor
-            //therefore will need to make a location Information and then apply the command face east to overide our default
-            //this may be bad design so maybe I should be setting all orientations based on degrees or radians starting north
+			Orientation newRoverOrientation; // this does work because have no was of setting an orientation just of applying one 
+			//to a current locationInfor
+			//therefore will need to make a location Information and then apply the command face east to overide our default
+			//this may be bad design so maybe I should be setting all orientations based on degrees or radians starting north
 
-            //We have to initialise a location with default values and overwrite it because we can over write an orientation but we have now way of just making one
+			//We have to initialise a location with default values and overwrite it because we can over write an orientation but we have now way of just making one
 
 should useInterface do all talking and make an object for managing rovers
 
@@ -233,11 +237,11 @@ should useInterface do all talking and make an object for managing rovers
 		//"Key", "Instruction string e.g. command makes the rover FaceLeft ... or stepLeft"
 		//so maybe command for movements, delegate for orientations
 
-		        Rover selectedRover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
-        //maybe dictionary should hold this and getter and setter should alter the selectedRover
-        //or being an object will changes translate anywya
-        //maybe should store test rover here too 
-        //and make dictionary rover manager
+				Rover selectedRover;// = new Rover(new LocationInfo(new North(), 0, 0, 0, 10, 0, 10));
+		//maybe dictionary should hold this and getter and setter should alter the selectedRover
+		//or being an object will changes translate anywya
+		//maybe should store test rover here too 
+		//and make dictionary rover manager
 
 
 		//should rover move itself or should it be moved, should it test itself
@@ -304,22 +308,22 @@ should useInterface do all talking and make an object for managing rovers
 		//for something like this:
 
 		  private string Instructions
-        {
-            get
-            {
-                //C create, D destroy,
-                StringBuilder instructions = new StringBuilder(300);
-        instructions = String.Format("Input single characters to activate user commands. " +
-                    "Q to quit. (Dictionary here) C to create. Input return with no characters to get a full report on all rovers. " +
-                    "To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute." +
-                    "For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE. If rover T is the currently selected rover you can type FYBUE." +
-                    insertline
-                    "Rovers  : " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + 
-                    insertline
-                    "Commands: " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray()));
-                return this._instructions.ToString();
-            }
-        }
+		{
+			get
+			{
+				//C create, D destroy,
+				StringBuilder instructions = new StringBuilder(300);
+		instructions = String.Format("Input single characters to activate user commands. " +
+					"Q to quit. (Dictionary here) C to create. Input return with no characters to get a full report on all rovers. " +
+					"To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute." +
+					"For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE. If rover T is the currently selected rover you can type FYBUE." +
+					insertline
+					"Rovers  : " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + 
+					insertline
+					"Commands: " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray()));
+				return this._instructions.ToString();
+			}
+		}
 		it would nice to have a set that automatically updates when ever dictionaries changed --- not necessary here
 		
 		//but would be nice to know if can - but think needs listners
@@ -349,9 +353,9 @@ should useInterface do all talking and make an object for managing rovers
 
 		//static class DriveCommandsDicCS : MoveCommandDicAbs doesnt work cannot use a base class for static
 		namespace Rover3.MoveCommands
-    //This doesn't seem right an empty abstract just so can grab dictionaries through reflection
-    //should this class actually make those dictionaries in their name spaces
-    abstract class MoveCommandDicAbs
+	//This doesn't seem right an empty abstract just so can grab dictionaries through reflection
+	//should this class actually make those dictionaries in their name spaces
+	abstract class MoveCommandDicAbs
 
 	//could make a public static list that is part of each dictionary that they add to with creation - as they all have it seems like it could be from abstract
 
@@ -370,7 +374,7 @@ should useInterface do all talking and make an object for managing rovers
 
 
 	  //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
-                //Or contain the rover the have validated
+				//Or contain the rover the have validated
 				//or should the rover hold its last task validation - would need to be a list if it is called multiple time in a command string
 
 

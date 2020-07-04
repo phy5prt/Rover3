@@ -54,6 +54,7 @@ namespace Rover3
             {
                 commandSequenceExecutableValidation.CommandsExecutionSuccess = true;
                 commandSequenceExecutableValidation.RoverMoved = false;
+                commandSequenceExecutableValidation.TaskEndLocation = (LocationInfo)TestRouteLocation.Clone();
                 return commandSequenceExecutableValidation;
             }
 
@@ -73,6 +74,29 @@ namespace Rover3
                         commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
                         //we reverted here but shouldnt
                         return commandSequenceExecutableValidation;
+                    }
+
+                    //check if rover already exists in this position
+                    //can do this too many ways need to reduce where information is held
+                    //testLocation is reset so is always the one we want whether rover is doing a test sequence or not
+                    //so maybe rename it
+                    //alternatively look at using the list of task validation to know whether to check test or not
+                    foreach(Rover rover in RoverManagerStatic.RoverDictionary.Values) 
+                    {
+                        if(this.RoverKeyName == rover.RoverKeyName){ continue; }
+                        if ((TestRouteLocation.XCoord == rover.TestRouteLocation.XCoord) && (TestRouteLocation.XCoord == rover.TestRouteLocation.XCoord))
+                        {
+                            //Rover would hit this rover
+                            //the report should be made in the validation not later 
+                            //this way we could have the logic here for the new report
+
+                            commandSequenceExecutableValidation.InvalidCommandIndex = i;
+                            commandSequenceExecutableValidation.WhereCommandBecomesInvalid = (LocationInfo)TestRouteLocation.Clone();
+                            commandSequenceExecutableValidation.CommandsExecutionSuccess = false; //this built into setter anyway!
+                            commandSequenceExecutableValidation.NameOfRoverCollidedWith = rover.RoverKeyName;                                                            //we reverted here but shouldnt
+                            return commandSequenceExecutableValidation;
+
+                        }
                     }
                     
                 }

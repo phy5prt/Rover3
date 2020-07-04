@@ -432,15 +432,9 @@ namespace Rover3
         //seperate out string validation the command be executable is for rover manager to decide
         private string CheckProcessUserCommandInput(string userInput) {
 
-            //first this needs changing so validates key and the validate is a seperate method
-            // then need to extract method for validating the task
-            //then validations once set up right need altering to be based on dictionaries
-        
-            StringBuilder errorWithTaskValidation = new StringBuilder("errorUnableToExecuteCommands", 150);
-            errorWithTaskValidation.AppendLine(); //so not connected to anything added to 
-          
+            
 
-            string successfulCommandExectutionTxt = " The rover(s) has successfully been moved.";
+            string successfulCommandExectutionTxt = " The rover(s) successfully executed commands.";
 
             CommandKeyValidation commandKeyValidation = new CommandKeyValidation();
             commandKeyValidation = ValidateCommandKeySeq(userInput);
@@ -473,19 +467,26 @@ namespace Rover3
                 
                 }
                 else {
-                //differentiating from out of bound or object or rover would be good
-                // telling them the bounds would be good to  
+                //first this needs changing so validates key and the validate is a seperate method
+                // then need to extract method for validating the task
+                //then validations once set up right need altering to be based on dictionaries
 
+                StringBuilder errorWithTaskValidation = new StringBuilder(150);
+                errorWithTaskValidation.AppendLine(); //so not connected to anything added to 
+                errorWithTaskValidation.AppendLine(errorUnableToExecuteCommands);
+                errorWithTaskValidation.AppendLine(userInput.Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex, "*").Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex + 2, "*"));
+            
 
-                //!!!!!!! The index here will not be of the whole string?
-                //!!!!!!! can rover get the index right ... No rover doesnt get whole string
-                //!!!!!!! Could rover pass back it own string with own error and the show full string, then name of rover, then where it failed its string.  ffffaff rover a reported fail at f*f*
-
-                errorWithTaskValidation.Append(userInput.Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex, "*").Insert(roversTasksValidation[roversTasksValidation.Count - 1].InvalidCommandIndex + 2, "*"));
-               
                 //!!!!!! Should say which rover
-                //errorUnableToExecuteCommands +=  string.Format(" because it would be out of bounds at X = {0} and Y = {1}.", roversTasksValidation.WhereCommandBecomesInvalid.XCoord.ToString(), roversTasksValidation.WhereCommandBecomesInvalid.YCoord.ToString());
-                errorWithTaskValidation.AppendFormat("{0}{1}", noLocationChange, validStringRequest);
+                errorWithTaskValidation.AppendFormat(
+                    "because it would {0} at X = {1} and Y = {2}.",
+                    ((roversTasksValidation[roversTasksValidation.Count - 1].NameOfRoverCollidedWith == null)? "be out of bounds": ("collide with rover " + roversTasksValidation[roversTasksValidation.Count - 1].NameOfRoverCollidedWith)), 
+                    roversTasksValidation[roversTasksValidation.Count - 1].WhereCommandBecomesInvalid.XCoord.ToString(),
+                    roversTasksValidation[roversTasksValidation.Count - 1].WhereCommandBecomesInvalid.YCoord.ToString()
+                    );
+                
+                errorWithTaskValidation.AppendLine(noLocationChange);
+                errorWithTaskValidation.AppendLine(validStringRequest);
                 errorWithTaskValidation.AppendLine();
                 return errorWithTaskValidation.ToString(); 
                 }

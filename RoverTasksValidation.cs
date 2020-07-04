@@ -61,7 +61,7 @@ namespace Rover3
         public bool RoverMoved { get { return this._roverMoved; } set { this._roverMoved = value; } } 
         public int InvalidCommandIndex { get; set; }
         public string NameOfRover { get; set; } 
-
+        public string NameOfRoverCollidedWith { get; set; }
         public LocationInfo TaskEndLocation { get; set; }
         public LocationInfo WhereCommandBecomesInvalid { get => _whereLocationBecomesInvalid; set => _whereLocationBecomesInvalid = value; }
 

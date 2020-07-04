@@ -12,8 +12,20 @@ success
 
 Test 4 
 return is a report
-fail
+success
 
 Test 5
 AB return location of rover a and b
+success
 
+Test 6
+rover a multiple intructions one out of bounds should reset
+success
+
+Test 7
+rover 1 in bounds rover 2 out of bounds same command string both reset
+success
+
+Test 8 
+cant create rover on top of another rover
+fail
