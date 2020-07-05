@@ -84,7 +84,7 @@ namespace Rover3
                     foreach(Rover rover in RoverManagerStatic.RoverDictionary.Values) 
                     {
                         if(this.RoverKeyName == rover.RoverKeyName){ continue; }
-                        if ((TestRouteLocation.XCoord == rover.TestRouteLocation.XCoord) && (TestRouteLocation.XCoord == rover.TestRouteLocation.XCoord))
+                        if ((TestRouteLocation.XCoord == rover.TestRouteLocation.XCoord) && (TestRouteLocation.YCoord == rover.TestRouteLocation.YCoord))
                         {
                             //Rover would hit this rover
                             //the report should be made in the validation not later 

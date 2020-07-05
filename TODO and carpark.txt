@@ -3,6 +3,7 @@
 
 TODO this next step is to make this function work to support the above
 --rover builder need to check if space is available for creation qqqq
+--full rover report get all rovers to report location -- R key -- also run if they chose a wrong range or location due to it being full of rovers
 --write tests
 --error text right when out of bounds
 --multiple rovers same location not allowed

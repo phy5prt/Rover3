@@ -35,14 +35,6 @@ namespace Rover3
             NameOfRover = roverValidatingName;
         }
 
-        //Should have a list a validations and when you add a validation report to another it adds itself to its list and then adds its list to the existing rovers list
-        //!!!!!! Should store its string
-        //!!!!!! When rebuilding its string from history if we started with rover selected it won't know if was selected from last command or this ??? which will put the error index out !!!Also if user types aaaaffff will get affff
-        //!!!!!! therefore need to pass in original string! and not read the letters
-        //!!!!!! Should translate rover index issue to original string index
-        //!!!!!! Should receive rover name
-
-        //List<RoversTasksValidation> historyOfRoverValidations = new List<RoversTasksValidation>();
 
         private LocationInfo _whereLocationBecomesInvalid;
 

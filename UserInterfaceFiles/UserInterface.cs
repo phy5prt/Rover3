@@ -224,7 +224,7 @@ namespace Rover3
 
             ConsoleHandler.DisplayText(roverCreationInstructiongString);
            
-            bool validInput;
+            bool validInput, validXY, validXYRange;
             do
             {
                 ConsoleHandler.DisplayText("Enter a single unique key to select your rover with.");
@@ -244,145 +244,216 @@ namespace Rover3
             ConsoleHandler.DisplayText("You will now choose the area your rover is allowed to move within by setting a min and max for X and Y coordinates. These numbers are inclusive.");
             //If get boundaries mixed up need a key to allow them to reset that section 
 
-
-            //Choose your Xmin
+            //Check range has values in it where rovers can be placed
             do
             {
-                ConsoleHandler.DisplayText("Please choose the minimum X position you want your rover to be able to go to");
+ 
+                //Choose your Xmin
+                do
+                {
+                    ConsoleHandler.DisplayText("Please choose the minimum X position you want your rover to be able to go to");
 
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverXMin); //should i be able to drop the  field and use xLowBound
-                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
-                else {
-                 newRoverStartLocation.xLowBound = newRoverXMin;
-                    ConsoleHandler.DisplayText("X minimum boundary has been set to " + newRoverStartLocation.xLowBound); }
-            }
-            while (!validInput);
-
-
-            //Choose your  YMin
-
-            do
-            {
-                ConsoleHandler.DisplayText("Please choose the minimum Y position you want your rover to be able to go to");
-
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverYMin);
-                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
-                else {
-                   newRoverStartLocation.yLowBound = newRoverYMin;
-                    ConsoleHandler.DisplayText("Y minimum boundary has been set to " + newRoverStartLocation.yLowBound ); }
-            }
-            while (!validInput);
-
-            //Choose your  XMax
-
-            do
-            {
-                ConsoleHandler.DisplayText("Please choose the maximum X position you want your rover to be able to go to");
-
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverXMax);
-                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
-
-                } else if(!(newRoverXMax >= newRoverXMin))
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverXMin); //should i be able to drop the  field and use xLowBound
+                    if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                    else
                     {
-                    validInput = false;
-                    ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
+                        newRoverStartLocation.xLowBound = newRoverXMin;
+                        ConsoleHandler.DisplayText("X minimum boundary has been set to " + newRoverStartLocation.xLowBound);
+                    }
                 }
-                
-                else {
-                    newRoverStartLocation.xHighBound = newRoverXMax;
-                    ConsoleHandler.DisplayText("X maximum boundary has been set to " + newRoverStartLocation.xHighBound ); }
-            }
-            while (!validInput);
+                while (!validInput);
 
-            //Choose your  YMax
 
-            do
-            {
-                ConsoleHandler.DisplayText("Please choose the maximum Y position you want your rover to be able to go to");
+                //Choose your  YMin
 
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverYMax);
-                if (!validInput)
+                do
                 {
-                    ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
+                    ConsoleHandler.DisplayText("Please choose the minimum Y position you want your rover to be able to go to");
 
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverYMin);
+                    if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
+                    else
+                    {
+                        newRoverStartLocation.yLowBound = newRoverYMin;
+                        ConsoleHandler.DisplayText("Y minimum boundary has been set to " + newRoverStartLocation.yLowBound);
+                    }
                 }
-                else if (!(newRoverYMax >= newRoverYMin))
+                while (!validInput);
+
+                //Choose your  XMax
+
+                do
                 {
-                    validInput = false;
-                    ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
-                }
-                else{
+                    ConsoleHandler.DisplayText("Please choose the maximum X position you want your rover to be able to go to");
 
-               newRoverStartLocation.yHighBound = newRoverYMax;
-                ConsoleHandler.DisplayText("Y maximum boundary has been set to " + newRoverStartLocation.yHighBound);
-                }
-            }
-            while (!validInput);
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverXMax);
+                    if (!validInput)
+                    {
+                        ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
 
+                    }
+                    else if (!(newRoverXMax >= newRoverXMin))
+                    {
+                        validInput = false;
+                        ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
+                    }
+
+                    else
+                    {
+                        newRoverStartLocation.xHighBound = newRoverXMax;
+                        ConsoleHandler.DisplayText("X maximum boundary has been set to " + newRoverStartLocation.xHighBound);
+                    }
+                }
+                while (!validInput);
+
+                //Choose your  YMax
+
+                do
+                {
+                    ConsoleHandler.DisplayText("Please choose the maximum Y position you want your rover to be able to go to");
+
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverYMax);
+                    if (!validInput)
+                    {
+                        ConsoleHandler.DisplayText(userInput + " is not a valid integer ");
+
+                    }
+                    else if (!(newRoverYMax >= newRoverYMin))
+                    {
+                        validInput = false;
+                        ConsoleHandler.DisplayText(userInput + " the maximum X boundary must be greater than or equal to the minimum. The min boundary is " + newRoverXMin.ToString()); // here will need option to reset min
+                    }
+                    else
+                    {
+
+                        newRoverStartLocation.yHighBound = newRoverYMax;
+                        ConsoleHandler.DisplayText("Y maximum boundary has been set to " + newRoverStartLocation.yHighBound);
+                    }
+                }
+                while (!validInput);
+
+                //check if ranges have any placeable locations
+                validXYRange = false;
+               
+                    
+                for (int rangeXCoord = newRoverXMin; rangeXCoord <= newRoverXMax; rangeXCoord++) {
+                    for (int rangeYCoord = newRoverYMin; rangeYCoord <= newRoverYMax; rangeYCoord++) {
+                        
+                        foreach (Rover rover in RoverManagerStatic.RoverDictionary.Values)
+                        {
+                        
+
+                            //continue if space taken
+                            if ((rangeXCoord == rover.CurrentLocation.XCoord) && (rangeYCoord == rover.CurrentLocation.YCoord))
+                            {
+                                break;      //check next coord this one occupied           
+                                
+                            }
+                            //no rovers had the position
+                            //qqqq logic is flawed 
+                            if (rover.Equals(Last))
+                            {
+                                validXYRange = true;
+                                break;
+                                //Im breaking out using the bool, to avoid using go to or sitting the loop in a method
+                            }
+                        }
+                       
+
+                    }
+                    if (validXYRange) { break; }
+
+                }
+                if (!validXYRange) 
+                {
+                    ConsoleHandler.DisplayText(String.Format("The range ({0}-{1},{2}-{3}) has no available locations within it. Please select a range which includes locations unoccupied by rovers and able to receive your rover.", newRoverXMin.ToString(), newRoverXMax.ToString(), newRoverYMin.ToString(), newRoverYMax.ToString()));
+                }
+
+            } while (!validXYRange);
 
             //Chose your coords
 
             ConsoleHandler.DisplayText("You will now choose your starting coords for your new rover. " +
                 "They must be within or equal to the range values you set for X and Y. " +
-                " For X that is " + newRoverStartLocation.xLowBound.ToString()+"-"+ newRoverStartLocation.xHighBound.ToString()+ 
-                " For Y that is " + newRoverStartLocation.yLowBound.ToString() +" - "+ newRoverStartLocation.yHighBound.ToString());
+                " For X that is " + newRoverStartLocation.xLowBound.ToString() + "-" + newRoverStartLocation.xHighBound.ToString() +
+                " For Y that is " + newRoverStartLocation.yLowBound.ToString() + " - " + newRoverStartLocation.yHighBound.ToString());
 
             //Chose your XCoord
-
             do
             {
-                ConsoleHandler.DisplayText("Please choose an initial X coordinate value for the rover.");
-                
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverXCoord);
-                if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
-                else
+                do
                 {
-                    newRoverStartLocation.XCoord = newRoverXCoord;
-                    if (!newRoverStartLocation.withinXBounds)
-                    {
-                        validInput = false;
-                        ConsoleHandler.DisplayText("The given X coord " + newRoverStartLocation.XCoord.ToString() + " is not within the X bounds of " + newRoverStartLocation.xLowBound.ToString() + "-" + newRoverStartLocation.xHighBound.ToString());
-                    }
+                    ConsoleHandler.DisplayText("Please choose an initial X coordinate value for the rover.");
+
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverXCoord);
+                    if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                     else
                     {
-                        ConsoleHandler.DisplayText("X coord has been set to " + newRoverStartLocation.XCoord.ToString() );
+                        newRoverStartLocation.XCoord = newRoverXCoord;
+                        if (!newRoverStartLocation.withinXBounds)
+                        {
+                            validInput = false;
+                            ConsoleHandler.DisplayText("The given X coord " + newRoverStartLocation.XCoord.ToString() + " is not within the X bounds of " + newRoverStartLocation.xLowBound.ToString() + "-" + newRoverStartLocation.xHighBound.ToString());
+                        }
+                        else
+                        {
+                            ConsoleHandler.DisplayText("X coord has been set to " + newRoverStartLocation.XCoord.ToString());
+                        }
                     }
                 }
-            }
-            
-            while (!validInput);
+
+                while (!validInput);
 
 
                 //Chose your YCoord
 
-            do
-            {
-                ConsoleHandler.DisplayText("Please choose an initial Y coordinate value for the rover");
-                userInput = ConsoleHandler.GetUserInput();
-                validInput = Int32.TryParse(userInput, out newRoverYCoord);
+                do
+                {
+                    ConsoleHandler.DisplayText("Please choose an initial Y coordinate value for the rover");
+                    userInput = ConsoleHandler.GetUserInput();
+                    validInput = Int32.TryParse(userInput, out newRoverYCoord);
                     if (!validInput) { ConsoleHandler.DisplayText(userInput + " is not a valid integer "); }
                     else
                     {
                         newRoverStartLocation.YCoord = newRoverYCoord;
                         if (!newRoverStartLocation.withinYBounds)
                         {
-                        validInput = false;
-                        ConsoleHandler.DisplayText("The given Y coord " + newRoverStartLocation.YCoord.ToString() + " is not within the Y bounds of " + newRoverStartLocation.yLowBound.ToString() + "-" + newRoverStartLocation.yHighBound.ToString());
+                            validInput = false;
+                            ConsoleHandler.DisplayText("The given Y coord " + newRoverStartLocation.YCoord.ToString() + " is not within the Y bounds of " + newRoverStartLocation.yLowBound.ToString() + "-" + newRoverStartLocation.yHighBound.ToString());
                         }
                         else
                         {
                             ConsoleHandler.DisplayText("Y coord has been set to " + newRoverStartLocation.YCoord.ToString());
                         }
                     }
-                    
-            }
-            while (!validInput);
 
+
+
+                }
+                while (!validInput);
+                //need to loop back to the x 
+                //need to check if the range user input has any valid locations if not cant make rover with those limits.
+                //check if rover already exists in this position
+                //we do this in the validation to should this be a rover rover manager method - we should not be operating on the dictionary it should be
+                validXY = true;
+                foreach (Rover rover in RoverManagerStatic.RoverDictionary.Values)
+                {
+
+                    if ((newRoverXCoord == rover.CurrentLocation.XCoord) && (newRoverYCoord == rover.CurrentLocation.YCoord))
+                    {
+                        //Rover would be created on another rover  
+                        ConsoleHandler.DisplayText(String.Format("The given coordinate ({0},{1}) is already occupied by rover {2}. Please chose a different location",
+                        newRoverStartLocation.XCoord.ToString(), newRoverStartLocation.YCoord.ToString(), rover.RoverKeyName));                                                          //we reverted here but shouldnt
+                        validXY = false;
+                        validInput = false;
+                    }
+                }
+            } while (!validXY);
 
 
 
@@ -488,6 +559,7 @@ namespace Rover3
                 errorWithTaskValidation.AppendLine(noLocationChange);
                 errorWithTaskValidation.AppendLine(validStringRequest);
                 errorWithTaskValidation.AppendLine();
+                //should it tell you the rovers bounds - could do this in the location report
                 return errorWithTaskValidation.ToString(); 
                 }
         }
