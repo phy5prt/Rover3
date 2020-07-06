@@ -2,11 +2,16 @@
 
 
 TODO this next step is to make this function work to support the above
---rover builder need to check if space is available for creation qqqq
---full rover report get all rovers to report location -- R key -- also run if they chose a wrong range or location due to it being full of rovers
+
+--check range is positive when set up
+-- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
+--instruction include interface keys
+--numbers can be handled as multipliers by the consolerhandler --- putting in letter for numbers, and taking out again -- unless asterixes in that section
+--implement destroy
+--left and right implemented
+--scienceAction commands e.g. sample soil, air, -- store data and then map report for soil, air, -- obstacles
+--introduce unexpected obstacle -- known and unknow sectors -- when one rover hits obstacle all should stop and wait for further instruction -- return what of string executed and what not
 --write tests
---error text right when out of bounds
---multiple rovers same location not allowed
 --refactor each class
 --update umc chart relationships
 --Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
@@ -33,7 +38,7 @@ https://stackoverflow.com/questions/7477073/made-one-instance-of-a-class-equal-t
 
 ----------------------------------------------------------------------------------------------------***********-----
 
-----check what beginningindexofcommandvalidation is up to i added a plus 1
+
 
 
 

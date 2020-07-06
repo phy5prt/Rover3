@@ -8,6 +8,9 @@ namespace Rover3
     //comment
     class Rover : IKeyboardKey //Receiver Class
     {
+        //i dont like that we check test location for all rovers to find their current location and location if testing
+        //but dont want to change current location and keep physicalLocation to revert to
+        //assignedLocation instead of test?
         private LocationInfo _currentLocation;
         public LocationInfo CurrentLocation
         {

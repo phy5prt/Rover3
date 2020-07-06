@@ -28,4 +28,14 @@ success
 
 Test 8 
 cant create rover on top of another rover
-fail
+succes
+
+test 9
+cant create coordinate range with no available spaces for rover
+success
+
+test 10
+r reports all rovers or says create if zero
+success
+
+

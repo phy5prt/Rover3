@@ -27,6 +27,7 @@ namespace Rover3
         StringBuilder instructions = new StringBuilder(300); //if this is here can reuse it instead of regenerating but is this better
         String partUserCommandsInput = "Interface instructions : Single characters are used to activate user interface commands such as: Press Q to quit, ";
         String partRoverCommandsExample = "Input return with no characters to get a full report on all rovers.To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute. These commands can be several characters. For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE.If rover T is the currently selected rover you can type FYBUE and the initial commands will be given to rover 'T'.";
+        String instructionCreateRover = "There are currently no rovers press C to create one ";
         private string Instructions
         {
             get
@@ -71,7 +72,7 @@ namespace Rover3
                 }
                 else
                 {
-                    return roverKeyInstructionSB.AppendLine( "There are currently no rovers press C to create one ").ToString(); 
+                    return roverKeyInstructionSB.AppendLine( instructionCreateRover).ToString(); 
                 }
                    
             }
@@ -158,7 +159,8 @@ namespace Rover3
                 if (userInput == "Q") { Environment.Exit(0); }
                       
                 if (userInput == "C") {  CreateNewRover(); continue; } //else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
-                
+
+                if (userInput == "R") { ReportLocationAllRovers(); continue; }
                 //not a interface command so must be a string
                 ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
             }
@@ -338,11 +340,11 @@ namespace Rover3
 
                 //check if ranges have any placeable locations
                 validXYRange = false;
-               
-                    
+                bool thisCoordHasRover = false;
+
                 for (int rangeXCoord = newRoverXMin; rangeXCoord <= newRoverXMax; rangeXCoord++) {
                     for (int rangeYCoord = newRoverYMin; rangeYCoord <= newRoverYMax; rangeYCoord++) {
-                        
+                        thisCoordHasRover = false;
                         foreach (Rover rover in RoverManagerStatic.RoverDictionary.Values)
                         {
                         
@@ -350,27 +352,24 @@ namespace Rover3
                             //continue if space taken
                             if ((rangeXCoord == rover.CurrentLocation.XCoord) && (rangeYCoord == rover.CurrentLocation.YCoord))
                             {
+                                thisCoordHasRover = true;
                                 break;      //check next coord this one occupied           
                                 
                             }
-                            //no rovers had the position
-                            //qqqq logic is flawed 
-                            if (rover.Equals(Last))
-                            {
-                                validXYRange = true;
-                                break;
-                                //Im breaking out using the bool, to avoid using go to or sitting the loop in a method
-                            }
+                           
                         }
+                        if (thisCoordHasRover) { continue; } else { break; }
                        
 
                     }
-                    if (validXYRange) { break; }
+                    if (thisCoordHasRover) { continue; } else { break; }
 
                 }
+                validXYRange = !thisCoordHasRover;
                 if (!validXYRange) 
                 {
-                    ConsoleHandler.DisplayText(String.Format("The range ({0}-{1},{2}-{3}) has no available locations within it. Please select a range which includes locations unoccupied by rovers and able to receive your rover.", newRoverXMin.ToString(), newRoverXMax.ToString(), newRoverYMin.ToString(), newRoverYMax.ToString()));
+                    ConsoleHandler.DisplayText(String.Format("The range ({0}-{1},{2}-{3}) has no available locations within it. Please select a range which includes locations unoccupied by rovers and able to receive your rover. Showing occupied locations : ", newRoverXMin.ToString(), newRoverXMax.ToString(), newRoverYMin.ToString(), newRoverYMax.ToString()));
+                    ReportLocationAllRovers();
                 }
 
             } while (!validXYRange);
@@ -447,8 +446,9 @@ namespace Rover3
                     if ((newRoverXCoord == rover.CurrentLocation.XCoord) && (newRoverYCoord == rover.CurrentLocation.YCoord))
                     {
                         //Rover would be created on another rover  
-                        ConsoleHandler.DisplayText(String.Format("The given coordinate ({0},{1}) is already occupied by rover {2}. Please chose a different location",
-                        newRoverStartLocation.XCoord.ToString(), newRoverStartLocation.YCoord.ToString(), rover.RoverKeyName));                                                          //we reverted here but shouldnt
+                        ConsoleHandler.DisplayText(String.Format("The given coordinate ({0},{1}) is already occupied by rover {2}. Please chose a different location. Currently occupied locations : ",
+                        newRoverStartLocation.XCoord.ToString(), newRoverStartLocation.YCoord.ToString(), rover.RoverKeyName));
+                        ReportLocationAllRovers();
                         validXY = false;
                         validInput = false;
                     }
@@ -563,11 +563,26 @@ namespace Rover3
                 return errorWithTaskValidation.ToString(); 
                 }
         }
+        //uses current location not test so if called during route validation will fail
+        //need to rename test location so it is assigned location or something so it is the one to check
+        private void ReportLocationAllRovers() {
+            int numberOfRovers = RoverManagerStatic.RoverDictionary.Count;
+            if (numberOfRovers == 0) { ConsoleHandler.DisplayText(instructionCreateRover); } else { 
+            StringBuilder allRoversReport = new StringBuilder(150* numberOfRovers);
+            foreach (Rover rover in RoverManagerStatic.RoverDictionary.Values)
+            {
+                allRoversReport.Append(ReportLocationSingleRover(rover.CurrentLocation));
 
+            }
+            ConsoleHandler.DisplayText(allRoversReport.ToString());
+            }
+        }
 
         //currently repeating this function - if location information 
         private string ReportLocationSingleRover(LocationInfo locationInfo) { //this should be roverTaskValidation it is doing too much, it should be the rover that has its location history 
-
+//this is always called using a rover.location so could be in the rover and reporting its own location
+//however try to keep all string building in user interface
+//would also mean do not have to assign a location what it is location for as just ask the rover its name not location what is assigned to it
             StringBuilder LocationReport = new StringBuilder(150);
             //Append Line so not on same line as what being joined to
             LocationReport.AppendLine();
