@@ -3,7 +3,7 @@
 
 TODO this next step is to make this function work to support the above
 
---check range is positive when set up
+
 -- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
 --instruction include interface keys
 --numbers can be handled as multipliers by the consolerhandler --- putting in letter for numbers, and taking out again -- unless asterixes in that section
@@ -24,6 +24,8 @@ TODO this next step is to make this function work to support the above
 		--- and a destroy create for populating the list
 		--- currently use classes but structs are value types, consider passing refs, or structs instead -- but then would we beable to change a location to historic, or testLocation and it update in the list ... no
 		
+		--check range is positive when set up
+
 		---locationInfo should be passed instead of validation -> if fail pass the location info of the fail, if succeed pass the list of moves --- (do this by having the execute command create a location information list (and also update the main list)
 --- would need list of location executed, and last executed, the latter being the ones from the just executed command string
 ---the correct constructor may work. 

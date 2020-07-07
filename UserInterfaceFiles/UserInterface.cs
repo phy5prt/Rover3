@@ -26,7 +26,7 @@ namespace Rover3
 
         StringBuilder instructions = new StringBuilder(300); //if this is here can reuse it instead of regenerating but is this better
         String partUserCommandsInput = "Interface instructions : Single characters are used to activate user interface commands such as: Press Q to quit, ";
-        String partRoverCommandsExample = "Input return with no characters to get a full report on all rovers.To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute. These commands can be several characters. For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE.If rover T is the currently selected rover you can type FYBUE and the initial commands will be given to rover 'T'.";
+        String partRoverCommandsExample = "Input return with no characters to get a report on the cuurently selected rover.To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute. These commands can be several characters. For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE.If rover T is the currently selected rover you can type FYBUE and the initial commands will be given to rover 'T'.";
         String instructionCreateRover = "There are currently no rovers press C to create one ";
         private string Instructions
         {
@@ -504,9 +504,14 @@ namespace Rover3
         private string CheckProcessUserCommandInput(string userInput) {
 
             
-
+            //if the input string is "" could be because they pressed return to get the selected rover report
+            //or two names in a row like aza
+            //it should say the rover reports string
+            //it should check all validations for all the moves if no mves says report
+            //use line prepend
+            //qqqq
             string successfulCommandExectutionTxt = " The rover(s) successfully executed commands.";
-
+            string justReportingLocations = "Rover reports : ";
             CommandKeyValidation commandKeyValidation = new CommandKeyValidation();
             commandKeyValidation = ValidateCommandKeySeq(userInput);
             if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
@@ -526,7 +531,9 @@ namespace Rover3
                 //later use lambda expression
                 //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
                 //Or contain the rover the have validated
-                StringBuilder individualRoverReportsSB = new StringBuilder(successfulCommandExectutionTxt, 300);
+                
+                bool aRoverMoved = roversTasksValidation.Any(validation => validation.RoverMoved == true);
+                StringBuilder individualRoverReportsSB = new StringBuilder(((aRoverMoved) ? successfulCommandExectutionTxt : justReportingLocations), 300);
                 for (int i = 0; i < roversTasksValidation.Count; i++) 
                 {
 
