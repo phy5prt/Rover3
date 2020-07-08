@@ -7,13 +7,42 @@ using Rover3.MoveCommands.DriveCommandsNS;
 using Rover3.MoveCommands.FaceCommandsNS;
 using Rover3.MoveCommands.TurnCommandsNS;
 
+
 namespace Rover3 
-{
+{  
     class UserInterface
     {
+        //how to make it available everywhere, it and userinterface static? 
+        //Do i need to do the same with the class
+
+        //Currently do not use the inteface keys in a way that wouldnt work as a list
+        //duplicating keys as set of ifs
+        //Change interfaceKey to interface action and make a command pattern dictionary
+        //instead of reflection try using classes within the dictionary class rather than in its namespace
+        //qqqq
+        public struct InterfaceKey : IKeyboardKey
+        {
+            public string Key { get; set; }
+
+            public string KeyFunctionDescription { get; set; }
+            public InterfaceKey(string Key, string KeyFunctionDescription)
+            {
+                this.Key = Key;
+                this.KeyFunctionDescription = KeyFunctionDescription;
+            }
+        }
+
+        //why not a list ... because can use contains for value
+        public IDictionary<string, InterfaceKey> interfaceDic = new Dictionary<string, InterfaceKey>()
+        {
+            //Destroy rover should be available when moving put with scanning science commands
+            { "Q", new InterfaceKey("Q","Press Q to Quit.") },
+            { "C", new InterfaceKey("C","Press C to create a new rover.")},
+            { "U", new InterfaceKey("U","Press U to get an update on rover positions and status.")},
+            { "K", new InterfaceKey("K","Press K for keys and intructions.")}
+        };
 
         //destroy rovers are replying with a report or location etc - does that match what destroy would look like?
-
         string commandNotRecognisedString = "The following commands were not recognised: ";
         string noLocationChange = "The rover has not been moved please input a valid command string.";
         string validStringRequest = "Please input a valid command string.";
@@ -134,7 +163,7 @@ namespace Rover3
                 return this._initialInstructions + Instructions;
             }
         }
-
+        //qqqq update this
         private string _keysInUseString;
         private string KeysInUseString
         {
@@ -155,14 +184,17 @@ namespace Rover3
 
             while (true) {
                 userInput = ConsoleHandler.GetUserInput();
-                 
-                if (userInput == "Q") { Environment.Exit(0); }
-                      
-                if (userInput == "C") {  CreateNewRover(); continue; } //else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                //if (interfaceDic.ContainsKey(userInput)) { } //how is this 
+                if (userInput == "Q")
+                {
+                    Environment.Exit(0);//could just make it while(loop) snd q makes loop false }
 
-                if (userInput == "R") { ReportLocationAllRovers(); continue; }
-                //not a interface command so must be a string
-                ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
+                    if (userInput == "C") { CreateNewRover(); continue; } //else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+
+                    if (userInput == "U") { ReportLocationAllRovers(); continue; }//we have report and right both are r
+                                                                                  //not a interface command so must be a string
+                    ConsoleHandler.DisplayText(CheckProcessUserCommandInput(userInput));
+                }
             }
    
 
@@ -170,8 +202,9 @@ namespace Rover3
         }
 
 
-    
-        private CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr) {
+
+            private CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr)
+            {
 
             CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation(); //is this overwritting the object or adding to it
             resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString; 

@@ -5,6 +5,11 @@ TODO this next step is to make this function work to support the above
 
 
 -- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
+-- make input based on dictionary
+-- make report keys and update method for checking if keys are available to use dictionary
+-- look into alternatives for statics, and look at partial classes
+-- change report to a different word so key doesnt clash with right
+
 --instruction include interface keys
 --numbers can be handled as multipliers by the consolerhandler --- putting in letter for numbers, and taking out again -- unless asterixes in that section
 --implement destroy
