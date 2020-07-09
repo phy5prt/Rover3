@@ -9,7 +9,32 @@ using Rover3.MoveCommands.TurnCommandsNS;
 
 
 namespace Rover3 
-{  
+
+{
+    public abstract class InterfaceKey : IKeyboardKey
+    {
+
+        public abstract string Key { get; } 
+
+        public abstract string KeyFunctionDescription { get; }
+
+        public abstract void KeyAction();
+        //public InterfaceKey(string Key, string KeyFunctionDescription)
+        //{
+        //    this.Key = Key;
+        //    this.KeyFunctionDescription = KeyFunctionDescription;
+        //}
+    }
+    public class U : InterfaceKey
+
+    {
+        public override string Key { get { return "U"; } }
+
+        public override string KeyFunctionDescription { get { return "Press U to get an update on rover positions and status."; }
+    }
+
+public override void KeyAction() { }
+    }
     class UserInterface
     {
         //how to make it available everywhere, it and userinterface static? 
@@ -20,27 +45,17 @@ namespace Rover3
         //Change interfaceKey to interface action and make a command pattern dictionary
         //instead of reflection try using classes within the dictionary class rather than in its namespace
         //qqqq
-        public struct InterfaceKey : IKeyboardKey
-        {
-            public string Key { get; set; }
-
-            public string KeyFunctionDescription { get; set; }
-            public InterfaceKey(string Key, string KeyFunctionDescription)
-            {
-                this.Key = Key;
-                this.KeyFunctionDescription = KeyFunctionDescription;
-            }
-        }
+        
 
         //why not a list ... because can use contains for value
-        public IDictionary<string, InterfaceKey> interfaceDic = new Dictionary<string, InterfaceKey>()
-        {
-            //Destroy rover should be available when moving put with scanning science commands
-            { "Q", new InterfaceKey("Q","Press Q to Quit.") },
-            { "C", new InterfaceKey("C","Press C to create a new rover.")},
-            { "U", new InterfaceKey("U","Press U to get an update on rover positions and status.")},
-            { "K", new InterfaceKey("K","Press K for keys and intructions.")}
-        };
+        //public IDictionary<string, InterfaceKey> interfaceDic = new Dictionary<string, InterfaceKey>()
+        //{
+        //    //Destroy rover should be available when moving put with scanning science commands
+        //    { "Q", new InterfaceKey("Q","Press Q to Quit.") },
+        //    { "C", new InterfaceKey("C","Press C to create a new rover.")},
+        //    { "U", new InterfaceKey("U","Press U to get an update on rover positions and status.")},
+        //    { "K", new InterfaceKey("K","Press K for keys and intructions.")}
+        //};
 
         //destroy rovers are replying with a report or location etc - does that match what destroy would look like?
         string commandNotRecognisedString = "The following commands were not recognised: ";
@@ -183,6 +198,7 @@ namespace Rover3
 
 
             while (true) {
+               
                 userInput = ConsoleHandler.GetUserInput();
                 //if (interfaceDic.ContainsKey(userInput)) { } //how is this 
                 if (userInput == "Q")

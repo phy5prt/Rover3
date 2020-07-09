@@ -7,9 +7,9 @@ TODO this next step is to make this function work to support the above
 -- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
 -- make input based on dictionary
 -- make report keys and update method for checking if keys are available to use dictionary
--- look into alternatives for statics, and look at partial classes
+-- look into alternatives for statics, and look at partial classe
 -- change report to a different word so key doesnt clash with right
-
+--research methods for associating a method with a key press
 --instruction include interface keys
 --numbers can be handled as multipliers by the consolerhandler --- putting in letter for numbers, and taking out again -- unless asterixes in that section
 --implement destroy
@@ -19,6 +19,8 @@ TODO this next step is to make this function work to support the above
 --write tests
 --refactor each class
 --update umc chart relationships
+--can we should we, replace all the movement orientation classes with one class that has variables for setting positive or negative for how it alters location coordinates, and create an instance with each version
+--review the difference between userinterface inteface keys class which uses hiding  and others which sety valuie in getter 
 --Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
 --redo rover manager now multipe rovers create list of rovers and their strings run them - if any fail reset all rovers in list test locations -- check locations against test locations of every rover in dictionary(just movements)
  *********Need a locationInformation interface and then both validating and executing can have the interface and the report of an route error or route exection will take an object of that interface
