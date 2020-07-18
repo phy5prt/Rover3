@@ -3,7 +3,7 @@
 
 TODO this next step is to make this function work to support the above
 
---should consolehandler hold all the strings and be parent too  userinterface and interface keys
+-- if a rover is deleted  need to ask to select one
 -- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
 -- make input based on dictionary
 -- make report keys and update method for checking if keys are available to use dictionary

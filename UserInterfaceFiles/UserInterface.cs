@@ -58,6 +58,34 @@ namespace Rover3
         }
     }
 
+    public class Q : InterfaceKey
+
+    {
+        public override string Key { get { return "Q"; } }
+
+        public override string KeyFunctionDescription { get { return "Press Q to quit."; } }
+
+        public override void KeyAction()
+        {
+            Environment.Exit(0);
+
+        }
+    }
+
+    public class D : InterfaceKey
+
+    {
+        public override string Key { get { return "D"; } }
+
+        public override string KeyFunctionDescription { get { return "Press D to destroy currently selected Rover."; } }
+
+        public override void KeyAction()
+        {
+            RoverManagerStatic.RemoveRoverFromDictionary(RoverManagerStatic.SelectedRover.Key);
+
+        }
+    }
+
 
     public class C : InterfaceKey
 
@@ -329,9 +357,6 @@ namespace Rover3
                 } while (!validXY);
 
 
-
-
-
                 //Chose initial orientation for your rover
                 //I cant use this :
                 //string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
@@ -379,13 +404,85 @@ namespace Rover3
     public class K : InterfaceKey
 
     {
+        //why not a list ... because can use contains for value
+        public IDictionary<string, InterfaceKey> interfaceDic = new Dictionary<string, InterfaceKey>()
+        {
+            //Destroy rover should be available when moving put with scanning science commands
+          
+            { new C().Key, new C()},
+            //{ new K().Key, new K()},
+            { new U().Key, new U()},
+            { new Q().Key, new Q()},
+            { new D().Key, new D()}
+
+        };
         public override string Key { get { return "K"; } }
 
         public override string KeyFunctionDescription { get { return "Press K to get a list of keys and their descriptions."; } }
 
         public override void KeyAction()
         {
-            
+            StringBuilder sb = new StringBuilder(200);
+            //how can this be a key for reporting on itself
+             sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Interface keys must be entered as a single character");
+            foreach (IKeyboardKey dicEntry in interfaceDic.Values) 
+            {
+                sb.AppendFormat("{0} : {1}", dicEntry.Key, dicEntry.KeyFunctionDescription);
+                sb.AppendLine();
+            }
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Movement, Orientation, Turn, and Select Rover commands can be entered as a long string");
+            sb.AppendLine();
+            sb.AppendLine("Available Rovers");
+            sb.AppendLine();
+
+            foreach (IKeyboardKey dicEntry in RoverManagerStatic.RoverDictionary.Values)
+            {
+                sb.AppendFormat("{0} : {1}", dicEntry.Key, dicEntry.KeyFunctionDescription);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Drive Commands");
+            sb.AppendLine();
+
+            //if (DriveCommandsDicCS.DriveCommandsDic.ContainsKey(userInputKey)) { return DriveCommandsDicCS.DriveCommandsDic[userInputKey]; }
+            //if (FaceCommandsDicCS.FaceCommandsDic.ContainsKey(userInputKey)) { return FaceCommandsDicCS.FaceCommandsDic[userInputKey]; }
+            //if (TurnCommandsDicCS.TurnCommandsDic.ContainsKey(userInputKey)
+            foreach (IKeyboardKey dicEntry in DriveCommandsDicCS.DriveCommandsDic.Values)
+            {
+                sb.AppendFormat("{0} : {1}", dicEntry.Key, dicEntry.KeyFunctionDescription);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Face Commands");
+            sb.AppendLine();
+
+            foreach (IKeyboardKey dicEntry in FaceCommandsDicCS.FaceCommandsDic.Values)
+            {
+                sb.AppendFormat("{0} : {1}", dicEntry.Key, dicEntry.KeyFunctionDescription);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Turns Commands");
+            sb.AppendLine();
+
+            foreach (IKeyboardKey dicEntry in TurnCommandsDicCS.TurnCommandsDic.Values)
+            {
+                sb.AppendFormat("{0} : {1}", dicEntry.Key, dicEntry.KeyFunctionDescription);
+                sb.AppendLine();
+            }
+
+
+
+
+            DisplayText(sb.ToString());
 
         }
     }
@@ -399,17 +496,9 @@ namespace Rover3
         //Change interfaceKey to interface action and make a command pattern dictionary
         //instead of reflection try using classes within the dictionary class rather than in its namespace
         //qqqq
-        
 
-        //why not a list ... because can use contains for value
-        //public IDictionary<string, InterfaceKey> interfaceDic = new Dictionary<string, InterfaceKey>()
-        //{
-        //    //Destroy rover should be available when moving put with scanning science commands
-        //    { "Q", new InterfaceKey("Q","Press Q to Quit.") },
-        //    { "C", new InterfaceKey("C","Press C to create a new rover.")},
-        //    { "U", new InterfaceKey("U","Press U to get an update on rover positions and status.")},
-        //    { "K", new InterfaceKey("K","Press K for keys and intructions.")}
-        //};
+
+     
 
         //destroy rovers are replying with a report or location etc - does that match what destroy would look like?
         string commandNotRecognisedString = "The following commands were not recognised: ";
@@ -553,19 +642,24 @@ namespace Rover3
             string userInput = "";
             DisplayText(InitialMessage);
 
+            //dont like this
+            K k = new K();
 
-            while (true) {
-               
+            while (true)
+            {
+
                 userInput = GetUserInput();
                 //if (interfaceDic.ContainsKey(userInput)) { } //how is this 
-                if (userInput == "Q")
+
+                //could just make it while(loop) snd q makes loop false }#//else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
+                //we have report and right both are r
+                //not a interface command so must be a string
+                if (userInput == k.Key) { k.KeyAction(); }
+                else if (k.interfaceDic.ContainsKey(userInput)) { k.interfaceDic[userInput].KeyAction(); continue; }
+                else
                 {
-                    Environment.Exit(0);//could just make it while(loop) snd q makes loop false }
 
-                    if (userInput == "C") { new C().KeyAction(); continue; } //else { ConsoleHandler.DisplayText(userInput + " Is not a valid command press C to create a rover or Q to quit"); }
 
-                    if (userInput == "U") { new U().KeyAction(); continue; }//we have report and right both are r
-                                                                                  //not a interface command so must be a string
                     DisplayText(CheckProcessUserCommandInput(userInput));
                 }
             }

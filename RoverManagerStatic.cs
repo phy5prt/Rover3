@@ -36,6 +36,16 @@ namespace Rover3
             //user interface just give the command to rover manager then 
             //rover manager should change own selected rover
         }
+        public static bool RemoveRoverFromDictionary(String roverName) 
+        {
+            bool removalSucceeded = false;
+            if (RoverDictionary.ContainsKey(roverName)) 
+            { 
+                    RoverDictionary.Remove(roverName);
+                    removalSucceeded = true; 
+            }
+            return removalSucceeded;
+        }
 
 
         //qqqqq
