@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rover3
 {
-    abstract class Orientation : ICloneable
+    public abstract class Orientation : ICloneable
     {
         public abstract string orientationName { get;  }
         public abstract int compassDegrees { get;  }
