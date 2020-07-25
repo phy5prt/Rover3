@@ -81,7 +81,26 @@ namespace Rover3
 
         public override void KeyAction()
         {
-            RoverManagerStatic.RemoveRoverFromDictionary(RoverManagerStatic.SelectedRover.Key);
+            String selectedRoverKey = RoverManagerStatic.SelectedRover.Key;
+            
+            if (RoverManagerStatic.RemoveRoverFromDictionary(selectedRoverKey))
+            {
+
+                StringBuilder sb = new StringBuilder("Rover : "+ selectedRoverKey + "  has been destroyed." ,150);
+
+                if (RoverManagerStatic.RoverDictionary.Count < 1) 
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(instructionCreateRover);
+                    
+                }
+                DisplayText(sb.ToString());
+            }
+            else 
+            {
+                DisplayText("Rover : " + selectedRoverKey + " does not exist so could not be destroyed");
+                
+            };
 
         }
     }
@@ -410,7 +429,7 @@ namespace Rover3
             //Destroy rover should be available when moving put with scanning science commands
           
             { new C().Key, new C()},
-            //{ new K().Key, new K()},
+            //{ new K().Key, new K()}, //will cause stack overflow as is circular reference
             { new U().Key, new U()},
             { new Q().Key, new Q()},
             { new D().Key, new D()}
@@ -644,7 +663,7 @@ namespace Rover3
 
             //dont like this
             K k = new K();
-
+            //qqqqq start
             while (true)
             {
 
@@ -658,8 +677,6 @@ namespace Rover3
                 else if (k.interfaceDic.ContainsKey(userInput)) { k.interfaceDic[userInput].KeyAction(); continue; }
                 else
                 {
-
-
                     DisplayText(CheckProcessUserCommandInput(userInput));
                 }
             }

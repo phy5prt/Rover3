@@ -4,6 +4,9 @@
 TODO this next step is to make this function work to support the above
 
 -- if a rover is deleted  need to ask to select one
+-- select single key for rover allows more than one key
+-- no such rover - key not recognised
+-- no rover selected check its working
 -- dictionary of interface keys and their descriptions so can go through dictionary and say what all do and can check it
 -- make input based on dictionary
 -- make report keys and update method for checking if keys are available to use dictionary
