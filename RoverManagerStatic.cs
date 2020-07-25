@@ -23,26 +23,48 @@ namespace Rover3
          */
     static class RoverManagerStatic
     {
-
-        public static Rover SelectedRover { get; set; }
+        private static string currentlySelectedRoverKey;
+        private static bool _aRoverIsCurrentlySelected = false;
+        public static bool ARoverIsCurrentlySelected { get { return _aRoverIsCurrentlySelected; } set { _aRoverIsCurrentlySelected = value; } }
+        public static Rover SelectedRover {
+            get {if (RoverDictionary.ContainsKey(currentlySelectedRoverKey))
+                {
+                    return RoverDictionary[currentlySelectedRoverKey]; }
+                else { 
+                    throw new Exception("Rover doesnt exist"); }
+            }
+            set
+            {
+                if (RoverDictionary.ContainsKey(value.Key))
+                { 
+                    currentlySelectedRoverKey = value.Key;
+                    ARoverIsCurrentlySelected = true;
+                }
+                else
+                {
+                    throw new Exception("Rover doesnt exist");
+                }
+            }
+        
+        }
 
         public static Dictionary<string, Rover> RoverDictionary = new Dictionary<string, Rover> { };
 
-        public static void AddRoverToRoverDictionary(Rover roverToAdd)
+        public static void AddRoverToRoverDictionary(String newRoverKey, LocationInfo newRoverStartLocation)
         { //couldnt overide dictionary as isnt virtual
-
-            RoverDictionary.Add(roverToAdd.RoverKeyName, roverToAdd);
-            //instead of user interface make the added rover the selected rover I should do it here
-            //user interface just give the command to rover manager then 
-            //rover manager should change own selected rover
+     
+            RoverDictionary.Add(newRoverKey, new Rover(newRoverKey, newRoverStartLocation));
+            SelectedRover = RoverDictionary[newRoverKey];
+            //should rover dictionary actually create the rover aswell
         }
-        public static bool RemoveRoverFromDictionary(String roverName) 
+        public static bool RemoveSelectedRoverFromDictionary() 
         {
             bool removalSucceeded = false;
-            if (RoverDictionary.ContainsKey(roverName)) 
+            if (ARoverIsCurrentlySelected) 
             { 
-                    RoverDictionary.Remove(roverName);
-                    removalSucceeded = true; 
+                    RoverDictionary.Remove(SelectedRover.Key);
+                    removalSucceeded = true;
+                    ARoverIsCurrentlySelected = false;
             }
             return removalSucceeded;
         }
@@ -52,78 +74,83 @@ namespace Rover3
         public static IList<RoverTasksValidation> ValidateCommandStringRouteAndRun(string fullCommandStr)
         {
 
-            string selectedRoverBeforeValidation = SelectedRover.RoverKeyName;
+            
+            
+                string selectedRoverBeforeValidation = SelectedRover.RoverKeyName;
 
-            IList<string> roversCommandStrLs = new List<string>();
-            //command result or something that has a list of rover task validations, tracks the command, and a fail bool rather than giving the last rover the commandstr
-            IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
-            //for location can check rovers weve validated for test location and ones we havent for actual
+                IList<string> roversCommandStrLs = new List<string>();
+                //command result or something that has a list of rover task validations, tracks the command, and a fail bool rather than giving the last rover the commandstr
+                IList<RoverTasksValidation> roversResponses = new List<RoverTasksValidation>();
+                //for location can check rovers weve validated for test location and ones we havent for actual
 
-            StringBuilder commandStringSegmentSB = new StringBuilder(50);
+                StringBuilder commandStringSegmentSB = new StringBuilder(50);
 
-            //if user presses return give them current location last used rover //qqqq should i just return it no command sequence etc //do i need to do the same for substrings length zero so if you put in name of a rover you get a report and a list of rovers a list of reports
-            if (fullCommandStr.Length == 0) { roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(fullCommandStr))); }
+                //if user presses return give them current location last used rover //qqqq should i just return it no command sequence etc //do i need to do the same for substrings length zero so if you put in name of a rover you get a report and a list of rovers a list of reports
+                if (fullCommandStr.Length == 0) { roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(fullCommandStr))); }
 
-            //make roversCommandStrLs
-            for (int i = 0; i < fullCommandStr.Length; i++)
-            {
-
-
-                if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString()))
+                //make roversCommandStrLs
+                for (int i = 0; i < fullCommandStr.Length; i++)
                 {
-                    if (commandStringSegmentSB.Length > 0)
+
+
+                    if (RoverDictionary.ContainsKey(fullCommandStr[i].ToString()))
                     {
-                        //current roverTask string has finished add it to list and start the next
-                        roversCommandStrLs.Add(commandStringSegmentSB.ToString());
+                        if (commandStringSegmentSB.Length > 0)
+                        {
+                            //current roverTask string has finished add it to list and start the next
+                            roversCommandStrLs.Add(commandStringSegmentSB.ToString());
+                        }
+                        commandStringSegmentSB.Clear().Append(fullCommandStr[i].ToString());
                     }
-                    commandStringSegmentSB.Clear().Append(fullCommandStr[i].ToString());
+                    else
+                    {
+                        commandStringSegmentSB.Append(fullCommandStr[i].ToString());
+                    }
+                    //add if its the end of the string
+                    if (i == fullCommandStr.Length - 1)
+                    {
+                        roversCommandStrLs.Add(commandStringSegmentSB.ToString());
+                        commandStringSegmentSB.Clear();
+                    }
                 }
-                else
+                //validate routes
+                int fullCommandStrIndex = 0;
+                for (int i = 0; i < roversCommandStrLs.Count; i++)
                 {
-                    commandStringSegmentSB.Append(fullCommandStr[i].ToString());
+
+                    string roverCommandStr = roversCommandStrLs[i];
+                    if (RoverDictionary.ContainsKey(roverCommandStr[0].ToString()))
+                    {
+                        fullCommandStrIndex++;
+                        SelectedRover = RoverDictionary[roverCommandStr[0].ToString()];
+                        roverCommandStr = roverCommandStr.Substring(1);
+                    }
+
+                    roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
+
+                    //stop validating if route not possible and return
+                    if ((roversResponses[roversResponses.Count - 1].CommandsExecutionSuccess == false))
+                    {
+                        //converting invalid index from single rover command to full set of rover commands
+                        roversResponses[roversResponses.Count - 1].InvalidCommandIndex += fullCommandStrIndex;
+                        //reset rovers --
+
+                        foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
+                        SelectedRover = RoverDictionary[selectedRoverBeforeValidation];
+                        return roversResponses;
+                    }
+                    fullCommandStrIndex += roverCommandStr.Length;
+
+
+
+
                 }
-                //add if its the end of te string
-                if (i == fullCommandStr.Length - 1)
-                {
-                    roversCommandStrLs.Add(commandStringSegmentSB.ToString());
-                    commandStringSegmentSB.Clear();
-                }
-            }
-            //validate routes
-            int fullCommandStrIndex = 0;
-            for (int i = 0; i < roversCommandStrLs.Count; i++)
-            {
-
-                string roverCommandStr = roversCommandStrLs[i];
-                if (RoverDictionary.ContainsKey(roverCommandStr[0].ToString()))
-                {
-                    fullCommandStrIndex++;
-                    SelectedRover = RoverDictionary[roverCommandStr[0].ToString()];
-                    roverCommandStr = roverCommandStr.Substring(1);
-                }
-                roversResponses.Add(SelectedRover.validateRouteOfCommandSequence(MoveCommandDicManager.MoveCommandStrToCmdList(roverCommandStr)));
-                //stop validating if route not possible and return
-                if ( (roversResponses[roversResponses.Count-1].CommandsExecutionSuccess == false))
-                {
-                    //converting invalid index from single rover command to full set of rover commands
-                    roversResponses[roversResponses.Count-1].InvalidCommandIndex += fullCommandStrIndex;
-                    //reset rovers --
-
-                    foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
-                    SelectedRover = RoverDictionary[selectedRoverBeforeValidation];
-                    return roversResponses;
-                }
-                fullCommandStrIndex += roverCommandStr.Length;
-
-
-
-
-            }
-            //all passed reset the test and allow them to execute
-            foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
-            SelectedRover = RoverDictionary[selectedRoverBeforeValidation];
-            ExecuteCommandString(roversCommandStrLs);
-            return roversResponses;
+                //all passed reset the test and allow them to execute
+                foreach (RoverTasksValidation task in roversResponses) { RoverDictionary[task.NameOfRover].RevertTestRoverToCurrentLocation(); }
+                SelectedRover = RoverDictionary[selectedRoverBeforeValidation];
+                ExecuteCommandString(roversCommandStrLs);
+                return roversResponses;
+            
 
 
 

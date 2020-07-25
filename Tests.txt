@@ -38,4 +38,10 @@ test 10
 r reports all rovers or says create if zero
 success
 
+test 11
+make rover
+press d
+press anything but c get instruction to make rover
+success
+
 

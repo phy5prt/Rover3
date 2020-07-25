@@ -6,6 +6,7 @@ namespace Rover3
 {
     public class ConsoleHandler
     {
+        public string noRoverSelectedMsg = " no rover is currently selected either create a rover or select one before giving commands";
         //this will allow unit testing
         public string GetUserInput() {
 
@@ -25,6 +26,15 @@ namespace Rover3
             Console.WriteLine(text);
 
         }
+
+        
+        //instead of overload can use an optional parameter and do a check to see if it was used
+            public string ReportLocationSingleRover()
+        {
+            return (    (RoverManagerStatic.ARoverIsCurrentlySelected)? ReportLocationSingleRover(RoverManagerStatic.SelectedRover.CurrentLocation) : noRoverSelectedMsg)  ;
+        }
+
+
 
         public string ReportLocationSingleRover(LocationInfo locationInfo)
         { //this should be roverTaskValidation it is doing too much, it should be the rover that has its location history 

@@ -11,6 +11,8 @@ namespace Rover3
         public abstract int yModifier { get;  }
 
         public abstract int xModifier { get; }
+        public abstract int CompassDegrees { get; }
+       
 
         //public Orientation(string orientationName, int compassDegrees, int yModifier, int xModifier) 
         //{

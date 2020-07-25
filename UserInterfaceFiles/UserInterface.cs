@@ -81,27 +81,31 @@ namespace Rover3
 
         public override void KeyAction()
         {
-            String selectedRoverKey = RoverManagerStatic.SelectedRover.Key;
-            
-            if (RoverManagerStatic.RemoveRoverFromDictionary(selectedRoverKey))
+            if (RoverManagerStatic.ARoverIsCurrentlySelected)
             {
+                String selectedRoverKey = RoverManagerStatic.SelectedRover.Key;
 
-                StringBuilder sb = new StringBuilder("Rover : "+ selectedRoverKey + "  has been destroyed." ,150);
-
-                if (RoverManagerStatic.RoverDictionary.Count < 1) 
+                if (RoverManagerStatic.RemoveSelectedRoverFromDictionary())
                 {
-                    sb.AppendLine();
-                    sb.AppendLine(instructionCreateRover);
-                    
-                }
-                DisplayText(sb.ToString());
-            }
-            else 
-            {
-                DisplayText("Rover : " + selectedRoverKey + " does not exist so could not be destroyed");
-                
-            };
 
+                    StringBuilder sb = new StringBuilder("Rover : " + selectedRoverKey + "  has been destroyed.", 150);
+
+                    if (RoverManagerStatic.RoverDictionary.Count < 1)
+                    {
+                        sb.AppendLine();
+                        sb.AppendLine(instructionCreateRover);
+
+                    }
+                    DisplayText(sb.ToString());
+                }
+                else
+                {
+                    DisplayText("Rover : " + selectedRoverKey + " does not exist so could not be destroyed");
+
+                };
+
+            }
+            else { DisplayText("No Rover currently selected, select a rover then return then press d to delete it"); }
         }
     }
 
@@ -406,11 +410,11 @@ namespace Rover3
 
 
 
-                //dictionary should create and return the rover the userInterface should just get the info
+             
 
-                Rover newRover = new Rover(newRoverKey, newRoverStartLocation); // later it will need to get the new key too
-                RoverManagerStatic.AddRoverToRoverDictionary(newRover);
-                RoverManagerStatic.SelectedRover = RoverManagerStatic.RoverDictionary[newRoverKey];
+              
+                RoverManagerStatic.AddRoverToRoverDictionary(newRoverKey, newRoverStartLocation);
+                
 
                 DisplayText("Rover created");
                 //return newRover;
@@ -521,7 +525,7 @@ namespace Rover3
 
         //destroy rovers are replying with a report or location etc - does that match what destroy would look like?
         string commandNotRecognisedString = "The following commands were not recognised: ";
-        string noLocationChange = "The rover has not been moved please input a valid command string.";
+        string noLocationChange = " The rovers have not been moved please input a valid command string."; //this gets shown if an incorrect rover enterred
         string validStringRequest = "Please input a valid command string.";
         string userInterfaceCommandKeys = " Q for quit, D for destroy rover, R or return for report on all rovers ";
         string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : "; 
@@ -706,8 +710,8 @@ namespace Rover3
             }
             //should I be using task validation report - have one reporting class
 
-            
-            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += fullCommandStr + noLocationChange + validStringRequest + ReportLocationSingleRover(RoverManagerStatic.SelectedRover.CurrentLocation); }
+            //repeats self and not make sense
+            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += fullCommandStr + noLocationChange + validStringRequest + ReportLocationSingleRover(); }
             
             return resultOfCommandSequenceValidation;
         
@@ -733,7 +737,8 @@ namespace Rover3
             CommandKeyValidation commandKeyValidation = new CommandKeyValidation();
             commandKeyValidation = ValidateCommandKeySeq(userInput);
             if (!commandKeyValidation.Valid) { return commandKeyValidation.ErrorText; }
-
+           
+            if ((RoverManagerStatic.ARoverIsCurrentlySelected == false) && ((userInput.Length > 1) || (RoverManagerStatic.RoverDictionary.ContainsKey(userInput[0].ToString())))) { return noRoverSelectedMsg; }
 
             IList<RoverTasksValidation> roversTasksValidation = RoverManagerStatic.ValidateCommandStringRouteAndRun(userInput);
 

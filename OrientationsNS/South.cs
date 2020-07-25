@@ -11,7 +11,10 @@ namespace Rover3
         public override int yModifier { get => -1; }
 
         public override int xModifier { get => 0; }
-
+        public override int CompassDegrees()
+        {
+            return 180;
+        }
         public override object Clone()
         {
             return new South() as Orientation;
