@@ -11,9 +11,9 @@ namespace Rover3
         public override int yModifier { get => 0; }
 
         public override int xModifier { get => -1; }
-        public override int CompassDegrees()
+        public override int CompassDegrees
         {
-            return 270;
+            get => 270;
         }
         public override object Clone()
         {

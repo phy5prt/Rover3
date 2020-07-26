@@ -18,10 +18,8 @@ namespace Rover3.MoveCommands.TurnCommandsNS
 
            public Orientation OrientationToTurnTo(Orientation currentlyFacing, int noOrientationRightToTurn)
            {
-            TurnCommandsDicCS.GetNewDirectionRelativeToDirection(currentlyFacing, noOrientationRightToTurn);
-
-
-            return currentlyFacing;//later base on enum
+            return TurnCommandsDicCS.GetNewDirectionRelativeToDirection(currentlyFacing, noOrientationRightToTurn);
+          
 
            }
     }

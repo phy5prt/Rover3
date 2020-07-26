@@ -44,4 +44,8 @@ press d
 press anything but c get instruction to make rover
 success
 
+test 12
+numbers in rover
+zf10f2
+
 

@@ -17,13 +17,13 @@ namespace Rover3.MoveCommands.TurnCommandsNS
         public static Orientation GetNewDirectionRelativeToDirection(Orientation startDirection, int turns)
         {
 
-            int startDirectionIndex = OrderOfDirections.IndexOf(startDirection);
+            //int startDirectionIndex = OrderOfDirections.IndexOf(startDirection);
+            int startDirectionIndex = OrderOfDirections.FindIndex(r => r.GetType() == startDirection.GetType());
             int newDirectionIndex;
            
             int rawIndex = startDirectionIndex + turns;
 
-            if (rawIndex < 0)
-            {
+            if (rawIndex < 0)             {
                 Double adjustedDBL = Math.Floor((double)(rawIndex * -1) / OrderOfDirections.Count);
                 int adjustedInt = Convert.ToInt32(adjustedDBL);
                 newDirectionIndex = rawIndex + (adjustedInt + 1) * OrderOfDirections.Count;

@@ -5,6 +5,9 @@ TODO this next step is to make this function work to support the above
 
 
 -- select single key for rover allows more than one key
+-- rover name cant input number
+-- zf10e3n2 - says successful but isnt
+
 -- no such rover - key not recognised -- improve text strings generally
 -- do unit tests
 -- do not seperate interface and move commands allow both to be done in same string
@@ -12,12 +15,12 @@ TODO this next step is to make this function work to support the above
 
 -- update method for checking if keys are available to use dictionary
 -- look into alternatives for statics, and look at partial classe
--- change report to a different word so key doesnt clash with right
---research methods for associating a method with a key press
 
---numbers can be handled as multipliers by the consolerhandler --- putting in letter for numbers, and taking out again -- unless asterixes in that section
+-- research methods for associating a method with a key press
 
---left and right implemented
+
+
+
 --scienceAction commands e.g. sample soil, air, -- store data and then map report for soil, air, -- obstacles
 --introduce unexpected obstacle -- known and unknow sectors -- when one rover hits obstacle all should stop and wait for further instruction -- return what of string executed and what not
 --write tests
@@ -26,7 +29,7 @@ TODO this next step is to make this function work to support the above
 --can we should we, replace all the movement orientation classes with one class that has variables for setting positive or negative for how it alters location coordinates, and create an instance with each version
 --review the difference between userinterface inteface keys class which uses hiding  and others which sety valuie in getter 
 --Review purpose of classes in light of new design requirement doc, validation having too much and location information having too much is a risk
---redo rover manager now multipe rovers create list of rovers and their strings run them - if any fail reset all rovers in list test locations -- check locations against test locations of every rover in dictionary(just movements)
+
  *********Need a locationInformation interface and then both validating and executing can have the interface and the report of an route error or route exection will take an object of that interface
  *********Or reporting has two methods depending on the input it takes validation for a fail and it takes location for a success -- could still use interface
 
@@ -46,7 +49,7 @@ TODO this next step is to make this function work to support the above
 ---->locationInfo and orientation are classes but this means copying them requires cloning - read up on cloning, using structs insted or passing references
 -- key behaviour is to be able to copy them and then revert. for testing the routes
 
--- to revert have location startlocation, revertlocation, . set location = startlocation, var revertlocation = startlocation, do what you need to do to location then if it fail startlocation = revertlocation
+
 https://stackoverflow.com/questions/7477073/made-one-instance-of-a-class-equal-to-another-how-to-cancel-that
 
 ----------------------------------------------------------------------------------------------------***********-----

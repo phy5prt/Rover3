@@ -689,10 +689,72 @@ namespace Rover3
 
         }
 
+            private string CommandStringAsLettersOnly(String fullCommandStr) 
+            {
+            
+                
+                string letterToRepeat = (RoverManagerStatic.ARoverIsCurrentlySelected)? RoverManagerStatic.SelectedRover.Key: "Error due to no selected rover and number first";
+                string lettersToAdd;
 
+                for (int i = 0; i < fullCommandStr.Length; i++)
+                {
+                //Console.WriteLine("string is now : " + fullCommandStr + "  i: " + i.ToString() + "    and in i loop");
+                int number;
+                    int endOfNumberIndex;
+                    int startOfNumberIndex;
+                    if (Int32.TryParse(fullCommandStr[i].ToString(), out number))
+                    {
+                        startOfNumberIndex = i;
+                    }
+                    else
+                    {
+                        //if (RoverManagerStatic.RoverDictionary.ContainsKey(fullCommandStr[i].ToString())) 
+                      //  { 
+                        letterToRepeat = fullCommandStr[i].ToString();
+                    //}
+                        continue;
+                    }
+
+                    for (int j = i; j < fullCommandStr.Length; j++)
+                    {
+                        if (!(Int32.TryParse(fullCommandStr[j].ToString(), out number)) || (j == fullCommandStr.Length-1))
+                        {
+                            endOfNumberIndex = (j == fullCommandStr.Length - 1) ? j + 1 : j; 
+                            int numberOfDigitsInNumber = endOfNumberIndex - startOfNumberIndex;
+
+                            int numberOfLettersToAdd = (Int32.Parse(fullCommandStr.Substring(startOfNumberIndex, numberOfDigitsInNumber)))-1;//-1 so dont repeat existing character were copying
+                            StringBuilder sb = new StringBuilder();
+                            for (int k = 0; k < numberOfLettersToAdd; k++) 
+                            {
+                                sb.Append(letterToRepeat);
+                            }
+                            
+                            
+
+                            fullCommandStr = fullCommandStr.Insert(i, sb.ToString());
+                            fullCommandStr = fullCommandStr.Remove(startOfNumberIndex+numberOfLettersToAdd, numberOfDigitsInNumber);
+                            //Console.WriteLine(fullCommandStr);
+
+                            i = i + numberOfLettersToAdd -1;
+                            //Console.WriteLine("string is now : " + fullCommandStr +  "  i: " + i.ToString() + "    and break to i loop");
+
+
+                            break;
+                            
+
+                        }
+                    }
+
+                }
+
+                return fullCommandStr; 
+            }
 
             private CommandKeyValidation ValidateCommandKeySeq(String fullCommandStr)
             {
+
+
+            fullCommandStr = CommandStringAsLettersOnly(fullCommandStr);
 
             CommandKeyValidation resultOfCommandSequenceValidation = new CommandKeyValidation(); //is this overwritting the object or adding to it
             resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString; 
@@ -715,7 +777,7 @@ namespace Rover3
             
             return resultOfCommandSequenceValidation;
         
-        }
+            }
       
 
         //rearrange text order
