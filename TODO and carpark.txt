@@ -4,13 +4,21 @@
 TODO this next step is to make this function work to support the above
 
 
--- select single key for rover allows more than one key
--- rover name cant input number
+-- select single key for rover allows more than one key - test
+-- rover name cant input number - test
+-- check if there were rovers in the string at all or that they exist before saying "The rovers have not been moved please input a valid command string" also why do we show them the string they inputted and a version with the highlighted error
+
+
+-- dictionary of dictionaries - which keys can access
+-- dictionary manager does all checks for whats in what dictionary
+-- do not seperate interface and move commands allow both to be done in same string
+
+-- remove reflections from dictionaries
 -- zf10e3n2 - says successful but isnt
 
 -- no such rover - key not recognised -- improve text strings generally
 -- do unit tests
--- do not seperate interface and move commands allow both to be done in same string
+
 
 
 -- update method for checking if keys are available to use dictionary
@@ -18,7 +26,7 @@ TODO this next step is to make this function work to support the above
 
 -- research methods for associating a method with a key press
 
-
+-- userinterface dictionary instead of checking for keys individually
 
 
 --scienceAction commands e.g. sample soil, air, -- store data and then map report for soil, air, -- obstacles
