@@ -30,7 +30,7 @@ namespace Rover3
 
         //destroy rovers are replying with a report or location etc - does that match what destroy would look like?
         string commandNotRecognisedString = "The following commands were not recognised: ";
-        string noLocationChange = " The rovers have not been moved please input a valid command string."; //this gets shown if an incorrect rover enterred
+        string noLocationChange = " No rovers have been moved please input a valid command string."; //this gets shown if an incorrect rover enterred
         string validStringRequest = "Please input a valid command string.";
         string userInterfaceCommandKeys = " Q for quit, D for destroy rover, R or return for report on all rovers ";
         string errorUnableToExecuteCommands = "The command sequence is invalid. It could not be exectued at : "; 
@@ -278,7 +278,7 @@ namespace Rover3
             //should I be using task validation report - have one reporting class
 
             //repeats self and not make sense
-            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText += fullCommandStr + noLocationChange + validStringRequest + ReportLocationSingleRover(); }
+            if (!resultOfCommandSequenceValidation.Valid) { resultOfCommandSequenceValidation.ErrorText = commandNotRecognisedString + resultOfCommandSequenceValidation.ErrorText +  " in command string : " +fullCommandStr + noLocationChange + validStringRequest + ReportLocationSingleRover(); }
             
             return resultOfCommandSequenceValidation;
         

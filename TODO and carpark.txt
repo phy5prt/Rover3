@@ -1,37 +1,52 @@
 
 
 
-TODO this next step is to make this function work to support the above
+TODO 
 
+// tidy notes put in sections
 
--- select single key for rover allows more than one key - test
--- rover name cant input number - test
--- check if there were rovers in the string at all or that they exist before saying "The rovers have not been moved please input a valid command string" also why do we show them the string they inputted and a version with the highlighted error
+should be able just to report when press return-test
 
+//no longer reports where rover would cross bound - test
 
--- dictionary of dictionaries - which keys can access
--- dictionary manager does all checks for whats in what dictionary
--- do not seperate interface and move commands allow both to be done in same string
-
--- remove reflections from dictionaries
 -- zf10e3n2 - says successful but isnt
 
--- no such rover - key not recognised -- improve text strings generally
+-- //make individual rover reports show the boundaries of each rover
+
+-- improve text strings generally -- do when make the tests --add "press k to see keys" when wrong input 
 -- do unit tests
 
+-- remove reflections from dictionaries
 
-
--- update method for checking if keys are available to use dictionary
+-- dictionary singleton thing going into dictionary make the dictionary then add them seleves -- make behaviour part of their parent class
 -- look into alternatives for statics, and look at partial classe
+//why dictionary of dictionaries why not something else, a list for example?
+//why not one dictionary that grabs all movement types but those types are in own namespace so can be checked for name space if userinterface wants to seperate them by type e.g. move and face commands
+dictionaries should hold their own name string
+-- rovers add remove themselves?
+-- *dictionaries build themselves from children of a class
+
+-- dictionary of dictionaries - which keys can access -- update method for checking if keys are available to use dictionary
+-- dictionary manager does all checks for whats in what dictionary
 
 -- research methods for associating a method with a key press
 
--- userinterface dictionary instead of checking for keys individually
+
+-- introduce unexpected obstacle -- known and unknow sectors 
+-- when one rover hits obstacle all should stop and wait for further instruction 
+-- return what of string executed and what not
+-- return which rovers still in sequence would be effected - e.g. were going to cross that spot
+-- options rovers should continue anyway
+-- start with obstacle dictionary (but will have 2 keys)
+-- validate using their location and rover locations as obsticals
 
 
---scienceAction commands e.g. sample soil, air, -- store data and then map report for soil, air, -- obstacles
---introduce unexpected obstacle -- known and unknow sectors -- when one rover hits obstacle all should stop and wait for further instruction -- return what of string executed and what not
---write tests
+
+-- do not seperate interface and move commands allow both to be done in same string - cant do with create --  with keys doesnt make sense, -- quit doesnt make sense -- update maybe but get it anyway so its only destroy -- look at again when do science inputs
+-- have to destroy bool then if later in string if it is called can do a specific error and wont destroy unless execution successful
+--scienceAction commands e.g. sample, soil, air, -- store data and then map report for soil, air, -- obstacles
+-- work action  -- clear obstacle -- rock - destroy - pit fill (probablility success)
+
 --refactor each class
 --update umc chart relationships
 --can we should we, replace all the movement orientation classes with one class that has variables for setting positive or negative for how it alters location coordinates, and create an instance with each version
@@ -45,8 +60,7 @@ TODO this next step is to make this function work to support the above
 		--- but we store the previous location of moving objects so with a bool for historic
 		--- and a destroy create for populating the list
 		--- currently use classes but structs are value types, consider passing refs, or structs instead -- but then would we beable to change a location to historic, or testLocation and it update in the list ... no
-		
-		--check range is positive when set up
+
 
 		---locationInfo should be passed instead of validation -> if fail pass the location info of the fail, if succeed pass the list of moves --- (do this by having the execute command create a location information list (and also update the main list)
 --- would need list of location executed, and last executed, the latter being the ones from the just executed command string
@@ -69,74 +83,22 @@ https://stackoverflow.com/questions/7477073/made-one-instance-of-a-class-equal-t
 //next steps get working with code smells
 
 
-//bug can set rover name to s on creation
 
+-----validation, reporting, 
 //ReportLocationSingleRover() - this needs to take a rover, and be run through the dictionary - or be given the rover names in order they were in, last rover it says currently selected rover
-
-//put in if check if any rovers if not reports message currently no rovers press c to create one or q to exit
-
-
-		//no longer reports where rover would cross bound
-		//does not correctly select element of string that caused the issue in the command
-		//Rover selected not reset if command execution fails due to out of bound so if go rover a then rover s FFFFFFF it wont move either but will change to rover s
-//give dictionaries names - in their abstract class
-//then get working with dictionaries created from namespaces and held by the MoveCommand Dictionary
-//consider if rover dictionary and move command manager dictionary should be held together
-//Get L and R working by using the list of orientations
-//improve user interface using all string builder
-//improve reports make for all rovers reporter
-//make individual rover reports show the boundaries of each rover
-//make rovers not allowed to take up the same space
-
-
-
-//structure MoveCommands, driveCommands, FaceCommand, TurnCommands (face is objective, turn is relative) - putting in seperate dictionaries and names spaces just so can seperate them for how user interface represents them seems excessive, another way of distinguishing them
-
-//why dictionary of dictionaries why not something else, a list for example?
-//why not one dictionary that grabs all movement types but those types are in own namespace so can be checked for name space if userinterface wants to seperate them by type e.g. move and face commands
-
-//constructor for report when make everything private then add reports?
 
 //look at removing rovervalidation tasks and command key validation and replacing with a report and plan the class
 
-//start basic
-//just add the report string
-//just get overall success with the bool
-
-//add rover reports then have user interface do something with them. 
-
-
-
-//Tidy whole program of comments - maybe draw design document (once done interface)
-
-Working on userinterface
-should be able just to report when press return
-should be able to process multiple reports by overriding the + indicator - DECIDED NO !
-
-Dictionary of dictionaries that use keys (who in charge displaying all the keys) - dictionaries should hold their own name string
-
-should give all keys at the begining 
-should give all keys aftwr making a rover
-should give proper message for keys
-
 //do report class remembers location and ... or if rover had their last report ... should we be even adding the reports
 
-0.identify which dictionary a command was in in order to know how to execute it 
-Report Class report individual rover position and all rover positions
-1. 
-2. 
-3. Rovers check so dont crash
-4. RoverDictionary makes a report from the rover report - maybe interface or abstrace so that it can either pass on rover response or it could just send the list userinterface could just publish the list
-4. have commands hold descriptions of themselves Tick
-4. have seperate orientation dictionary and move dictionary but still abstract as command
-4. have rover command dictionary create destroy
-4. maybe dictionary or dictionaries so can check the dictionaries for key presses without having to make a switch e.g availableKeyPress dictionary to enable chosing which type of commands to run
+//keeping a rovers history that they can report
+
 4. Revise design pattern command put notes in the file
 5. Revise other relevant design patterns
 6. Make changes or just make notes on how would implement:
 	*left right sideways movement
-	*classes holding own key and all data for setting up the dictionary
-	*dictionaries build themselves from children of a class
+
+	
 	*part ordinates face left or right. vs step left right vs turn to next ordinate left or right - up and down an enum in order of angle around compass
 7. Tidy it up so works smooth english correct
 8. Put it online
@@ -158,9 +120,7 @@ explanatory document
 chang command to moveCommands change look to face.
 
 
-
-To do the enum of the left to right would need to give each look command a angle and then build enum in that
-order them by that then left by right. Then can when new ordinates made eg NE then it will be inserted in the right order
+Notes on what not implemented but how would e.g. : Then can when new ordinates made eg NE then it will be inserted in the right order
 
 Move Left Move Right Turn Left One Ordinate, Turn Right One ordinate
 
@@ -192,40 +152,7 @@ and build itself and the keys, it should also be able to when user interface goe
 should the rover force checking of valid command sequence in its method to stop later it being called without or because it is not the brain should it just rely on one always being called then the other
 I think the answer will be to do with errors and validation
 
-string builder look into
-
-does dictionary adding the to it break open close principle
-
-To add move leftwards and rightwards movement would need to put in a order to NESW with enum or array and then loow if going W to N
-Would get current location orientation and use the orientation one less or one more depending if want right or left movement
-
 Need to protect  my fields  more theyre often public rather than private with get set
-
-useInterfaceInstruction
-
-command to get a list of all available commands
-
-it would be nice if could make a long string moving each rover e.g 1NMM2NSS  - but would you cut and validate as individual strings or bring back a fail if get to last rover and it goes out of bounds
-
-make program so can quit anytime even if part way through a method eg creating a rover
-
-// Dictionaries, Drive, Face, Turn, UserInterfacecommand - but how will drive face and turn reflectively build themselves? - use namespaces?
-
-//Chose initial orientation for your rover
-			//I cant use this :
-			//string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray());
-			//because it would include the movement commands
-			//so if I wanted to create a ne orientation i would have to alter this code
-			//which suggests they should be two different dictionaries
-			//or that each method should hold its own description of what it does and the interface can the just get the keys
-			//and the description and put them up
-			//best solution is seperate dictionary but still good idea to have a description in the commands
-
-//CommandFactory is static but if rovers were later required to have different commands
-	//I would need to drop the static and give them own dictionaries
-	//or make a static command dictionary factory that builds custom dictionaries to initialise
-	//rovers with
-
 
 
 	Revise (lambda) context this:
@@ -334,26 +261,6 @@ should useInterface do all talking and make an object for managing rovers
 		Linq, sql, - could use multi delegate matrix version rover with sql some how get advice
 
 
-
-		//for something like this:
-
-		  private string Instructions
-		{
-			get
-			{
-				//C create, D destroy,
-				StringBuilder instructions = new StringBuilder(300);
-		instructions = String.Format("Input single characters to activate user commands. " +
-					"Q to quit. (Dictionary here) C to create. Input return with no characters to get a full report on all rovers. " +
-					"To give rovers commands input the rover you wish to command followed by the command letters you wish it to execute." +
-					"For example to move rover T forward, rover Y backward and Face rover U east type TFYBUE. If rover T is the currently selected rover you can type FYBUE." +
-					insertline
-					"Rovers  : " + string.Join(" ", StaticMoveCommandFactoryDic.commandKeys.Keys.ToArray()) + 
-					insertline
-					"Commands: " + string.Join(" ", RoverManagerStatic.RoverDictionary.Keys.ToArray()));
-				return this._instructions.ToString();
-			}
-		}
 		it would nice to have a set that automatically updates when ever dictionaries changed --- not necessary here
 		
 		//but would be nice to know if can - but think needs listners
@@ -363,7 +270,7 @@ should useInterface do all talking and make an object for managing rovers
 		https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/ms229054(v=vs.100)?redirectedfrom=MSDN
 
 
-		//So if dynamically creating an enum is hard what is the alternative a dictionary with int 
+		
 
 		//how to structure name spaces
 		//keep list questions like this somewhere so remember to ask ppl - git?
@@ -377,30 +284,13 @@ should useInterface do all talking and make an object for managing rovers
 		//yuck hardcoded ---                   .Where(driveCommand => driveCommand.IsClass && !driveCommand.IsAbstract && driveCommand.IsSubclassOf(typeof(MoveCommand))&& (driveCommand.Namespace == "DriveCommandsNS")); 
 
 
-		//model rover taking photos discovering obstical and doing various types of samples and get result with random generator to model it
-		//this will give us a reason for a database and SQL
-
-
-		//static class DriveCommandsDicCS : MoveCommandDicAbs doesnt work cannot use a base class for static
-		namespace Rover3.MoveCommands
-	//This doesn't seem right an empty abstract just so can grab dictionaries through reflection
-	//should this class actually make those dictionaries in their name spaces
-	abstract class MoveCommandDicAbs
-
-	//could make a public static list that is part of each dictionary that they add to with creation - as they all have it seems like it could be from abstract
-
 
 	could put all givtioanries into dictionary manager but that seems against open close cant just add new dictionary
 	//also how give the dictionaries name if name stic all will be static
 
 	//does this mean singleton pattern insted
 	
-	//dictionaries could be made by static dictionary manager constructor
-	//each dictionary could be produced from the namespace
-	//from a abstract class with dictionary class
-	//in a dictionary themselves and the key could be the name of the dic <string dic name = key,value = dic>
-	//Or dic could hold the name itself and be in list 
-	//---> result foreach dic in dicmanager via list/dic print dic name from key or object itself then its commands with their keyboard keys
+
 
 
 	  //instead of having to check dictionary and pass the rover should task validation be able to provide info for report
@@ -414,10 +304,10 @@ should useInterface do all talking and make an object for managing rovers
 
 
 
+-- rover have history of actions and can be told to retrace their steps
 
-				------------------------------Bugs-----------------------------
-				you can call your rover q, and if you do you can move it but you press a single q and it quits, use the dictionaries to disallow in use keys as names
+				
+-------------------- Notes on what isnt in but could be added ---------------
 
-
-
-				-=-----rememeber command strings so can undo and redo  (deletions will be an issue)
+To add move leftwards and rightwards movement would need to put in a order to NESW with enum or array and then loow if going W to N
+Would get current location orientation and use the orientation one less or one more depending if want right or left movement

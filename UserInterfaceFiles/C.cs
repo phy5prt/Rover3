@@ -51,8 +51,9 @@ namespace Rover3.UserInterfaceFiles
             bool validInput, validXY, validXYRange;
             do
             {
-                DisplayText("Enter a single unique key to select your rover with.");
-                validInput = !MoveCommandDicManager.KeyExistsInAMoveCommandDictionary((newRoverKey = GetUserInput())) || UserInterfaceDic.interfaceDic.ContainsKey(newRoverKey) || newRoverKey == "K" || newRoverKey.Length != 1 || Char.IsDigit(newRoverKey, 0);
+                DisplayText("Enter a single unique key to select your rover with. It must be none numeric and not aleady assigned");
+                newRoverKey = GetUserInput();
+                validInput = !(MoveCommandDicManager.KeyExistsInAMoveCommandDictionary(newRoverKey) || UserInterfaceDic.interfaceDic.ContainsKey(newRoverKey) || newRoverKey.Length != 1 || Char.IsDigit(newRoverKey, 0));
 
                 if (!validInput) { DisplayText(newRoverKey + " : " + " is not a unique key"); }
                 else
